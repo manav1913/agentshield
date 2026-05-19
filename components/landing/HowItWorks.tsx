@@ -63,7 +63,7 @@ const HowItWorks = () => {
         {/* Subtitle */}
         <p className="text-lg text-gray-500 dark:text-gray-400 text-center max-w-2xl mx-auto mb-20 leading-relaxed">
           AgentShield wraps your existing LLM calls and filters both
-          prompts and responses in real time — without changing your infrastructure.
+          prompts and responses in real time without changing your infrastructure.
         </p>
 
         {/* Flow */}
