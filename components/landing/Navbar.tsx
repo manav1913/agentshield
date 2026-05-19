@@ -51,7 +51,7 @@ const Navbar = () => {
             ["Features", "#features"],
             ["How it works", "#how-it-works"],
             ["Pricing", "#pricing"],
-            ["Docs", "#docs"],
+            // ["Docs", "#docs"],
           ].map(([label, href]) => (
             <Link
               key={label}
