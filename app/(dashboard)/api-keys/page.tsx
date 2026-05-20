@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Copy, Plus, Trash2 } from "lucide-react"
+import { Copy, KeyRound, Plus, Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 type ApiKeyRecord = {
@@ -30,6 +30,7 @@ const ApiKeysPage = () => {
 
     try {
       const res = await fetch("/api/api-keys")
+
       if (!res.ok) {
         throw new Error("Unable to load API keys")
       }
@@ -122,96 +123,152 @@ const ApiKeysPage = () => {
 
   return (
     <div className="space-y-8">
-      <div>
-        <p className="text-sm font-semibold text-violet-600">API Keys</p>
-        <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-950">
-          Manage your integration keys
-        </h1>
-        <p className="mt-2 max-w-2xl text-sm text-slate-500">
-          Generate API keys for clients and agents, then revoke any key that is no longer used.
-        </p>
+      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+        <div>
+          <div className="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-3 py-1 text-xs font-semibold text-violet-700 dark:border-violet-900 dark:bg-violet-950 dark:text-violet-300">
+            <KeyRound size={14} />
+            API Keys
+          </div>
+
+          <h1 className="mt-4 text-3xl font-bold tracking-tight text-slate-950 dark:text-white">
+            Manage integration keys
+          </h1>
+
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500 dark:text-slate-400">
+            Generate keys for SDK clients and AI agents. Revoke keys when an
+            integration is rotated, compromised, or no longer active.
+          </p>
+        </div>
+
+        <span className="w-fit rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-500 shadow-sm dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400">
+          {keys.length} active key{keys.length === 1 ? "" : "s"}
+        </span>
       </div>
 
-      <div className="grid gap-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950">
-        <div className="grid gap-4 sm:grid-cols-[1fr_auto] sm:items-end">
+      <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950">
+        <div className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end">
           <div className="space-y-2">
-            <label htmlFor="api-key-name" className="text-sm font-medium text-slate-700 dark:text-slate-100">
-              API key name
+            <label
+              htmlFor="api-key-name"
+              className="text-sm font-semibold text-slate-800 dark:text-slate-100"
+            >
+              New key name
             </label>
+
             <input
               id="api-key-name"
               value={name}
               onChange={(event) => setName(event.target.value)}
-              placeholder="e.g. Agent integration"
-              className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-100 dark:border-slate-800 dark:bg-slate-900 dark:text-white dark:focus:border-violet-400 dark:focus:ring-violet-900"
+              placeholder="e.g. Production agent"
+              className="h-12 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-100 dark:border-slate-800 dark:bg-slate-900 dark:text-white dark:focus:border-violet-400 dark:focus:bg-slate-950 dark:focus:ring-violet-950"
             />
           </div>
 
-          <Button onClick={createKey} disabled={loading} className="w-full sm:w-auto">
+          <Button
+            onClick={createKey}
+            disabled={loading}
+            className="h-12 cursor-pointer rounded-2xl bg-violet-600 px-5 font-semibold shadow-lg shadow-violet-500/20 hover:bg-violet-700"
+          >
             <Plus size={16} />
             Generate key
           </Button>
         </div>
 
         {createdKey ? (
-          <div className="rounded-2xl border border-violet-200 bg-violet-50 p-4 text-sm text-slate-900 dark:border-violet-900 dark:bg-violet-950 dark:text-white">
-            <p className="font-semibold">API key generated</p>
-            <p className="mt-2 text-slate-600 dark:text-slate-300">
-              Copy the key now — it will only be shown once.
-            </p>
-            <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <div className="min-w-0 flex-1 overflow-hidden rounded-2xl bg-white px-4 py-3 text-xs font-medium text-slate-900 shadow-sm dark:bg-slate-900 dark:text-slate-100">
-                {createdKey}
+          <div className="mt-6 rounded-2xl border border-violet-200 bg-violet-50 p-4 dark:border-violet-900 dark:bg-violet-950/50">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="font-semibold text-slate-950 dark:text-white">
+                  API key generated
+                </p>
+                <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+                  Copy it now. You will not be able to see this key again.
+                </p>
               </div>
-              <Button onClick={() => copyToClipboard(createdKey)} variant="outline">
-                <Copy size={16} /> Copy
+            </div>
+
+            <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <code className="min-w-0 flex-1 overflow-x-auto rounded-2xl border border-violet-100 bg-white px-4 py-3 text-xs font-medium text-slate-900 shadow-sm dark:border-violet-900 dark:bg-slate-950 dark:text-slate-100">
+                {createdKey}
+              </code>
+
+              <Button
+                onClick={() => copyToClipboard(createdKey)}
+                variant="outline"
+                className="h-11 rounded-2xl"
+              >
+                <Copy size={16} />
+                Copy
               </Button>
             </div>
           </div>
         ) : null}
 
         {error ? (
-          <p className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300">
+          <p className="mt-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700 dark:border-red-900 dark:bg-red-950/50 dark:text-red-300">
             {error}
           </p>
         ) : null}
-      </div>
+      </section>
 
-      <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950">
-        <div className="mb-6 flex items-center justify-between gap-4">
+      <section className="rounded-3xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-950">
+        <div className="flex flex-col justify-between gap-3 border-b border-slate-200 p-6 dark:border-slate-800 sm:flex-row sm:items-center">
           <div>
-            <h2 className="text-lg font-semibold text-slate-950 dark:text-white">Your API keys</h2>
+            <h2 className="text-lg font-semibold text-slate-950 dark:text-white">
+              Your API keys
+            </h2>
             <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-              Revoke any key that you no longer want to allow for interception requests.
+              Active keys that can authenticate AgentShield requests.
             </p>
           </div>
-          <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:bg-slate-800 dark:text-slate-300">
-            {keys.length} key{keys.length === 1 ? "" : "s"}
-          </span>
         </div>
 
-        {loading && keys.length === 0 ? (
-          <p className="text-sm text-slate-500">Loading keys…</p>
-        ) : keys.length === 0 ? (
-          <p className="text-sm text-slate-500">No API keys created yet.</p>
-        ) : (
-          <div className="space-y-4">
-            {keys.map((key) => (
-              <div key={key.id} className="flex flex-col gap-4 rounded-3xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900 sm:flex-row sm:items-center sm:justify-between">
-                <div className="min-w-0">
-                  <p className="font-medium text-slate-900 dark:text-white">{key.name}</p>
-                  <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Created {new Date(key.createdAt).toLocaleString()}</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Button variant="outline" size="sm" onClick={() => revokeKey(key.id)} disabled={loading}>
-                    <Trash2 size={14} /> Revoke
+        <div className="p-3">
+          {loading && keys.length === 0 ? (
+            <div className="rounded-2xl bg-slate-50 px-4 py-10 text-center text-sm text-slate-500 dark:bg-slate-900 dark:text-slate-400">
+              Loading keys...
+            </div>
+          ) : keys.length === 0 ? (
+            <div className="rounded-2xl bg-slate-50 px-4 py-10 text-center dark:bg-slate-900">
+              <p className="font-medium text-slate-950 dark:text-white">
+                No API keys yet
+              </p>
+              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                Generate your first key to connect an agent or SDK client.
+              </p>
+            </div>
+          ) : (
+            <div className="divide-y divide-slate-200 overflow-hidden rounded-2xl border border-slate-200 dark:divide-slate-800 dark:border-slate-800">
+              {keys.map((key) => (
+                <div
+                  key={key.id}
+                  className="flex flex-col gap-4 bg-white p-4 transition-colors hover:bg-slate-50 dark:bg-slate-950 dark:hover:bg-slate-900 sm:flex-row sm:items-center sm:justify-between"
+                >
+                  <div className="min-w-0">
+                    <p className="truncate font-semibold text-slate-950 dark:text-white">
+                      {key.name}
+                    </p>
+                    <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                      Created {new Date(key.createdAt).toLocaleString()}
+                    </p>
+                  </div>
+
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => revokeKey(key.id)}
+                    disabled={loading}
+                    className="w-full rounded-xl border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700 dark:border-red-900 dark:text-red-300 dark:hover:bg-red-950 sm:w-auto"
+                  >
+                    <Trash2 size={14} />
+                    Revoke
                   </Button>
                 </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
     </div>
   )
 }
