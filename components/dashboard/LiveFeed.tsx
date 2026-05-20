@@ -1,7 +1,7 @@
-import type { LogModel } from "@/lib/generated/prisma/models/Log"
+import type { Log } from "@prisma/client"
 
 type Props = {
-  logs: LogModel[]
+  logs: Log[]
 }
 
 const statusStyles: Record<string, string> = {
