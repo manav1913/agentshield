@@ -18,7 +18,13 @@ export const metadata: Metadata = {
   title: "AgentShield",
   description: "AI agent protection with real-time guardrails, logs, and policy enforcement.",
   icons: {
-    icon: "/file.svg",
+    icon: [
+      {
+        url: "/file.svg",
+        type: "image/svg+xml",
+      },
+    ],
+    shortcut: "/file.svg",
   },
 };
 
