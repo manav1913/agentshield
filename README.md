@@ -29,6 +29,19 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
+## AI Proxy Integration
+
+AgentShield ships with a protected AI proxy endpoint at `app/api/agent/route.ts`.
+
+- Set `GROQ_API_KEY` in your environment to use Groq.
+- If `GROQ_API_KEY` is unavailable and `OPENAI_API_KEY` is set, the proxy can fall back to OpenAI.
+- Send a `POST` request to `/api/agent` with `x-api-key` and a JSON body:
+  - `input`: user message
+  - `model`: optional model name (defaults to `openai/gpt-oss-20b` for Groq)
+  - `systemPrompt`: optional system prompt text
+
+The endpoint validates the API key, scans input and output against active guardrail rules, logs requests, and returns either a clean model response or a blocked result.
+
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
