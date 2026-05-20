@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+model Log {
+  id            String   @id @default(cuid())
+  userId        String
+  input         String
+  output        String
+  status        String
+  violationType String?
+  ruleTriggered String?
+  createdAt     DateTime @default(now())
+}
+
+model Rule {
+  id        String   @id @default(cuid())
+  userId    String
+  name      String
+  type      String
+  value     String?
+  enabled   Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model ApiKey {
+  id        String   @id @default(cuid())
+  userId    String
+  key       String   @unique
+  name      String
+  createdAt DateTime @default(now())
+}
+
+model HumanQueue {
+  id         String    @id @default(cuid())
+  userId     String
+  input      String
+  output     String
+  action     String
+  status     String    @default("pending")
+  reviewedAt DateTime?
+  createdAt  DateTime  @default(now())
+}

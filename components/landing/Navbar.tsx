@@ -15,11 +15,13 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+  
 
-  const toggleTheme = () => {
-    setIsDark(!dark)
-    document.documentElement.classList.toggle("dark")
-  }
+ const toggleTheme = () => {
+  setIsDark(!dark)
+  document.documentElement.classList.toggle("dark")
+  localStorage.setItem('theme', !dark ? 'dark' : 'light')
+}
 
   return (
     <nav

@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 const CTASection = () => {
   return (
     <section className="relative overflow-hidden py-28 px-6">
@@ -34,7 +36,7 @@ const CTASection = () => {
             </p>
 
             {/* CTA */}
-            <button className="group relative overflow-hidden inline-flex items-center justify-center px-8 py-4 rounded-2xl bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold shadow-xl shadow-violet-500/30 hover:shadow-violet-500/40 hover:scale-105 active:scale-95 transition-all duration-300">
+            <Link href="/signup" className="group relative overflow-hidden inline-flex items-center justify-center px-8 py-4 rounded-2xl bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold shadow-xl shadow-violet-500/30 hover:shadow-violet-500/40 hover:scale-105 active:scale-95 transition-all duration-300">
               
               <span className="relative z-10 flex items-center gap-2">
                 Get started free
@@ -45,7 +47,7 @@ const CTASection = () => {
 
               {/* Shine effect */}
               <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-linear-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000" />
-            </button>
+            </Link>
 
             {/* Small text */}
             <div className="flex flex-wrap items-center justify-center gap-3 mt-8 text-sm text-gray-400 dark:text-gray-500">
