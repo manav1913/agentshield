@@ -17,15 +17,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "AgentShield",
   description: "AI agent protection with real-time guardrails, logs, and policy enforcement.",
-  icons: {
-    icon: [
-      {
-        url: "/file.svg",
-        type: "image/svg+xml",
-      },
-    ],
-    shortcut: "/file.svg",
-  },
+
 };
 
 export default function RootLayout({
