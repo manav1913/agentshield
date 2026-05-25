@@ -56,6 +56,7 @@ const SignUpPage = () => {
             routing="path"
             path="/signup"
             signInUrl="/login"
+            forceRedirectUrl="/dashboard"
             appearance={{
               variables: {
                 colorPrimary: "#7c3aed",
