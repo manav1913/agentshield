@@ -55,7 +55,6 @@ const SignUpPage = () => {
           <SignUp
             routing="path"
             path="/signup"
-            signInUrl="/login"
             forceRedirectUrl="/dashboard"
             fallbackRedirectUrl="/dashboard"
             appearance={{
