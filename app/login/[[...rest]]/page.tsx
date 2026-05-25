@@ -57,6 +57,7 @@ const LoginPage = () => {
             path="/login"
             signUpUrl="/signup"
             forceRedirectUrl="/dashboard"
+            fallbackRedirectUrl="/dashboard"
             appearance={{
               variables: {
                 colorPrimary: "#7c3aed",
