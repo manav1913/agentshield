@@ -11,6 +11,7 @@ export const PII_PATTERNS = [
   { type: "phone", regex: /(\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/ },
   { type: "credit-card", regex: /\b\d{4}[-\s]?\d{4}[-\s]?\d{4}[-\s]?\d{4}\b/ },
   { type: "ssn", regex: /\b\d{3}-\d{2}-\d{4}\b/ },
+  
 ]
 
 export const BLOCKED_KEYWORDS = [
@@ -79,3 +80,4 @@ export async function getEnabledUserKeywords(userId: string) {
 
   return rules.map((rule) => rule.value ?? "").filter(Boolean)
 }
+
