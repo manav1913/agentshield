@@ -1,12 +1,12 @@
+import { ShieldCheck } from "lucide-react"
+
 const Footer = () => {
   return (
-    <footer className="border-t border-gray-100 dark:border-gray-900 py-8 px-6">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-
-        {/* Left */}
+    <footer className="border-t border-gray-100 px-6 py-8 dark:border-gray-900">
+      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 md:flex-row">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-violet-600 flex items-center justify-center text-white text-sm shadow-md">
-            🛡
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-600 text-white shadow-md">
+            <ShieldCheck className="h-5 w-5" />
           </div>
 
           <div>
@@ -20,33 +20,38 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Center links */}
         <div className="flex items-center gap-6 text-sm text-gray-500 dark:text-gray-400">
           <a
             href="#features"
-            className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
+            className="transition-colors hover:text-violet-600 dark:hover:text-violet-400"
           >
             Features
           </a>
 
           <a
             href="#how-it-works"
-            className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
+            className="transition-colors hover:text-violet-600 dark:hover:text-violet-400"
           >
             How it works
           </a>
 
           <a
             href="#pricing"
-            className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
+            className="transition-colors hover:text-violet-600 dark:hover:text-violet-400"
           >
             Pricing
           </a>
+
+          <a
+            href="mailto:hello@agentshield.dev"
+            className="transition-colors hover:text-violet-600 dark:hover:text-violet-400"
+          >
+            Contact
+          </a>
         </div>
 
-        {/* Right */}
         <p className="text-xs text-gray-400 dark:text-gray-500">
-          © {new Date().getFullYear()} AgentShield. All rights reserved.
+          Copyright {new Date().getFullYear()} AgentShield. All rights reserved.
         </p>
       </div>
     </footer>
