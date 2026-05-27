@@ -1,14 +1,26 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
+import { NextResponse } from 'next/server';
 
 const isPublicRoute = createRouteMatcher([
   '/',
-  '/login',
-  '/signup',
+  '/login(.*)',
+  '/signup(.*)',
+]);
+
+const isAuthRoute = createRouteMatcher([
+  '/login(.*)',
+  '/signup(.*)',
 ]);
 
 const hasApiKey = (request: Request) => Boolean(request.headers.get('x-api-key'));
 
 export const proxy = clerkMiddleware(async (auth, request) => {
+  const { userId } = await auth();
+
+  if (userId && isAuthRoute(request)) {
+    return NextResponse.redirect(new URL('/dashboard', request.url));
+  }
+
   if (!isPublicRoute(request) && !hasApiKey(request)) {
     await auth.protect();
   }
