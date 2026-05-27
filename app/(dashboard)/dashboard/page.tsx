@@ -3,6 +3,7 @@ import { redirect } from "next/navigation"
 import { prisma } from "@/lib/prisma"
 import StatCards from "@/components/dashboard/StatCards"
 import LiveFeed from "@/components/dashboard/LiveFeed"
+import SetupChecklist from "@/components/dashboard/SetupChecklist"
 
 export default async function DashboardPage() {
   const { userId } = await auth()
@@ -11,7 +12,7 @@ export default async function DashboardPage() {
     redirect("/login")
   }
 
-  const [totalLogs, violations, clean, recentLogs] = await Promise.all([
+  const [totalLogs, violations, clean, recentLogs, apiKeyCount, ruleCount] = await Promise.all([
     prisma.log.count({
       where: { userId },
     }),
@@ -34,6 +35,14 @@ export default async function DashboardPage() {
       where: { userId },
       orderBy: { createdAt: "desc" },
       take: 10,
+    }),
+
+    prisma.apiKey.count({
+      where: { userId },
+    }),
+
+    prisma.rule.count({
+      where: { userId },
     }),
   ])
 
@@ -59,6 +68,12 @@ export default async function DashboardPage() {
         total={totalLogs}
         violations={violations}
         cleanRate={cleanRate}
+      />
+
+      <SetupChecklist
+        apiKeyCount={apiKeyCount}
+        ruleCount={ruleCount}
+        logCount={totalLogs}
       />
 
       <LiveFeed logs={recentLogs} />

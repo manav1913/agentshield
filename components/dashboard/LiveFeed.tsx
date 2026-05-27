@@ -12,35 +12,50 @@ const statusStyles: Record<string, string> = {
 }
 
 const statusLabel: Record<string, string> = {
-  clean: "✓ Clean",
-  blocked: "✗ Blocked",
-  flagged: "⚠ Flagged",
-  pending: "⏳ Pending",
+  clean: "Clean",
+  blocked: "Blocked",
+  flagged: "Flagged",
+  pending: "Pending",
 }
 
 const LiveFeed = ({ logs }: Props) => {
   return (
-    <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl">
-      <div className="px-6 py-4 border-b border-gray-100 dark:border-gray-800">
-        <h2 className="text-sm font-semibold text-gray-900 dark:text-white">Live request feed</h2>
+    <div className="rounded-2xl border border-gray-100 bg-white dark:border-gray-800 dark:bg-gray-900">
+      <div className="border-b border-gray-100 px-6 py-4 dark:border-gray-800">
+        <h2 className="text-sm font-semibold text-gray-900 dark:text-white">
+          Live request feed
+        </h2>
       </div>
 
       {logs.length === 0 ? (
         <div className="px-6 py-12 text-center">
-          <p className="text-sm text-gray-400">No requests yet — integrate AgentShield to start monitoring</p>
+          <p className="text-sm text-gray-400">
+            No requests yet. Send your first test request to start monitoring.
+          </p>
         </div>
       ) : (
         <div className="divide-y divide-gray-50 dark:divide-gray-800">
           {logs.map((log) => (
-            <div key={log.id} className="px-6 py-4 flex items-center justify-between gap-4">
-              <div className="flex-1 min-w-0">
-                <p className="text-sm text-gray-700 dark:text-gray-300 truncate">{log.input}</p>
-                {log.violationType && (
-                  <p className="text-xs text-gray-400 mt-0.5">{log.violationType}</p>
-                )}
+            <div
+              key={log.id}
+              className="flex items-center justify-between gap-4 px-6 py-4"
+            >
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm text-gray-700 dark:text-gray-300">
+                  {log.input}
+                </p>
+                {log.violationType ? (
+                  <p className="mt-0.5 text-xs text-gray-400">
+                    {log.violationType}
+                  </p>
+                ) : null}
               </div>
-              <div className="flex items-center gap-3 shrink-0">
-                <span className={`text-xs px-2.5 py-1 rounded-lg font-medium ${statusStyles[log.status] ?? statusStyles.clean}`}>
+              <div className="flex shrink-0 items-center gap-3">
+                <span
+                  className={`rounded-lg px-2.5 py-1 text-xs font-medium ${
+                    statusStyles[log.status] ?? statusStyles.clean
+                  }`}
+                >
                   {statusLabel[log.status] ?? log.status}
                 </span>
                 <span className="text-xs text-gray-400">

@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { CheckCircle2 } from "lucide-react"
+import { siteConfig } from "@/lib/site"
 
 const plans = [
   {
@@ -43,7 +44,7 @@ const plans = [
       "Dedicated onboarding",
     ],
     cta: "Talk to us",
-    href: "mailto:hello@agentshield.dev",
+    href: `mailto:${siteConfig.contactEmail}`,
     featured: false,
   },
 ]

@@ -43,10 +43,31 @@ const Footer = () => {
           </a>
 
           <a
-            href="mailto:hello@agentshield.dev"
+            href="/docs"
+            className="transition-colors hover:text-violet-600 dark:hover:text-violet-400"
+          >
+            Docs
+          </a>
+
+          <a
+            href="/contact"
             className="transition-colors hover:text-violet-600 dark:hover:text-violet-400"
           >
             Contact
+          </a>
+
+          <a
+            href="/privacy"
+            className="transition-colors hover:text-violet-600 dark:hover:text-violet-400"
+          >
+            Privacy
+          </a>
+
+          <a
+            href="/terms"
+            className="transition-colors hover:text-violet-600 dark:hover:text-violet-400"
+          >
+            Terms
           </a>
         </div>
 
