@@ -6,6 +6,7 @@ import HowItWorks from "@/components/landing/HowItWorks"
 import Navbar from "@/components/landing/Navbar"
 import Pricing from "@/components/landing/Pricing"
 import Problem from "@/components/landing/Problem"
+import Playground from "@/components/landing/Playground"
 
 
 const page = () => {
@@ -13,6 +14,7 @@ const page = () => {
     <main>
       <Navbar/>
       <Hero/>
+      <Playground/>
       <Problem/>
       <HowItWorks/>
       <Features/>
