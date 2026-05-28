@@ -240,7 +240,7 @@ console.log(response);
                 value={input}
                 onChange={(e) => handleTextChange(e.target.value)}
                 placeholder="Type anything here or pick a preset example to start scanning..."
-                className="w-full flex-1 resize-none bg-transparent font-mono text-sm leading-relaxed text-gray-800 outline-hidden dark:text-gray-200 min-h-[220px] focus:outline-hidden border-0 p-0"
+                className="w-full flex-1 resize-none bg-transparent font-mono text-sm leading-relaxed text-gray-800 outline-hidden dark:text-gray-200 min-h-55 focus:outline-hidden border-0 p-0"
               />
               <div className="mt-4 flex items-center justify-between text-xs text-gray-400 border-t border-gray-50 dark:border-gray-800/50 pt-4">
                 <span>{input.length} characters</span>
@@ -250,7 +250,7 @@ console.log(response);
           </div>
 
           {/* Scanner Console (Right) */}
-          <div className="lg:col-span-6 flex flex-col rounded-3xl border border-gray-800 bg-gray-950 text-gray-300 shadow-2xl overflow-hidden min-h-[350px]">
+          <div className="lg:col-span-6 flex flex-col rounded-3xl border border-gray-800 bg-gray-950 text-gray-300 shadow-2xl overflow-hidden min-h-87.5">
             {/* Terminal Top Bar */}
             <div className="flex items-center justify-between border-b border-gray-800/80 bg-gray-900/40 px-6 py-4">
               <div className="flex items-center gap-4">
@@ -313,7 +313,7 @@ console.log(response);
             </div>
 
             {/* Terminal Body */}
-            <div className="flex-1 p-6 font-mono text-sm leading-relaxed overflow-auto max-h-[360px]">
+            <div className="flex-1 p-6 font-mono text-sm leading-relaxed overflow-auto max-h-90">
               
               {/* DIAGNOSTICS TAB */}
               {activeTab === "diagnostics" && (
