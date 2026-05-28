@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { auth } from "@clerk/nextjs/server"
+import type { Prisma } from "@prisma/client"
 import { prisma } from "@/lib/prisma"
 
 async function requireUserId() {
@@ -21,7 +22,7 @@ export async function GET(req: NextRequest) {
   const search = url.searchParams.get("search")?.trim()
   const take = Number(url.searchParams.get("take") ?? 20)
 
-  const where: any = { userId }
+  const where: Prisma.LogWhereInput = { userId }
 
   if (statusFilter) {
     where.status = statusFilter

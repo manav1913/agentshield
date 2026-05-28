@@ -16,6 +16,11 @@ const isAuthRoute = createRouteMatcher([
   '/signup(.*)',
 ]);
 
+const isApiKeyRoute = createRouteMatcher([
+  '/api/agent',
+  '/api/intercept',
+]);
+
 const hasApiKey = (request: Request) => Boolean(request.headers.get('x-api-key'));
 
 export const proxy = clerkMiddleware(async (auth, request) => {
@@ -25,7 +30,7 @@ export const proxy = clerkMiddleware(async (auth, request) => {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
-  if (!isPublicRoute(request) && !hasApiKey(request)) {
+  if (!isPublicRoute(request) && !(isApiKeyRoute(request) && hasApiKey(request))) {
     await auth.protect();
   }
 });

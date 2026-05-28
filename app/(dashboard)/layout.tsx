@@ -1,39 +1,7 @@
-import Link from "next/link"
 import { auth } from "@clerk/nextjs/server"
-import { UserButton } from "@clerk/nextjs"
 import { redirect } from "next/navigation"
-import {
-  FileText,
-  KeyRound,
-  LayoutDashboard,
-  Shield,
-  SlidersHorizontal,
-} from "lucide-react"
 import Sidebar from "@/components/dashboard/Sidebar"
 import Topbar from "@/components/dashboard/Topbar"
-
-const navItems = [
-  {
-    label: "Dashboard",
-    href: "/dashboard",
-    icon: LayoutDashboard,
-  },
-  {
-    label: "Rules",
-    href: "/rules",
-    icon: SlidersHorizontal,
-  },
-  {
-    label: "Logs",
-    href: "/logs",
-    icon: FileText,
-  },
-  {
-    label: "API Keys",
-    href: "/api-keys",
-    icon: KeyRound,
-  },
-]
 
 const DashboardLayout = async ({
   children,
