@@ -1,8 +1,21 @@
+"use client"
+
+import { useState } from "react"
 import Link from "next/link"
-import { CheckCircle2 } from "lucide-react"
+import { CheckCircle2, X, Sparkles, Shield, Coins, ArrowRight } from "lucide-react"
 import { siteConfig } from "@/lib/site"
 
-const plans = [
+type PlanType = {
+  name: string
+  price: string
+  desc: string
+  features: string[]
+  cta: string
+  href: string
+  featured: boolean
+}
+
+const plans: PlanType[] = [
   {
     name: "Free",
     price: "$0",
@@ -50,6 +63,13 @@ const plans = [
 ]
 
 const Pricing = () => {
+  const [selectedPlan, setSelectedPlan] = useState<PlanType | null>(null)
+
+  const handlePlanClick = (plan: PlanType, e: React.MouseEvent) => {
+    e.preventDefault()
+    setSelectedPlan(plan)
+  }
+
   return (
     <section
       id="pricing"
@@ -165,21 +185,105 @@ const Pricing = () => {
                   ))}
                 </ul>
 
-                <Link
-                  href={plan.href}
-                  className={`flex w-full items-center justify-center rounded-2xl py-3 text-sm font-semibold transition-all duration-300 ${
+                <button
+                  onClick={(e) => handlePlanClick(plan, e)}
+                  className={`flex w-full cursor-pointer items-center justify-center rounded-2xl py-3 text-sm font-semibold transition-all duration-300 ${
                     plan.featured
                       ? "bg-white text-violet-600 hover:bg-violet-50"
                       : "border border-gray-200 text-gray-900 hover:border-violet-300 hover:bg-violet-50 dark:border-gray-700 dark:text-white dark:hover:border-violet-700 dark:hover:bg-violet-950/30"
                   }`}
                 >
                   {plan.cta}
-                </Link>
+                </button>
               </div>
             </div>
           ))}
         </div>
       </div>
+
+      {/* Modal */}
+      {selectedPlan && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-md transition-all duration-300"
+          onClick={() => setSelectedPlan(null)}
+        >
+          <div
+            className="relative w-full max-w-md scale-100 overflow-hidden rounded-3xl border border-gray-100 bg-white p-8 shadow-2xl transition-all duration-300 dark:border-gray-800 dark:bg-gray-900 animate-in fade-in-0 zoom-in-95"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close button */}
+            <button
+              onClick={() => setSelectedPlan(null)}
+              className="absolute right-6 top-6 rounded-full p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-800 dark:hover:text-gray-200 transition-colors"
+              aria-label="Close modal"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            {/* Icon decoration */}
+            <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-100 text-violet-600 dark:bg-violet-950/50 dark:text-violet-400">
+              {selectedPlan.name === "Free" ? (
+                <Sparkles className="h-6 w-6" />
+              ) : selectedPlan.name === "Pro" ? (
+                <Shield className="h-6 w-6" />
+              ) : (
+                <Coins className="h-6 w-6" />
+              )}
+            </div>
+
+            {/* Content */}
+            <h3 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+              {selectedPlan.name === "Free"
+                ? "Start Protecting for Free"
+                : selectedPlan.name === "Pro"
+                ? "Pro Features: Early Preview"
+                : "Enterprise Pilot Access"}
+            </h3>
+
+            <div className="mb-8 text-sm leading-relaxed text-gray-500 dark:text-gray-400 space-y-4">
+              {selectedPlan.name === "Free" && (
+                <p>
+                  AgentShield is currently in <strong>early preview</strong>! Our Free tier is fully functional, letting you test out guardrails, proxy calls, and review intercepted logs. 
+                  No credit card required.
+                </p>
+              )}
+              {selectedPlan.name === "Pro" && (
+                <p>
+                  Paid subscriptions are not yet active during our <strong>early preview phase</strong>. 
+                  However, the good news is that <strong>all Pro features</strong> (including custom keywords, full proxy routing, and detailed logs) are currently available to all preview users <strong>completely free</strong>!
+                </p>
+              )}
+              {selectedPlan.name === "Enterprise" && (
+                <p>
+                  We are setting up pilot programs for custom integrations and compliance controls. 
+                  In the meantime, you can explore the platform immediately with our free preview dashboard or contact us at <a href={`mailto:${siteConfig.contactEmail}`} className="font-semibold text-violet-600 hover:underline dark:text-violet-400">{siteConfig.contactEmail}</a> for custom requirements.
+                </p>
+              )}
+              <p className="text-xs text-gray-400 dark:text-gray-500 italic">
+                We'd love to hear your feedback on the platform as we prepare for our general release.
+              </p>
+            </div>
+
+            {/* Actions */}
+            <div className="flex flex-col gap-3">
+              <Link
+                href="/signup"
+                onClick={() => setSelectedPlan(null)}
+                className="flex w-full items-center justify-center gap-2 rounded-2xl bg-violet-600 py-3.5 text-sm font-semibold text-white hover:bg-violet-700 hover:shadow-lg hover:shadow-violet-500/20 active:scale-[0.98] transition-all duration-200"
+              >
+                <span>Get Started with Preview</span>
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <button
+                onClick={() => setSelectedPlan(null)}
+                className="w-full rounded-2xl border border-gray-200 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors"
+              >
+                Maybe Later
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
