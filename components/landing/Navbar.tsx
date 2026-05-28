@@ -47,6 +47,7 @@ const Navbar = () => {
 
         <div className="hidden items-center gap-2 md:flex">
           {[
+            ["Playground", "#playground"],
             ["Features", "#features"],
             ["How it works", "#how-it-works"],
             ["Pricing", "#pricing"],

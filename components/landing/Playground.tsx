@@ -240,7 +240,7 @@ console.log(response);
                 value={input}
                 onChange={(e) => handleTextChange(e.target.value)}
                 placeholder="Type anything here or pick a preset example to start scanning..."
-                className="w-full flex-1 resize-none bg-transparent font-mono text-sm leading-relaxed text-gray-800 outline-hidden dark:text-gray-200 min-h-55 focus:outline-hidden border-0 p-0"
+                className="w-full flex-1 resize-none bg-transparent font-mono text-sm leading-relaxed text-gray-800 outline-hidden dark:text-gray-200 min-h-55 focus:outline-hidden border-0 p-0 custom-scrollbar"
               />
               <div className="mt-4 flex items-center justify-between text-xs text-gray-400 border-t border-gray-50 dark:border-gray-800/50 pt-4">
                 <span>{input.length} characters</span>
@@ -313,7 +313,7 @@ console.log(response);
             </div>
 
             {/* Terminal Body */}
-            <div className="flex-1 p-6 font-mono text-sm leading-relaxed overflow-auto max-h-90">
+            <div className="flex-1 p-6 font-mono text-sm leading-relaxed overflow-auto max-h-90 custom-scrollbar">
               
               {/* DIAGNOSTICS TAB */}
               {activeTab === "diagnostics" && (
