@@ -140,7 +140,7 @@ const SetupChecklist = ({ apiKeyCount, ruleCount, logCount }: Props) => {
             your terminal to create the first log.
           </p>
 
-          <pre className="mt-4 overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900 p-4 text-xs leading-6 text-slate-200">
+          <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900 p-4 text-xs leading-6 text-slate-200">
             <code>{sampleRequest}</code>
           </pre>
 

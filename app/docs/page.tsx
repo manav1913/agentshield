@@ -154,7 +154,7 @@ const DocsPage = () => {
               <p className="mt-2 text-sm leading-6 text-slate-400">
                 Use this first to confirm authentication and logging work.
               </p>
-              <pre className="mt-4 overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900 p-4 text-xs leading-6 text-slate-200">
+              <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900 p-4 text-xs leading-6 text-slate-200">
                 <code>{cleanRequest}</code>
               </pre>
             </section>
@@ -164,7 +164,7 @@ const DocsPage = () => {
               <p className="mt-2 text-sm leading-6 text-slate-400">
                 Use this after adding a rule such as `password` or `secret`.
               </p>
-              <pre className="mt-4 overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900 p-4 text-xs leading-6 text-slate-200">
+              <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900 p-4 text-xs leading-6 text-slate-200">
                 <code>{blockedRequest}</code>
               </pre>
             </section>
