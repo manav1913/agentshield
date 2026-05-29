@@ -30,13 +30,13 @@ export default clerkMiddleware(async (auth, request) => {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
-  // Allow API routes with API key without auth
-  if (isApiKeyRoute(request) && hasApiKey(request)) {
+  // Allow OPTIONS requests for API routes (CORS preflight doesn't include custom headers)
+  if (request.method === 'OPTIONS' && isApiKeyRoute(request)) {
     return NextResponse.next();
   }
 
-  // Allow OPTIONS requests for CORS preflight
-  if (request.method === 'OPTIONS' && isApiKeyRoute(request)) {
+  // Allow API routes with API key without auth
+  if (isApiKeyRoute(request) && hasApiKey(request)) {
     return NextResponse.next();
   }
 
