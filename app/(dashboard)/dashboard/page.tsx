@@ -49,6 +49,9 @@ export default async function DashboardPage() {
   const cleanRate =
     totalLogs > 0 ? ((clean / totalLogs) * 100).toFixed(1) : "100"
 
+  // Check if setup is complete (has API key, rule, and at least one log)
+  const isSetupComplete = apiKeyCount > 0 && ruleCount > 0 && totalLogs > 0
+
   return (
     <div className="space-y-8">
       <div>
@@ -70,11 +73,13 @@ export default async function DashboardPage() {
         cleanRate={cleanRate}
       />
 
-      <SetupChecklist
-        apiKeyCount={apiKeyCount}
-        ruleCount={ruleCount}
-        logCount={totalLogs}
-      />
+      {!isSetupComplete && (
+        <SetupChecklist
+          apiKeyCount={apiKeyCount}
+          ruleCount={ruleCount}
+          logCount={totalLogs}
+        />
+      )}
 
       <LiveFeed logs={recentLogs} />
     </div>
