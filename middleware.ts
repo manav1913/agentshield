@@ -9,6 +9,8 @@ const isPublicRoute = createRouteMatcher([
   '/contact',
   '/login(.*)',
   '/signup(.*)',
+  '/api/agent',
+  '/api/intercept',
 ]);
 
 const isAuthRoute = createRouteMatcher([
