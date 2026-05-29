@@ -1,3 +1,9 @@
 {
-  "buildCommand": "npx prisma generate && npx next build"
+  "buildCommand": "npx prisma generate && npx next build",
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "/api/:path*"
+    }
+  ]
 }
