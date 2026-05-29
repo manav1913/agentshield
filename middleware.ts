@@ -23,7 +23,7 @@ const isApiKeyRoute = createRouteMatcher([
 
 const hasApiKey = (request: Request) => Boolean(request.headers.get('x-api-key'));
 
-export const proxy = clerkMiddleware(async (auth, request) => {
+export default clerkMiddleware(async (auth, request) => {
   const { userId } = await auth();
 
   if (userId && isAuthRoute(request)) {
