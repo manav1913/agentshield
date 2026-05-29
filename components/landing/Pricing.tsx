@@ -260,7 +260,7 @@ const Pricing = () => {
                 </p>
               )}
               <p className="text-xs text-gray-400 dark:text-gray-500 italic">
-                We'd love to hear your feedback on the platform as we prepare for our general release.
+                We&apos;d love to hear your feedback on the platform as we prepare for our general release.
               </p>
             </div>
 
