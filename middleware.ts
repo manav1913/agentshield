@@ -35,6 +35,11 @@ export default clerkMiddleware(async (auth, request) => {
     return NextResponse.next();
   }
 
+  // Allow OPTIONS requests for CORS preflight
+  if (request.method === 'OPTIONS' && isApiKeyRoute(request)) {
+    return NextResponse.next();
+  }
+
   if (!isPublicRoute(request)) {
     await auth.protect();
   }
