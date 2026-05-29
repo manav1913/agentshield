@@ -1,0 +1,26 @@
+{
+  "name": "agentshield-ai-sdk",
+  "version": "1.0.0",
+  "description": "AgentShield SDK for AI agent safety and guardrails",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "ai",
+    "safety",
+    "guardrails",
+    "llm",
+    "security"
+  ],
+  "author": "AgentShield",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5"
+  }
+}

@@ -115,7 +115,7 @@ const Hero = () => {
               <span className="text-white"> {"{ shield }"} </span>
               <span className="text-indigo-400">from</span>
               <span className="text-emerald-400">
-                {" \"@agentshield/sdk\""}
+                {" \"agentshield-ai-sdk\""}
               </span>
             </p>
 

@@ -25,6 +25,21 @@ const blockedRequest = `curl -X POST https://agentshield-one.vercel.app/api/inte
     "output": "The internal password is demo-secret."
   }'`
 
+const sdkExample = `import { shield } from "agentshield-ai-sdk"
+
+const result = await shield({
+  apiKey: process.env.AGENTSHIELD_API_KEY,
+  input: userMessage,
+  output: aiResponse
+})
+
+if (result.blocked) {
+  console.log("Blocked:", result.reason)
+  // Handle violation
+} else {
+  console.log("Safe to proceed")
+}`
+
 const setupSteps = [
   {
     Icon: KeyRound,
@@ -149,6 +164,28 @@ const DocsPage = () => {
           </div>
 
           <div className="mt-12 grid gap-6 lg:grid-cols-2">
+            <section className="rounded-3xl border border-slate-200 bg-slate-950 p-6 text-white shadow-sm">
+              <h2 className="text-xl font-semibold">Install the SDK</h2>
+              <p className="mt-2 text-sm leading-6 text-slate-400">
+                The easiest way to integrate AgentShield into your project.
+              </p>
+              <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900 p-4 text-xs leading-6 text-slate-200">
+                <code>npm install agentshield-ai-sdk</code>
+              </pre>
+            </section>
+
+            <section className="rounded-3xl border border-slate-200 bg-slate-950 p-6 text-white shadow-sm">
+              <h2 className="text-xl font-semibold">Use the SDK</h2>
+              <p className="mt-2 text-sm leading-6 text-slate-400">
+                One-line integration with TypeScript support.
+              </p>
+              <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900 p-4 text-xs leading-6 text-slate-200">
+                <code>{sdkExample}</code>
+              </pre>
+            </section>
+          </div>
+
+          <div className="mt-8 grid gap-6 lg:grid-cols-2">
             <section className="rounded-3xl border border-slate-200 bg-slate-950 p-6 text-white shadow-sm">
               <h2 className="text-xl font-semibold">Clean request example</h2>
               <p className="mt-2 text-sm leading-6 text-slate-400">
