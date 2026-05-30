@@ -1,4 +1,5 @@
 import { UserButton } from "@clerk/nextjs"
+import ThemeToggle from "./ThemeProvider"
 
 const Topbar = () => {
   return (
@@ -14,6 +15,7 @@ const Topbar = () => {
         <button className="hidden rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300 shadow-sm hover:bg-gray-50 dark:hover:bg-gray-800 sm:block">
           Production
         </button>
+        <ThemeToggle />
         <UserButton />
       </div>
     </header>

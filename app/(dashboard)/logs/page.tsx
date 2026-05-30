@@ -12,11 +12,11 @@ import {
 
 const statusStyles: Record<string, string> = {
   blocked:
-    "rounded-full bg-red-50 px-2.5 py-1 text-xs font-semibold text-red-700 dark:bg-red-950 dark:text-red-300",
+    "rounded-full border border-red-200 bg-red-50/50 px-2.5 py-1 text-xs font-semibold text-red-700 dark:border-red-900 dark:bg-red-950/50 dark:text-red-300",
   clean:
-    "rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300",
+    "rounded-full border border-emerald-200 bg-emerald-50/50 px-2.5 py-1 text-xs font-semibold text-emerald-700 dark:border-emerald-900 dark:bg-emerald-950/50 dark:text-emerald-300",
   review:
-    "rounded-full bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-700 dark:bg-amber-950 dark:text-amber-300",
+    "rounded-full border border-amber-200 bg-amber-50/50 px-2.5 py-1 text-xs font-semibold text-amber-700 dark:border-amber-900 dark:bg-amber-950/50 dark:text-amber-300",
 }
 
 type LogRecord = {
@@ -106,34 +106,43 @@ const LogsPage = () => {
         </span>
       </div>
 
-      <section className="grid gap-4 md:grid-cols-3">
-        <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-950">
-          <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-violet-50 text-violet-600 dark:bg-violet-950 dark:text-violet-300">
-            <ShieldAlert size={18} />
+      <section className="grid gap-6 md:grid-cols-3">
+        <div className="relative overflow-hidden rounded-3xl border border-red-100 bg-linear-to-br from-red-50 to-white p-6 shadow-sm hover:shadow-md transition-all duration-300 dark:border-red-900/50 dark:from-red-950/30 dark:to-slate-950">
+          <div className="absolute top-0 right-0 p-4 opacity-10 text-4xl">🛡️</div>
+          <div className="relative">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-red-100 text-red-600 dark:bg-red-950 dark:text-red-400">
+              <ShieldAlert size={20} />
+            </div>
+            <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Blocked events</p>
+            <p className="mt-2 text-4xl font-bold text-slate-950 dark:text-white">{counts.blocked}</p>
           </div>
-          <p className="mt-4 text-sm font-medium text-slate-500 dark:text-slate-400">Blocked events</p>
-          <p className="mt-2 text-3xl font-bold text-slate-950 dark:text-white">{counts.blocked}</p>
         </div>
 
-        <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-950">
-          <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-300">
-            <ListChecks size={18} />
+        <div className="relative overflow-hidden rounded-3xl border border-emerald-100 bg-linear-to-br from-emerald-50 to-white p-6 shadow-sm hover:shadow-md transition-all duration-300 dark:border-emerald-900/50 dark:from-emerald-950/30 dark:to-slate-950">
+          <div className="absolute top-0 right-0 p-4 opacity-10 text-4xl">✓</div>
+          <div className="relative">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400">
+              <ListChecks size={20} />
+            </div>
+            <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Clean requests</p>
+            <p className="mt-2 text-4xl font-bold text-slate-950 dark:text-white">{counts.clean}</p>
           </div>
-          <p className="mt-4 text-sm font-medium text-slate-500 dark:text-slate-400">Clean requests</p>
-          <p className="mt-2 text-3xl font-bold text-slate-950 dark:text-white">{counts.clean}</p>
         </div>
 
-        <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-950">
-          <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-300">
-            <Clock size={18} />
+        <div className="relative overflow-hidden rounded-3xl border border-violet-100 bg-linear-to-br from-violet-50 to-white p-6 shadow-sm hover:shadow-md transition-all duration-300 dark:border-violet-900/50 dark:from-violet-950/30 dark:to-slate-950">
+          <div className="absolute top-0 right-0 p-4 opacity-10 text-4xl">📊</div>
+          <div className="relative">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-100 text-violet-600 dark:bg-violet-950 dark:text-violet-400">
+              <Clock size={20} />
+            </div>
+            <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Total events</p>
+            <p className="mt-2 text-4xl font-bold text-slate-950 dark:text-white">{counts.total}</p>
           </div>
-          <p className="mt-4 text-sm font-medium text-slate-500 dark:text-slate-400">Total events</p>
-          <p className="mt-2 text-3xl font-bold text-slate-950 dark:text-white">{counts.total}</p>
         </div>
       </section>
 
-      <section className="rounded-3xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-950">
-        <div className="flex flex-col gap-4 border-b border-slate-200 p-6 dark:border-slate-800 lg:flex-row lg:items-center lg:justify-between">
+      <section className="rounded-3xl border border-slate-200/50 bg-linear-to-br from-white to-slate-50/50 shadow-sm dark:border-slate-800 dark:from-slate-950 dark:to-slate-950/50">
+        <div className="flex flex-col gap-4 border-b border-slate-200/50 p-6 dark:border-slate-800 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <h2 className="text-lg font-semibold text-slate-950 dark:text-white">Event history</h2>
             <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Recent log activity from the interceptor.</p>
@@ -173,17 +182,17 @@ const LogsPage = () => {
         ) : null}
 
         <div className="p-3">
-          <div className="divide-y divide-slate-200 overflow-hidden rounded-2xl border border-slate-200 dark:divide-slate-800 dark:border-slate-800">
+          <div className="divide-y divide-slate-100/50 overflow-hidden rounded-2xl border border-slate-200/50 dark:divide-slate-800/50 dark:border-slate-800">
             {loading ? (
               <div className="p-6 text-sm text-slate-500 dark:text-slate-400">Loading logs…</div>
             ) : logs.length === 0 ? (
               <div className="p-6 text-sm text-slate-500 dark:text-slate-400">No logs yet. Generate traffic through the interceptor to populate this view.</div>
             ) : (
               logs.map((log) => (
-                <div key={log.id} className="border-b border-slate-200 last:border-none dark:border-slate-800">
+                <div key={log.id} className="border-b border-slate-100/50 last:border-none dark:border-slate-800/50">
                   <button
                     onClick={() => toggleExpanded(log.id)}
-                    className="flex w-full items-center justify-between gap-4 bg-white p-4 text-left dark:bg-slate-950"
+                    className="flex w-full items-center justify-between gap-4 bg-white p-4 text-left transition-colors hover:bg-slate-50/50 dark:bg-slate-950 dark:hover:bg-slate-900/30"
                   >
                     <div>
                       <div className="flex flex-wrap items-center gap-2">
@@ -203,12 +212,12 @@ const LogsPage = () => {
                     </div>
                   </button>
                   {expandedLog === log.id ? (
-                    <div className="bg-slate-50 px-4 py-4 text-sm text-slate-700 dark:bg-slate-900 dark:text-slate-300">
-                      <div className="mb-3 rounded-2xl bg-white p-4 dark:bg-slate-950">
+                    <div className="bg-slate-50/50 px-4 py-4 text-sm text-slate-700 dark:bg-slate-900/50 dark:text-slate-300">
+                      <div className="mb-3 rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-950">
                         <p className="font-semibold text-slate-900 dark:text-white">Input</p>
                         <pre className="whitespace-pre-wrap wrap-break-word text-sm text-slate-600 dark:text-slate-300">{log.input}</pre>
                       </div>
-                      <div className="rounded-2xl bg-white p-4 dark:bg-slate-950">
+                      <div className="rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-950">
                         <p className="font-semibold text-slate-900 dark:text-white">Output</p>
                         <pre className="whitespace-pre-wrap wrap-break-word text-sm text-slate-600 dark:text-slate-300">{log.output}</pre>
                       </div>

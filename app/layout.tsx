@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
-import ThemeProvider from "@/components/ThemeProvider";
 
 export const metadata: Metadata = {
   title: "AgentShield",
@@ -58,11 +57,10 @@ export default function RootLayout({
     <html
       lang="en"
       className="h-full antialiased font-sans"
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-white text-black dark:bg-gray-950 dark:text-white transition-colors duration-300">
-        <ThemeProvider>
+      <body className="min-h-full flex flex-col bg-white text-black dark:bg-gray-950 dark:text-white" suppressHydrationWarning>
         {children}
-        </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

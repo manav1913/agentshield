@@ -168,85 +168,87 @@ const RulesPage = () => {
         </span>
       </div>
 
-      <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950">
-        <div className="grid gap-4 lg:grid-cols-[1fr_220px]">
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="space-y-2">
-              <label
-                htmlFor="rule-name"
-                className="text-sm font-semibold text-slate-800 dark:text-slate-100"
-              >
-                Rule name
-              </label>
+      <section className="relative overflow-hidden rounded-3xl border border-violet-100 bg-linear-to-br from-violet-50 to-white p-6 shadow-sm hover:shadow-md transition-all duration-300 dark:border-violet-900/50 dark:from-violet-950/30 dark:to-slate-950">
+        <div className="relative">
+          <div className="grid gap-4 lg:grid-cols-[1fr_220px]">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="space-y-2">
+                <label
+                  htmlFor="rule-name"
+                  className="text-sm font-semibold text-slate-800 dark:text-slate-100"
+                >
+                  Rule name
+                </label>
 
-              <input
-                id="rule-name"
-                value={name}
-                onChange={(event) => setName(event.target.value)}
-                placeholder="e.g. Block internal terms"
-                className="h-12 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-100 dark:border-slate-800 dark:bg-slate-900 dark:text-white dark:focus:border-violet-400 dark:focus:bg-slate-950 dark:focus:ring-violet-950"
-              />
+                <input
+                  id="rule-name"
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
+                  placeholder="e.g. Block internal terms"
+                  className="h-12 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-100 dark:border-slate-800 dark:bg-slate-900 dark:text-white dark:focus:border-violet-400 dark:focus:bg-slate-950 dark:focus:ring-violet-950"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label
+                  htmlFor="rule-type"
+                  className="text-sm font-semibold text-slate-800 dark:text-slate-100"
+                >
+                  Rule type
+                </label>
+
+                <select
+                  id="rule-type"
+                  value={type}
+                  onChange={(event) => setType(event.target.value)}
+                  className="h-12 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-950 outline-none transition focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-100 dark:border-slate-800 dark:bg-slate-900 dark:text-white dark:focus:border-violet-400 dark:focus:bg-slate-950 dark:focus:ring-violet-950"
+                >
+                  {ruleOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
 
-            <div className="space-y-2">
-              <label
-                htmlFor="rule-type"
-                className="text-sm font-semibold text-slate-800 dark:text-slate-100"
-              >
-                Rule type
-              </label>
-
-              <select
-                id="rule-type"
-                value={type}
-                onChange={(event) => setType(event.target.value)}
-                className="h-12 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-950 outline-none transition focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-100 dark:border-slate-800 dark:bg-slate-900 dark:text-white dark:focus:border-violet-400 dark:focus:bg-slate-950 dark:focus:ring-violet-950"
-              >
-                {ruleOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <Button
+              onClick={createRule}
+              disabled={loading}
+              className="h-12 self-end rounded-2xl bg-violet-600 px-5 font-semibold shadow-lg shadow-violet-500/20 hover:bg-violet-700"
+            >
+              <Plus size={16} />
+              Add rule
+            </Button>
           </div>
 
-          <Button
-            onClick={createRule}
-            disabled={loading}
-            className="h-12 self-end rounded-2xl bg-violet-600 px-5 font-semibold shadow-lg shadow-violet-500/20 hover:bg-violet-700"
-          >
-            <Plus size={16} />
-            Add rule
-          </Button>
+          <div className="mt-4 space-y-2">
+            <label
+              htmlFor="rule-value"
+              className="text-sm font-semibold text-slate-800 dark:text-slate-100"
+            >
+              Rule value
+            </label>
+
+            <input
+              id="rule-value"
+              value={value}
+              onChange={(event) => setValue(event.target.value)}
+              placeholder={selectedRule?.placeholder}
+              className="h-12 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-100 dark:border-slate-800 dark:bg-slate-900 dark:text-white dark:focus:border-violet-400 dark:focus:bg-slate-950 dark:focus:ring-violet-950"
+            />
+          </div>
+
+          {error ? (
+            <p className="mt-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700 dark:border-red-900 dark:bg-red-950/50 dark:text-red-300">
+              {error}
+            </p>
+          ) : null}
         </div>
-
-        <div className="mt-4 space-y-2">
-          <label
-            htmlFor="rule-value"
-            className="text-sm font-semibold text-slate-800 dark:text-slate-100"
-          >
-            Rule value
-          </label>
-
-          <input
-            id="rule-value"
-            value={value}
-            onChange={(event) => setValue(event.target.value)}
-            placeholder={selectedRule?.placeholder}
-            className="h-12 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-100 dark:border-slate-800 dark:bg-slate-900 dark:text-white dark:focus:border-violet-400 dark:focus:bg-slate-950 dark:focus:ring-violet-950"
-          />
-        </div>
-
-        {error ? (
-          <p className="mt-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700 dark:border-red-900 dark:bg-red-950/50 dark:text-red-300">
-            {error}
-          </p>
-        ) : null}
       </section>
 
-      <section className="rounded-3xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-950">
-        <div className="flex flex-col justify-between gap-3 border-b border-slate-200 p-6 dark:border-slate-800 sm:flex-row sm:items-center">
+      <section className="rounded-3xl border border-slate-200/50 bg-linear-to-br from-white to-slate-50/50 shadow-sm dark:border-slate-800 dark:from-slate-950 dark:to-slate-950/50">
+        <div className="flex flex-col justify-between gap-3 border-b border-slate-200/50 p-6 dark:border-slate-800 sm:flex-row sm:items-center">
           <div>
             <h2 className="text-lg font-semibold text-slate-950 dark:text-white">
               Active rules
@@ -273,11 +275,11 @@ const RulesPage = () => {
               </p>
             </div>
           ) : (
-            <div className="divide-y divide-slate-200 overflow-hidden rounded-2xl border border-slate-200 dark:divide-slate-800 dark:border-slate-800">
+            <div className="divide-y divide-slate-100/50 overflow-hidden rounded-2xl border border-slate-200/50 dark:divide-slate-800/50 dark:border-slate-800">
               {rules.map((rule) => (
                 <div
                   key={rule.id}
-                  className="flex flex-col gap-4 bg-white p-4 transition-colors hover:bg-slate-50 dark:bg-slate-950 dark:hover:bg-slate-900 sm:flex-row sm:items-center sm:justify-between"
+                  className="flex flex-col gap-4 bg-white p-4 transition-colors hover:bg-slate-50/50 dark:bg-slate-950 dark:hover:bg-slate-900/30 sm:flex-row sm:items-center sm:justify-between"
                 >
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2">
@@ -288,8 +290,8 @@ const RulesPage = () => {
                       <span
                         className={
                           rule.enabled
-                            ? "rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300"
-                            : "rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-500 dark:bg-slate-800 dark:text-slate-300"
+                            ? "rounded-full border border-emerald-200 bg-emerald-50/50 px-2.5 py-1 text-xs font-semibold text-emerald-700 dark:border-emerald-900 dark:bg-emerald-950/50 dark:text-emerald-300"
+                            : "rounded-full border border-slate-200 bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-500 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-300"
                         }
                       >
                         {rule.enabled ? "Enabled" : "Disabled"}
