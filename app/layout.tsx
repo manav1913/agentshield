@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
     images: [
       {
-        url: "/opengraph-image.png",
+        url: "/api/og",
         width: 1200,
         height: 630,
         alt: "AgentShield Preview",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     title: "AgentShield",
     description:
       "AI agent protection with real-time guardrails, logs, and policy enforcement.",
-    images: ["/opengraph-image.png"],
+    images: ["/api/og"],
   },
 
   icons: {
