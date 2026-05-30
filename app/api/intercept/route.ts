@@ -35,27 +35,7 @@ export async function POST(req: NextRequest) {
     const customKeywords = await getEnabledUserKeywords(key.userId)
     const allKeywords = [...BLOCKED_KEYWORDS, ...customKeywords]
 
-    // Scan input
-    const inputScan = scanText(input, allKeywords)
-    if (inputScan.blocked) {
-      await prisma.log.create({
-        data: {
-          userId: key.userId,
-          input,
-          output: "",
-          status: "blocked",
-          violationType: inputScan.type,
-          ruleTriggered: inputScan.reason,
-        }
-      })
-      return NextResponse.json({
-        blocked: true,
-        reason: inputScan.reason,
-        safe: false
-      }, { headers: corsHeaders })
-    }
-
-    // Scan output
+    // Only scan output (not input) to avoid false positives
     const outputScan = scanText(output, allKeywords)
     if (outputScan.blocked) {
       await prisma.log.create({
