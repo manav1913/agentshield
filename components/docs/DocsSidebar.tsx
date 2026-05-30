@@ -42,11 +42,11 @@ const DocsSidebar = () => {
   const pathname = usePathname()
 
   return (
-    <aside className="fixed inset-y-0 left-0 hidden w-72 border-r border-slate-200 bg-white dark:border-slate-800 dark:bg-gray-950 lg:flex flex-col pt-16">
+    <aside className="fixed inset-y-0 left-0 hidden w-72 border-r border-white/10 bg-black lg:flex flex-col pt-16">
       <nav className="flex-1 overflow-y-auto px-4 py-6">
         {sections.map((section) => (
           <div key={section.title} className="mb-8">
-            <h3 className="mb-3 px-2 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            <h3 className="mb-3 px-2 text-xs font-semibold uppercase tracking-wider text-gray-400">
               {section.title}
             </h3>
             <div className="space-y-1">
@@ -60,8 +60,8 @@ const DocsSidebar = () => {
                     href={item.href}
                     className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                       active
-                        ? "bg-violet-50 text-violet-700 dark:bg-violet-950 dark:text-violet-400"
-                        : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-900"
+                        ? "bg-white/10 text-white"
+                        : "text-gray-400 hover:bg-white/5 hover:text-white"
                     }`}
                   >
                     <Icon size={16} />

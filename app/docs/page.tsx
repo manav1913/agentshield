@@ -75,23 +75,23 @@ const DocsPage = () => {
   return (
     <div>
       <div className="mb-8">
-        <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-700 dark:border-emerald-900 dark:bg-emerald-950 dark:text-emerald-300">
+        <div className="inline-flex items-center gap-2 rounded-full border border-emerald-900 bg-emerald-950/50 px-4 py-2 text-sm font-semibold text-emerald-300">
           <ClipboardCheck size={16} />
           Quickstart in under 5 minutes
         </div>
 
-        <h1 className="mt-6 text-4xl font-bold tracking-tight">
+        <h1 className="mt-6 text-4xl font-bold tracking-tight text-white">
           Protect one AI response, then decide if AgentShield belongs in your stack.
         </h1>
 
-        <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-500 dark:text-slate-400">
+        <p className="mt-4 max-w-2xl text-lg leading-8 text-gray-400">
           This guide takes you from signup to your first audit log. You will create an API key, add one guardrail, send a clean request, and send a blocked request so you can see the product working.
         </p>
 
         <div className="mt-6 flex flex-wrap gap-3">
           <Link
             href="/signup"
-            className="inline-flex h-11 items-center gap-2 rounded-xl bg-violet-600 px-5 text-sm font-semibold text-white shadow-lg shadow-violet-500/20 hover:bg-violet-700"
+            className="inline-flex h-11 items-center gap-2 rounded-xl bg-white px-5 text-sm font-semibold text-black shadow-lg shadow-white/20 hover:bg-gray-200"
           >
             Start free
             <ArrowRight size={16} />
@@ -99,7 +99,7 @@ const DocsPage = () => {
 
           <Link
             href="/contact"
-            className="inline-flex h-11 items-center rounded-xl border border-slate-200 px-5 text-sm font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-800 dark:text-slate-200 dark:hover:bg-slate-900"
+            className="inline-flex h-11 items-center rounded-xl border border-white/10 bg-white/5 px-5 text-sm font-semibold text-white hover:bg-white/10"
           >
             Ask a setup question
           </Link>
@@ -110,18 +110,17 @@ const DocsPage = () => {
         {setupSteps.map(({ Icon, ...step }) => (
           <div
             key={step.title}
-            className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950"
-          >
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-50 text-violet-600 dark:bg-violet-950 dark:text-violet-300">
+            className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-sm">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-gray-400">
               <Icon size={22} />
             </div>
-            <h2 className="mt-5 text-xl font-semibold">{step.title}</h2>
-            <p className="mt-3 text-sm leading-7 text-slate-500 dark:text-slate-400">
+            <h2 className="mt-5 text-xl font-semibold text-white">{step.title}</h2>
+            <p className="mt-3 text-sm leading-7 text-gray-400">
               {step.body}
             </p>
             <Link
               href={step.href}
-              className="mt-5 inline-flex h-10 items-center rounded-xl bg-violet-600 px-4 text-sm font-semibold text-white hover:bg-violet-700"
+              className="mt-5 inline-flex h-10 items-center rounded-xl bg-white px-4 text-sm font-semibold text-black hover:bg-gray-200"
             >
               {step.cta}
             </Link>
@@ -129,45 +128,45 @@ const DocsPage = () => {
         ))}
       </div>
 
-      <section className="mt-12 rounded-3xl border border-slate-200 bg-slate-950 p-6 text-white shadow-sm">
+      <section className="mt-12 rounded-3xl border border-white/10 bg-black p-6 text-white shadow-sm">
         <div className="flex items-center gap-3">
           <h2 className="text-xl font-semibold">Quick Start with SDK</h2>
-          <span className="ml-auto text-xs text-slate-400">Install: <code className="bg-slate-800 px-2 py-1 rounded">npm install agentshield-ai-sdk</code></span>
+          <span className="ml-auto text-xs text-gray-400">Install: <code className="bg-white/10 px-2 py-1 rounded">npm install agentshield-ai-sdk</code></span>
         </div>
-        <p className="mt-2 text-sm leading-6 text-slate-400">
+        <p className="mt-2 text-sm leading-6 text-gray-400">
           One-line integration with TypeScript support.
         </p>
-        <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900 p-4 text-xs leading-6 text-slate-200">
+        <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-white/10 bg-black p-4 text-xs leading-6 text-gray-200">
           <code>{sdkExample}</code>
         </pre>
       </section>
 
       <div className="mt-8 grid gap-6 lg:grid-cols-2">
-        <section className="rounded-3xl border border-slate-200 bg-slate-950 p-6 text-white shadow-sm">
+        <section className="rounded-3xl border border-white/10 bg-black p-6 text-white shadow-sm">
           <h2 className="text-xl font-semibold">Clean request example</h2>
-          <p className="mt-2 text-sm leading-6 text-slate-400">
+          <p className="mt-2 text-sm leading-6 text-gray-400">
             Use this first to confirm authentication and logging work.
           </p>
-          <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900 p-4 text-xs leading-6 text-slate-200">
+          <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-white/10 bg-black p-4 text-xs leading-6 text-gray-200">
             <code>{cleanRequest}</code>
           </pre>
         </section>
 
-        <section className="rounded-3xl border border-slate-200 bg-slate-950 p-6 text-white shadow-sm">
+        <section className="rounded-3xl border border-white/10 bg-black p-6 text-white shadow-sm">
           <h2 className="text-xl font-semibold">Blocked request example</h2>
-          <p className="mt-2 text-sm leading-6 text-slate-400">
+          <p className="mt-2 text-sm leading-6 text-gray-400">
             Use this after adding a rule such as `password` or `secret`.
           </p>
-          <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900 p-4 text-xs leading-6 text-slate-200">
+          <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-white/10 bg-black p-4 text-xs leading-6 text-gray-200">
             <code>{blockedRequest}</code>
           </pre>
         </section>
       </div>
 
-      <section className="mt-12 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950">
+      <section className="mt-12 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-sm">
         <div className="flex items-center gap-3">
-          <ListChecks className="h-6 w-6 text-violet-600" />
-          <h2 className="text-2xl font-bold tracking-tight">
+          <ListChecks className="h-6 w-6 text-gray-400" />
+          <h2 className="text-2xl font-bold tracking-tight text-white">
             Understanding the response
           </h2>
         </div>
@@ -176,7 +175,7 @@ const DocsPage = () => {
           {responseFields.map((field) => (
             <div
               key={field}
-              className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm leading-6 text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300"
+              className="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm leading-6 text-gray-300"
             >
               {field}
             </div>
