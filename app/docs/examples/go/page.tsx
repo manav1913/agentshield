@@ -132,34 +132,34 @@ func main() {
 const GoPage = () => {
   return (
     <div>
-      <h1 className="text-3xl font-bold tracking-tight">Go (Direct API)</h1>
-      <p className="mt-4 text-lg text-slate-600 dark:text-slate-400">
+      <h1 className="text-3xl font-bold tracking-tight text-white">Go (Direct API)</h1>
+      <p className="mt-4 text-lg text-gray-400">
         Use AgentShield with Go by making direct HTTP requests to our REST API.
       </p>
 
       <section className="mt-8">
-        <h2 className="text-2xl font-semibold">Basic Usage</h2>
-        <p className="mt-2 text-slate-600 dark:text-slate-400">
-          Use Go's <code className="bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">net/http</code> package to call the API:
+        <h2 className="text-2xl font-semibold text-white">Basic Usage</h2>
+        <p className="mt-2 text-gray-400">
+          Use Go's <code className="bg-white/10 px-2 py-1 rounded">net/http</code> package to call the API:
         </p>
-        <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-slate-200 bg-slate-950 p-4 text-sm text-slate-200">
+        <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-white/10 bg-black p-4 text-sm text-gray-200">
           <code>{goExample}</code>
         </pre>
       </section>
 
       <section className="mt-8">
-        <h2 className="text-2xl font-semibold">HTTP Server Integration</h2>
-        <p className="mt-2 text-slate-600 dark:text-slate-400">
+        <h2 className="text-2xl font-semibold text-white">HTTP Server Integration</h2>
+        <p className="mt-2 text-gray-400">
           Integrate with Go's net/http for automatic scanning:
         </p>
-        <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-slate-200 bg-slate-950 p-4 text-sm text-slate-200">
+        <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-white/10 bg-black p-4 text-sm text-gray-200">
           <code>{goHTTP}</code>
         </pre>
       </section>
 
-      <section className="mt-8 rounded-2xl border border-violet-200 bg-violet-50 p-6 dark:border-violet-900 dark:bg-violet-950/30">
-        <h3 className="font-semibold text-violet-900 dark:text-violet-100">No SDK Required</h3>
-        <p className="mt-2 text-sm text-violet-800 dark:text-violet-200">
+      <section className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6">
+        <h3 className="font-semibold text-white">No SDK Required</h3>
+        <p className="mt-2 text-sm text-gray-300">
           The AgentShield API is a standard REST endpoint. You can use it from any language that can make HTTP requests. No SDK is required.
         </p>
       </section>

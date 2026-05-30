@@ -31,79 +31,79 @@ const errorResponse = `{
 const ApiPage = () => {
   return (
     <div>
-      <h1 className="text-3xl font-bold tracking-tight">API Reference</h1>
-      <p className="mt-4 text-lg text-slate-600 dark:text-slate-400">
+      <h1 className="text-3xl font-bold tracking-tight text-white">API Reference</h1>
+      <p className="mt-4 text-lg text-gray-400">
         Complete reference for the AgentShield REST API.
       </p>
 
       <section className="mt-8">
-        <h2 className="text-2xl font-semibold">Intercept Endpoint</h2>
-        <p className="mt-2 text-slate-600 dark:text-slate-400">
+        <h2 className="text-2xl font-semibold text-white">Intercept Endpoint</h2>
+        <p className="mt-2 text-gray-400">
           Scan AI output for safety violations before returning it to users.
         </p>
         
-        <div className="mt-4 rounded-2xl border border-slate-200 bg-slate-950 p-4">
+        <div className="mt-4 rounded-2xl border border-white/10 bg-black p-4">
           <code className="text-emerald-400">{endpointInfo}</code>
         </div>
       </section>
 
       <section className="mt-8">
-        <h2 className="text-2xl font-semibold">Headers</h2>
-        <p className="mt-2 text-slate-600 dark:text-slate-400">
+        <h2 className="text-2xl font-semibold text-white">Headers</h2>
+        <p className="mt-2 text-gray-400">
           Required headers for authentication and content type:
         </p>
-        <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-slate-200 bg-slate-950 p-4 text-sm text-slate-200">
+        <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-white/10 bg-black p-4 text-sm text-gray-200">
           <code>{headers}</code>
         </pre>
       </section>
 
       <section className="mt-8">
-        <h2 className="text-2xl font-semibold">Request Body</h2>
-        <p className="mt-2 text-slate-600 dark:text-slate-400">
+        <h2 className="text-2xl font-semibold text-white">Request Body</h2>
+        <p className="mt-2 text-gray-400">
           JSON payload with the user input and AI output:
         </p>
-        <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-slate-200 bg-slate-950 p-4 text-sm text-slate-200">
+        <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-white/10 bg-black p-4 text-sm text-gray-200">
           <code>{requestBody}</code>
         </pre>
       </section>
 
       <section className="mt-8">
-        <h2 className="text-2xl font-semibold">Response Format</h2>
-        <p className="mt-2 text-slate-600 dark:text-slate-400">
+        <h2 className="text-2xl font-semibold text-white">Response Format</h2>
+        <p className="mt-2 text-gray-400">
           The API returns a JSON object with the following fields:
         </p>
         
         <div className="mt-4 space-y-4">
           <div>
-            <h3 className="font-semibold">Success Response (Clean)</h3>
-            <pre className="custom-scrollbar mt-2 overflow-x-auto rounded-2xl border border-slate-200 bg-slate-950 p-4 text-sm text-slate-200">
+            <h3 className="font-semibold text-white">Success Response (Clean)</h3>
+            <pre className="custom-scrollbar mt-2 overflow-x-auto rounded-2xl border border-white/10 bg-black p-4 text-sm text-gray-200">
               <code>{successResponse}</code>
             </pre>
           </div>
 
           <div>
-            <h3 className="font-semibold">Blocked Response</h3>
-            <pre className="custom-scrollbar mt-2 overflow-x-auto rounded-2xl border border-slate-200 bg-slate-950 p-4 text-sm text-slate-200">
+            <h3 className="font-semibold text-white">Blocked Response</h3>
+            <pre className="custom-scrollbar mt-2 overflow-x-auto rounded-2xl border border-white/10 bg-black p-4 text-sm text-gray-200">
               <code>{blockedResponse}</code>
             </pre>
           </div>
 
           <div>
-            <h3 className="font-semibold">Error Response</h3>
-            <pre className="custom-scrollbar mt-2 overflow-x-auto rounded-2xl border border-slate-200 bg-slate-950 p-4 text-sm text-slate-200">
+            <h3 className="font-semibold text-white">Error Response</h3>
+            <pre className="custom-scrollbar mt-2 overflow-x-auto rounded-2xl border border-white/10 bg-black p-4 text-sm text-gray-200">
               <code>{errorResponse}</code>
             </pre>
           </div>
         </div>
       </section>
 
-      <section className="mt-8 rounded-2xl border border-violet-200 bg-violet-50 p-6 dark:border-violet-900 dark:bg-violet-950/30">
-        <h3 className="font-semibold text-violet-900 dark:text-violet-100">Response Fields</h3>
-        <ul className="mt-2 space-y-2 text-sm text-violet-800 dark:text-violet-200">
-          <li><code className="bg-violet-100 dark:bg-violet-900 px-2 py-1 rounded">blocked</code>: Boolean indicating if the response was blocked</li>
-          <li><code className="bg-violet-100 dark:bg-violet-900 px-2 py-1 rounded">safe</code>: Boolean indicating if it's safe to proceed</li>
-          <li><code className="bg-violet-100 dark:bg-violet-900 px-2 py-1 rounded">reason</code>: String explaining why it was blocked (null if clean)</li>
-          <li><code className="bg-violet-100 dark:bg-violet-900 px-2 py-1 rounded">output</code>: The original AI response (null if blocked)</li>
+      <section className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6">
+        <h3 className="font-semibold text-white">Response Fields</h3>
+        <ul className="mt-2 space-y-2 text-sm text-gray-300">
+          <li><code className="bg-white/10 px-2 py-1 rounded">blocked</code>: Boolean indicating if the response was blocked</li>
+          <li><code className="bg-white/10 px-2 py-1 rounded">safe</code>: Boolean indicating if it's safe to proceed</li>
+          <li><code className="bg-white/10 px-2 py-1 rounded">reason</code>: String explaining why it was blocked (null if clean)</li>
+          <li><code className="bg-white/10 px-2 py-1 rounded">output</code>: The original AI response (null if blocked)</li>
         </ul>
       </section>
     </div>
