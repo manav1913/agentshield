@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Moon, ShieldCheck, Sun } from "lucide-react"
+import { Moon, Sun } from "lucide-react"
 import { useEffect, useState } from "react"
 
 const Navbar = () => {
@@ -36,9 +36,7 @@ const Navbar = () => {
           href="/"
           className="group flex items-center gap-3 transition-all duration-300"
         >
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-600 text-white shadow-md transition-transform duration-300 group-hover:scale-105">
-            <ShieldCheck className="h-5 w-5" />
-          </div>
+          <img src="/icon.png" alt="AgentShield" className="h-9 w-9 transition-transform duration-300 group-hover:scale-105" />
 
           <span className="text-lg font-bold tracking-tight text-gray-900 transition-colors duration-300 group-hover:text-violet-600 dark:text-white dark:group-hover:text-violet-400">
             AgentShield

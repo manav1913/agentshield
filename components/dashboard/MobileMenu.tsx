@@ -9,9 +9,7 @@ import {
   KeyRound,
   LayoutDashboard,
   LogOut,
-  Shield,
   SlidersHorizontal,
-  User,
 } from "lucide-react"
 
 const navItems = [
@@ -40,9 +38,7 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
       <div className="fixed inset-y-0 left-0 w-72 overflow-y-auto bg-white dark:bg-gray-950 shadow-xl">
         <div className="flex h-20 items-center justify-between border-b border-gray-200 dark:border-gray-800 px-6">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-600 text-white shadow-lg shadow-violet-500/25">
-              <Shield size={20} />
-            </div>
+            <img src="/icon.png" alt="AgentShield" className="h-10 w-10" />
             <div>
               <Link href="/" className="text-lg font-bold leading-none text-gray-900 dark:text-white">
                 AgentShield
