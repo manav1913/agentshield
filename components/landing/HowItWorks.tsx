@@ -13,23 +13,16 @@ const steps = [
     desc: "Prompt sent to your AI agent",
   },
   {
-    id: "input-scan",
-    Icon: ShieldCheck,
-    title: "AgentShield",
-    desc: "Scans input against your rules",
-    accent: true,
-  },
-  {
     id: "llm",
     Icon: Bot,
     title: "LLM",
-    desc: "Only clean prompts reach your model",
+    desc: "Your AI model processes the request",
   },
   {
     id: "output-scan",
     Icon: ShieldCheck,
     title: "AgentShield",
-    desc: "Scans output before it reaches users",
+    desc: "Scans output against your rules",
     accent: true,
   },
   {
