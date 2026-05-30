@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#000000"/>
+  
+  <!-- Logo -->
+  <g transform="translate(60, 60)">
+    <rect width="80" height="80" rx="16" fill="#ffffff"/>
+    <path d="M40 12L20 24V40C20 52 40 68 40 68C40 68 60 52 60 40V24L40 12Z" fill="#000000"/>
+    <path d="M32 36L38 42L48 32" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  
+  <!-- Brand Name -->
+  <text x="160" y="115" font-family="system-ui, -apple-system, sans-serif" font-size="48" font-weight="bold" fill="#ffffff">AgentShield</text>
+  
+  <!-- Main Title -->
+  <text x="60" y="280" font-family="system-ui, -apple-system, sans-serif" font-size="64" font-weight="bold" fill="#ffffff">
+    AI Agent Protection
+  </text>
+  <text x="60" y="360" font-family="system-ui, -apple-system, sans-serif" font-size="64" font-weight="bold" fill="#ffffff">
+    with Real-time Guardrails
+  </text>
+  
+  <!-- Description -->
+  <text x="60" y="430" font-family="system-ui, -apple-system, sans-serif" font-size="24" fill="#9ca3af">
+    Protect your AI agents with real-time guardrails,
+  </text>
+  <text x="60" y="465" font-family="system-ui, -apple-system, sans-serif" font-size="24" fill="#9ca3af">
+    comprehensive audit logs, and flexible policy enforcement.
+  </text>
+  
+  <!-- CTA Button -->
+  <rect x="60" y="510" width="200" height="60" rx="12" fill="#ffffff"/>
+  <text x="160" y="550" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="600" fill="#000000" text-anchor="middle">
+    Get Started Free
+  </text>
+  
+  <!-- URL -->
+  <text x="1160" y="600" font-family="system-ui, -apple-system, sans-serif" font-size="18" fill="#6b7280" text-anchor="end">
+    agentshield-one.vercel.app
+  </text>
+</svg>
