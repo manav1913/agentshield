@@ -22,23 +22,23 @@ const terms = [
 
 const TermsPage = () => {
   return (
-    <main className="min-h-screen bg-white text-slate-950 dark:bg-gray-950 dark:text-white">
-      <nav className="border-b border-slate-200 px-6 py-4 dark:border-slate-800">
+    <main className="min-h-screen bg-black text-white">
+      <nav className="border-b border-white/10 px-6 py-4">
         <div className="mx-auto flex max-w-5xl items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <img src="/icon.png" alt="AgentShield" className="h-8 w-8" />
-            <span className="font-bold text-slate-950 dark:text-white">AgentShield</span>
+            <img src="/icon.svg" alt="AgentShield" className="h-8 w-8" />
+            <span className="font-bold text-white">AgentShield</span>
           </Link>
           <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="text-sm font-medium text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+              className="text-sm font-medium text-gray-400 hover:text-white"
             >
               Back to Home
             </Link>
             <Link
               href="/signup"
-              className="inline-flex h-9 items-center rounded-lg bg-violet-600 px-4 text-sm font-semibold text-white hover:bg-violet-700"
+              className="inline-flex h-9 items-center rounded-lg bg-white px-4 text-sm font-semibold text-black hover:bg-gray-200"
             >
               Sign Up
             </Link>
@@ -49,22 +49,22 @@ const TermsPage = () => {
       <section className="px-6 py-16">
         <div className="mx-auto max-w-5xl">
           <div className="mt-8 max-w-3xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-4 py-2 text-sm font-semibold text-violet-700 dark:border-violet-900 dark:bg-violet-950 dark:text-violet-300">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white">
               <FileText size={16} />
               Plain-English terms
             </div>
 
-            <h1 className="mt-6 text-5xl font-bold leading-tight tracking-tight">
+            <h1 className="mt-6 text-5xl font-bold leading-tight tracking-tight text-white">
               Use AgentShield to reduce AI risk, not to ignore it.
             </h1>
 
-            <p className="mt-6 text-lg leading-8 text-slate-500 dark:text-slate-400">
+            <p className="mt-6 text-lg leading-8 text-gray-400">
               These terms explain the practical expectations for using
               AgentShield during early access. They are written to be readable
               because trust should not hide behind dense legal copy.
             </p>
 
-            <p className="mt-4 text-sm text-slate-400">
+            <p className="mt-4 text-sm text-gray-500">
               Last updated: May 28, 2026
             </p>
           </div>
@@ -77,44 +77,44 @@ const TermsPage = () => {
             {terms.map((term) => (
               <div
                 key={term.title}
-                className="relative overflow-hidden rounded-3xl border border-violet-100 bg-linear-to-br from-violet-50 to-white p-6 shadow-sm hover:shadow-md transition-all duration-300 dark:border-violet-900/50 dark:from-violet-950/30 dark:to-slate-950"
+                className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 shadow-sm hover:shadow-md transition-all duration-300"
               >
-                <CheckCircle2 className="h-6 w-6 text-emerald-500" />
-                <h2 className="mt-4 text-xl font-semibold">{term.title}</h2>
-                <p className="mt-3 text-sm leading-7 text-slate-500 dark:text-slate-400">
+                <CheckCircle2 className="h-6 w-6 text-emerald-400" />
+                <h2 className="mt-4 text-xl font-semibold text-white">{term.title}</h2>
+                <p className="mt-3 text-sm leading-7 text-gray-400">
                   {term.body}
                 </p>
               </div>
             ))}
           </div>
 
-          <section className="mt-10 rounded-3xl border border-red-200 bg-red-50 p-6 dark:border-red-900 dark:bg-red-950/30">
+          <section className="mt-10 rounded-3xl border border-red-900 bg-red-950/30 p-6">
             <div className="flex items-center gap-3">
-              <AlertTriangle className="h-6 w-6 text-red-600 dark:text-red-300" />
-              <h2 className="text-xl font-semibold text-red-900 dark:text-red-100">
+              <AlertTriangle className="h-6 w-6 text-red-300" />
+              <h2 className="text-xl font-semibold text-red-100">
                 Do not use AgentShield as the only approval system for dangerous actions
               </h2>
             </div>
-            <p className="mt-3 text-sm leading-7 text-red-800 dark:text-red-200">
+            <p className="mt-3 text-sm leading-7 text-red-200">
               For refunds, account deletion, medical, legal, financial, or other
               high-impact decisions, keep a human approval step and your own
               application-level controls.
             </p>
           </section>
 
-          <section className="mt-10 flex flex-col gap-4 rounded-3xl border border-violet-200 bg-linear-to-br from-violet-50 to-white p-6 sm:flex-row sm:items-center sm:justify-between dark:border-violet-900/50 dark:from-violet-950/30 dark:to-slate-950">
+          <section className="mt-10 flex flex-col gap-4 rounded-3xl border border-white/10 bg-white/5 p-6 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <div className="flex items-center gap-2">
-                <LifeBuoy className="h-5 w-5 text-violet-600 dark:text-violet-400" />
-                <h2 className="text-xl font-semibold text-slate-950 dark:text-white">Questions before production?</h2>
+                <LifeBuoy className="h-5 w-5 text-gray-400" />
+                <h2 className="text-xl font-semibold text-white">Questions before production?</h2>
               </div>
-              <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
+              <p className="mt-2 text-sm leading-6 text-gray-400">
                 We can help you think through a safe rollout path.
               </p>
             </div>
             <Link
               href="/contact"
-              className="inline-flex h-11 items-center justify-center rounded-xl bg-violet-600 px-5 text-sm font-semibold text-white shadow-lg shadow-violet-500/20 hover:bg-violet-700 hover:shadow-violet-500/40 transition-all"
+              className="inline-flex h-11 items-center justify-center rounded-xl bg-white px-5 text-sm font-semibold text-black shadow-lg shadow-white/20 hover:bg-gray-200 hover:shadow-white/40 transition-all"
             >
               Contact us
             </Link>

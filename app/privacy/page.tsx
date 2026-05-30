@@ -29,23 +29,23 @@ const dataRows = [
 
 const PrivacyPage = () => {
   return (
-    <main className="min-h-screen bg-white text-slate-950 dark:bg-gray-950 dark:text-white">
-      <nav className="border-b border-slate-200 px-6 py-4 dark:border-slate-800">
+    <main className="min-h-screen bg-black text-white">
+      <nav className="border-b border-white/10 px-6 py-4">
         <div className="mx-auto flex max-w-5xl items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <img src="/icon.png" alt="AgentShield" className="h-8 w-8" />
-            <span className="font-bold text-slate-950 dark:text-white">AgentShield</span>
+            <img src="/icon.svg" alt="AgentShield" className="h-8 w-8" />
+            <span className="font-bold text-white">AgentShield</span>
           </Link>
           <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="text-sm font-medium text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+              className="text-sm font-medium text-gray-400 hover:text-white"
             >
               Back to Home
             </Link>
             <Link
               href="/signup"
-              className="inline-flex h-9 items-center rounded-lg bg-violet-600 px-4 text-sm font-semibold text-white hover:bg-violet-700"
+              className="inline-flex h-9 items-center rounded-lg bg-white px-4 text-sm font-semibold text-black hover:bg-gray-200"
             >
               Sign Up
             </Link>
@@ -56,22 +56,22 @@ const PrivacyPage = () => {
       <section className="px-6 py-16">
         <div className="mx-auto max-w-5xl">
           <div className="mt-8 max-w-3xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-4 py-2 text-sm font-semibold text-violet-700 dark:border-violet-900 dark:bg-violet-950 dark:text-violet-300">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white">
               <LockKeyhole size={16} />
               Privacy-first product notes
             </div>
 
-            <h1 className="mt-6 text-5xl font-bold leading-tight tracking-tight">
+            <h1 className="mt-6 text-5xl font-bold leading-tight tracking-tight text-white">
               Privacy should be clear before a user connects an AI agent.
             </h1>
 
-            <p className="mt-6 text-lg leading-8 text-slate-500 dark:text-slate-400">
+            <p className="mt-6 text-lg leading-8 text-gray-400">
               AgentShield exists to help teams inspect risky AI behavior. This
               page explains what the app needs to store, why it stores it, and
               what users should avoid sending.
             </p>
 
-            <p className="mt-4 text-sm text-slate-400">
+            <p className="mt-4 text-sm text-gray-500">
               Last updated: May 28, 2026
             </p>
           </div>
@@ -84,34 +84,34 @@ const PrivacyPage = () => {
             {principles.map(({ Icon, title, body }) => (
               <div
                 key={title}
-                className="relative overflow-hidden rounded-3xl border border-violet-100 bg-linear-to-br from-violet-50 to-white p-6 shadow-sm hover:shadow-md transition-all duration-300 dark:border-violet-900/50 dark:from-violet-950/30 dark:to-slate-950"
+                className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 shadow-sm hover:shadow-md transition-all duration-300"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-100 text-violet-600 dark:bg-violet-900 dark:text-violet-300">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-gray-400">
                   <Icon size={22} />
                 </div>
-                <h2 className="mt-5 text-lg font-semibold">{title}</h2>
-                <p className="mt-3 text-sm leading-7 text-slate-500 dark:text-slate-400">
+                <h2 className="mt-5 text-lg font-semibold text-white">{title}</h2>
+                <p className="mt-3 text-sm leading-7 text-gray-400">
                   {body}
                 </p>
               </div>
             ))}
           </div>
 
-          <section className="mt-12 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950">
-            <h2 className="text-2xl font-bold tracking-tight">
+          <section className="mt-12 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-sm">
+            <h2 className="text-2xl font-bold tracking-tight text-white">
               What AgentShield stores
             </h2>
 
-            <div className="mt-6 divide-y divide-slate-200 overflow-hidden rounded-2xl border border-slate-200 dark:divide-slate-800 dark:border-slate-800">
+            <div className="mt-6 divide-y divide-white/10 overflow-hidden rounded-2xl border border-white/10">
               {dataRows.map(([label, body]) => (
                 <div
                   key={label}
-                  className="grid gap-2 bg-slate-50 p-4 transition-colors hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 sm:grid-cols-[180px_1fr]"
+                  className="grid gap-2 bg-white/5 p-4 transition-colors hover:bg-white/10 sm:grid-cols-[180px_1fr]"
                 >
-                  <p className="font-semibold text-slate-950 dark:text-white">
+                  <p className="font-semibold text-white">
                     {label}
                   </p>
-                  <p className="text-sm leading-6 text-slate-500 dark:text-slate-400">
+                  <p className="text-sm leading-6 text-gray-400">
                     {body}
                   </p>
                 </div>
@@ -119,30 +119,30 @@ const PrivacyPage = () => {
             </div>
           </section>
 
-          <section className="mt-8 rounded-3xl border border-amber-200 bg-amber-50 p-6 dark:border-amber-900 dark:bg-amber-950/30">
-            <h2 className="text-xl font-semibold text-amber-900 dark:text-amber-100">
+          <section className="mt-8 rounded-3xl border border-amber-900 bg-amber-950/30 p-6">
+            <h2 className="text-xl font-semibold text-amber-100">
               Avoid sending secrets in test prompts
             </h2>
-            <p className="mt-2 text-sm leading-7 text-amber-800 dark:text-amber-200">
+            <p className="mt-2 text-sm leading-7 text-amber-200">
               Use realistic examples, but do not paste live credentials, private
               customer records, or production secrets while testing. If you need
               help with a sensitive setup, contact us first.
             </p>
           </section>
 
-          <section className="mt-8 flex flex-col gap-4 rounded-3xl border border-violet-200 bg-linear-to-br from-violet-50 to-white p-6 sm:flex-row sm:items-center sm:justify-between dark:border-violet-900/50 dark:from-violet-950/30 dark:to-slate-950">
+          <section className="mt-8 flex flex-col gap-4 rounded-3xl border border-white/10 bg-white/5 p-6 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <div className="flex items-center gap-2">
-                <Mail className="h-5 w-5 text-violet-600 dark:text-violet-400" />
-                <h2 className="text-xl font-semibold text-slate-950 dark:text-white">Privacy questions?</h2>
+                <Mail className="h-5 w-5 text-gray-400" />
+                <h2 className="text-xl font-semibold text-white">Privacy questions?</h2>
               </div>
-              <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
+              <p className="mt-2 text-sm leading-6 text-gray-400">
                 Ask before connecting a production agent or sensitive workflow.
               </p>
             </div>
             <a
               href={`mailto:${siteConfig.contactEmail}`}
-              className="inline-flex h-11 items-center justify-center rounded-xl bg-violet-600 px-5 text-sm font-semibold text-white shadow-lg shadow-violet-500/20 hover:bg-violet-700 hover:shadow-violet-500/40 transition-all"
+              className="inline-flex h-11 items-center justify-center rounded-xl bg-white px-5 text-sm font-semibold text-black shadow-lg shadow-white/20 hover:bg-gray-200 hover:shadow-white/40 transition-all"
             >
               {siteConfig.contactEmail}
             </a>
