@@ -46,44 +46,44 @@ app.post("/chat", async (req, res) => {
 const JavaScriptPage = () => {
   return (
     <div>
-      <h1 className="text-3xl font-bold tracking-tight">JavaScript / TypeScript SDK</h1>
-      <p className="mt-4 text-lg text-slate-600 dark:text-slate-400">
+      <h1 className="text-3xl font-bold tracking-tight text-white">JavaScript / TypeScript SDK</h1>
+      <p className="mt-4 text-lg text-gray-400">
         Official SDK for Node.js, browser, and edge environments with full TypeScript support.
       </p>
 
       <section className="mt-8">
-        <h2 className="text-2xl font-semibold">Installation</h2>
-        <p className="mt-2 text-slate-600 dark:text-slate-400">
+        <h2 className="text-2xl font-semibold text-white">Installation</h2>
+        <p className="mt-2 text-gray-400">
           Install the package using npm or yarn:
         </p>
-        <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-slate-200 bg-slate-950 p-4 text-sm text-slate-200">
+        <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-white/10 bg-black p-4 text-sm text-gray-200">
           <code>{jsInstall}</code>
         </pre>
       </section>
 
       <section className="mt-8">
-        <h2 className="text-2xl font-semibold">Basic Usage</h2>
-        <p className="mt-2 text-slate-600 dark:text-slate-400">
+        <h2 className="text-2xl font-semibold text-white">Basic Usage</h2>
+        <p className="mt-2 text-gray-400">
           Scan AI output before returning it to users:
         </p>
-        <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-slate-200 bg-slate-950 p-4 text-sm text-slate-200">
+        <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-white/10 bg-black p-4 text-sm text-gray-200">
           <code>{jsUsage}</code>
         </pre>
       </section>
 
       <section className="mt-8">
-        <h2 className="text-2xl font-semibold">Express Middleware</h2>
-        <p className="mt-2 text-slate-600 dark:text-slate-400">
+        <h2 className="text-2xl font-semibold text-white">Express Middleware</h2>
+        <p className="mt-2 text-gray-400">
           Integrate with Express middleware for automatic scanning:
         </p>
-        <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-slate-200 bg-slate-950 p-4 text-sm text-slate-200">
+        <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-white/10 bg-black p-4 text-sm text-gray-200">
           <code>{jsMiddleware}</code>
         </pre>
       </section>
 
-      <section className="mt-8 rounded-2xl border border-violet-200 bg-violet-50 p-6 dark:border-violet-900 dark:bg-violet-950/30">
-        <h3 className="font-semibold text-violet-900 dark:text-violet-100">Next.js Integration</h3>
-        <p className="mt-2 text-sm text-violet-800 dark:text-violet-200">
+      <section className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6">
+        <h3 className="font-semibold text-white">Next.js Integration</h3>
+        <p className="mt-2 text-sm text-gray-300">
           Works seamlessly with Next.js API routes, Server Actions, and edge functions. The SDK is tree-shakeable and has zero dependencies.
         </p>
       </section>
