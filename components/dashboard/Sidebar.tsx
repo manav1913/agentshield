@@ -22,14 +22,14 @@ const Sidebar = () => {
   const pathname = usePathname()
 
   return (
-    <aside className="fixed inset-y-0 left-0 hidden w-72 border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 lg:flex flex-col">
-      <div className="flex h-20 items-center gap-3 border-b border-gray-200 dark:border-gray-800 px-6">
-        <img src="/icon.png" alt="AgentShield" className="h-10 w-10" />
+    <aside className="fixed inset-y-0 left-0 hidden w-72 border-r border-white/10 bg-black lg:flex flex-col">
+      <div className="flex h-20 items-center gap-3 border-b border-white/10 px-6">
+        <img src="/icon.svg" alt="AgentShield" className="h-10 w-10" />
         <div>
-          <Link href="/" className="text-lg font-bold leading-none text-gray-900 dark:text-white">
+          <Link href="/" className="text-lg font-bold leading-none text-white">
             AgentShield
           </Link>
-          <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">Control center</p>
+          <p className="mt-1 text-xs text-gray-400">Control center</p>
         </div>
       </div>
 
@@ -44,8 +44,8 @@ const Sidebar = () => {
               href={item.href}
               className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors ${
                 active
-                  ? "bg-violet-50 dark:bg-violet-950 text-violet-700 dark:text-violet-400"
-                  : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 hover:text-gray-900 dark:hover:text-white"
+                  ? "bg-white/10 text-white"
+                  : "text-gray-400 hover:bg-white/5 hover:text-white"
               }`}
             >
               <Icon size={18} />
@@ -55,17 +55,17 @@ const Sidebar = () => {
         })}
       </nav>
 
-      <div className="border-t border-gray-200 dark:border-gray-800 p-4 space-y-1">
+      <div className="border-t border-white/10 p-4 space-y-1">
         <Link
           href="/docs"
-          className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 hover:text-gray-900 dark:hover:text-white transition-colors"
+          className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-400 hover:bg-white/5 hover:text-white transition-colors"
         >
           <FileText size={18} />
           Documentation
         </Link>
 
         <SignOutButton>
-          <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-red-50 dark:hover:bg-red-950/30 hover:text-red-600 dark:hover:text-red-400 transition-colors">
+          <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-400 hover:bg-red-950/30 hover:text-red-400 transition-colors">
             <LogOut size={18} />
             Sign out
           </button>

@@ -17,7 +17,7 @@ const DashboardLayout = async ({
 
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-      <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-white">
+      <div className="min-h-screen bg-black text-white">
         <Sidebar />
 
         <div className="lg:pl-72">
