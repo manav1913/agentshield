@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   },
 
   icons: {
-    icon: "/icon.png",
+    icon: "/icon.svg",
   },
 };
 
@@ -59,7 +59,7 @@ export default function RootLayout({
       className="h-full antialiased font-sans"
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-white text-black dark:bg-gray-950 dark:text-white" suppressHydrationWarning>
+      <body className="min-h-full flex flex-col bg-black text-white" suppressHydrationWarning>
         {children}
         </body>
       </html>

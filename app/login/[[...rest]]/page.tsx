@@ -5,28 +5,28 @@ import { SignIn } from "@clerk/nextjs"
 
 const LoginPage = () => {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-white text-slate-950">
-      <div className="pointer-events-none absolute left-1/2 top-20 h-130 w-190 -translate-x-1/2 rounded-full bg-violet-200/50 blur-[120px]" />
+    <main className="relative min-h-screen overflow-hidden bg-black text-white">
+      <div className="pointer-events-none absolute left-1/2 top-20 h-130 w-190 -translate-x-1/2 rounded-full bg-white/5 blur-[120px]" />
 
       <header className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-6 lg:px-8">
         <Link href="/" className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-600 text-white shadow-lg shadow-violet-500/25">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-black shadow-lg shadow-white/25">
             🛡
           </div>
-          <span className="text-lg font-bold tracking-tight">AgentShield</span>
+          <span className="text-lg font-bold tracking-tight text-white">AgentShield</span>
         </Link>
 
         <div className="flex items-center gap-3">
           <Link
             href="/"
-            className="hidden h-11 items-center rounded-xl border border-slate-200 bg-white px-5 text-sm font-semibold shadow-sm hover:bg-slate-50 sm:flex"
+            className="hidden h-11 items-center rounded-xl border border-white/10 bg-white/5 px-5 text-sm font-semibold shadow-sm hover:bg-white/10 sm:flex text-white"
           >
             Home
           </Link>
 
           <Link
             href="/signup"
-            className="flex h-11 items-center rounded-xl bg-violet-600 px-5 text-sm font-semibold text-white shadow-lg shadow-violet-500/25 hover:bg-violet-700"
+            className="flex h-11 items-center rounded-xl bg-white px-5 text-sm font-semibold text-black shadow-lg shadow-white/25 hover:bg-gray-200"
           >
             Sign up
           </Link>
@@ -35,23 +35,23 @@ const LoginPage = () => {
 
       <section className="relative z-10 mx-auto grid min-h-[calc(100vh-96px)] w-full max-w-7xl items-center gap-12 px-6 pb-16 pt-8 lg:grid-cols-[1fr_560px] lg:px-8">
         <div className="max-w-2xl">
-          <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-violet-200 bg-white/80 px-4 py-2 text-sm font-semibold text-violet-700 shadow-sm">
-            <span className="h-2 w-2 rounded-full bg-violet-500" />
+          <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white shadow-sm">
+            <span className="h-2 w-2 rounded-full bg-white" />
             Secure access
           </div>
 
           <h1 className="max-w-xl text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
             Welcome back to{" "}
-            <span className="text-violet-600">AgentShield.</span>
+            <span className="text-gray-400">AgentShield.</span>
           </h1>
 
-          <p className="mt-6 max-w-xl text-lg leading-8 text-slate-500 sm:text-xl">
+          <p className="mt-6 max-w-xl text-lg leading-8 text-gray-400 sm:text-xl">
             Sign in to continue protecting your AI agents and managing every
             safeguard from one secure dashboard.
           </p>
         </div>
 
-        <div className="mx-auto flex w-full max-w-140 items-center justify-center rounded-4xl border border-slate-200 bg-white/90 p-6 shadow-2xl shadow-violet-500/10 backdrop-blur-xl sm:p-8">
+        <div className="mx-auto flex w-full max-w-140 items-center justify-center rounded-4xl border border-white/10 bg-white/5 p-6 shadow-2xl shadow-white/10 backdrop-blur-xl sm:p-8">
           <SignIn
             routing="path"
             path="/login"
@@ -59,9 +59,9 @@ const LoginPage = () => {
             fallbackRedirectUrl="/dashboard"
             appearance={{
               variables: {
-                colorPrimary: "#7c3aed",
-                colorText: "#111827",
-                colorTextSecondary: "#64748b",
+                colorPrimary: "#ffffff",
+                colorText: "#ffffff",
+                colorTextSecondary: "#9ca3af",
                 borderRadius: "0.75rem",
               },
               elements: {
@@ -79,16 +79,16 @@ const LoginPage = () => {
 
                 socialButtonsBlock: "w-full",
                 socialButtonsBlockButton:
-                  "h-11 rounded-xl border border-slate-200 hover:bg-slate-50 transition-colors",
+                  "h-11 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition-colors text-white",
 
                 formFieldInput:
-                  "h-11 rounded-xl border border-slate-200 bg-white text-slate-950",
+                  "h-11 rounded-xl border border-white/10 bg-white/5 text-white",
 
                 formButtonPrimary:
-                  "h-11 rounded-xl bg-violet-600 shadow-lg shadow-violet-500/25 transition-all hover:bg-violet-700",
+                  "h-11 rounded-xl bg-white text-black shadow-lg shadow-white/25 transition-all hover:bg-gray-200",
 
-                dividerLine: "bg-slate-200",
-                dividerText: "text-xs text-slate-400",
+                dividerLine: "bg-white/10",
+                dividerText: "text-xs text-gray-400",
               },
             }}
           />
