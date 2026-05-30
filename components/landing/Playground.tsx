@@ -258,22 +258,22 @@ console.log(response);
   }
 
   return (
-    <section id="playground" className="relative px-6 py-20 border-t border-gray-100 dark:border-gray-900 bg-linear-to-b from-gray-50/30 to-transparent dark:from-gray-950/20">
-      <div className="pointer-events-none absolute right-1/4 top-1/2 h-96 w-96 rounded-full bg-fuchsia-500/5 blur-[120px]" />
+    <section id="playground" className="relative px-6 py-20 border-t border-white/10 bg-black">
+      <div className="pointer-events-none absolute right-1/4 top-1/2 h-96 w-96 rounded-full bg-white/5 blur-[120px]" />
       
       <div className="mx-auto max-w-6xl">
         <div className="mb-12 text-center">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-4 py-2 dark:border-violet-900 dark:bg-violet-950/40">
-            <Sparkles className="h-4 w-4 text-violet-600 dark:text-violet-400" />
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-violet-600 dark:text-violet-400">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2">
+            <Sparkles className="h-4 w-4 text-white" />
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white">
               Interactive Demo
             </span>
           </div>
           
-          <h2 className="mb-4 text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl">
+          <h2 className="mb-4 text-4xl font-bold tracking-tight text-white sm:text-5xl">
             Test the guardrails in real-time.
           </h2>
-          <p className="mx-auto max-w-2xl text-lg text-gray-500 dark:text-gray-400">
+          <p className="mx-auto max-w-2xl text-lg text-gray-400">
             Type custom inputs or select a developer threat below to watch the guardrail engine block leaks, sql injections, and hallucinations instantly.
           </p>
         </div>
@@ -286,8 +286,8 @@ console.log(response);
               onClick={() => handlePresetSelect(index)}
               className={`flex cursor-pointer items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium transition-all duration-300 ${
                 activePreset === index
-                  ? "bg-violet-600 text-white shadow-lg shadow-violet-500/25"
-                  : "border border-gray-200 bg-white hover:border-violet-300 dark:border-gray-800 dark:bg-gray-900 dark:hover:border-violet-800"
+                  ? "bg-white text-black shadow-lg shadow-white/25"
+                  : "border border-white/10 bg-white/5 hover:border-white/20"
               }`}
             >
               <span>{preset.icon}</span>
@@ -302,8 +302,8 @@ console.log(response);
           {/* Input/Output Box (Left) */}
           <div className="lg:col-span-6 flex flex-col gap-4">
             {/* Input Box */}
-            <div className="flex-1 flex flex-col rounded-3xl border border-gray-200 bg-white/70 shadow-xl shadow-gray-100/50 backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/60 dark:shadow-none">
-              <div className="flex items-center gap-2 border-b border-gray-100 dark:border-gray-800 px-6 py-4">
+            <div className="flex-1 flex flex-col rounded-3xl border border-white/10 bg-white/5 shadow-xl shadow-white/10 backdrop-blur-md">
+              <div className="flex items-center gap-2 border-b border-white/10 px-6 py-4">
                 <div className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
                 <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">
                   User Input → AI Agent
@@ -315,9 +315,9 @@ console.log(response);
                   value={input}
                   onChange={(e) => handleInputChange(e.target.value)}
                   placeholder="Type user input here..."
-                  className="w-full flex-1 resize-none bg-transparent font-mono text-sm leading-relaxed text-gray-800 outline-hidden dark:text-gray-200 min-h-40 focus:outline-hidden border-0 p-0 custom-scrollbar"
+                  className="w-full flex-1 resize-none bg-transparent font-mono text-sm leading-relaxed text-white outline-hidden min-h-40 focus:outline-hidden border-0 p-0 custom-scrollbar"
                 />
-                <div className="mt-4 flex items-center justify-between text-xs text-gray-400 border-t border-gray-50 dark:border-gray-800/50 pt-4">
+                <div className="mt-4 flex items-center justify-between text-xs text-gray-400 border-t border-white/10 pt-4">
                   <span>{input.length} characters</span>
                   <span>User input (not scanned)</span>
                 </div>
@@ -325,8 +325,8 @@ console.log(response);
             </div>
 
             {/* Output Box */}
-            <div className="flex-1 flex flex-col rounded-3xl border border-gray-200 bg-white/70 shadow-xl shadow-gray-100/50 backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/60 dark:shadow-none">
-              <div className="flex items-center gap-2 border-b border-gray-100 dark:border-gray-800 px-6 py-4">
+            <div className="flex-1 flex flex-col rounded-3xl border border-white/10 bg-white/5 shadow-xl shadow-white/10 backdrop-blur-md">
+              <div className="flex items-center gap-2 border-b border-white/10 px-6 py-4">
                 <div className={`h-2 w-2 rounded-full ${isGenerating ? 'bg-yellow-500 animate-pulse' : 'bg-emerald-500'}`} />
                 <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">
                   AI Agent → User (Output)
@@ -340,9 +340,9 @@ console.log(response);
                   onChange={(e) => handleOutputChange(e.target.value)}
                   placeholder="AI response will appear here..."
                   disabled={isGenerating}
-                  className="w-full flex-1 resize-none bg-transparent font-mono text-sm leading-relaxed text-gray-800 outline-hidden dark:text-gray-200 min-h-40 focus:outline-hidden border-0 p-0 custom-scrollbar disabled:text-gray-400"
+                  className="w-full flex-1 resize-none bg-transparent font-mono text-sm leading-relaxed text-white outline-hidden min-h-40 focus:outline-hidden border-0 p-0 custom-scrollbar disabled:text-gray-400"
                 />
-                <div className="mt-4 flex items-center justify-between text-xs text-gray-400 border-t border-gray-50 dark:border-gray-800/50 pt-4">
+                <div className="mt-4 flex items-center justify-between text-xs text-gray-400 border-t border-white/10 pt-4">
                   <span>{output.length} characters</span>
                   <span>AI output (scanned for violations)</span>
                 </div>
@@ -351,9 +351,9 @@ console.log(response);
           </div>
 
           {/* Scanner Console (Right) */}
-          <div className="lg:col-span-6 flex flex-col rounded-3xl border border-gray-800 bg-gray-950 text-gray-300 shadow-2xl overflow-hidden min-h-87.5">
+          <div className="lg:col-span-6 flex flex-col rounded-3xl border border-white/10 bg-black text-gray-300 shadow-2xl overflow-hidden min-h-87.5">
             {/* Terminal Top Bar */}
-            <div className="flex items-center justify-between border-b border-gray-800/80 bg-gray-900/40 px-6 py-4">
+            <div className="flex items-center justify-between border-b border-white/10 bg-white/5 px-6 py-4">
               <div className="flex items-center gap-4">
                 <div className="flex gap-1.5">
                   <div className="h-3 w-3 rounded-full bg-red-500/80" />
@@ -362,11 +362,11 @@ console.log(response);
                 </div>
                 
                 {/* Tabs */}
-                <div className="flex items-center gap-2 border-l border-gray-800 pl-4">
+                <div className="flex items-center gap-2 border-l border-white/10 pl-4">
                   <button
                     onClick={() => setActiveTab("diagnostics")}
                     className={`flex cursor-pointer items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-medium transition-colors ${
-                      activeTab === "diagnostics" ? "bg-gray-800 text-white" : "text-gray-500 hover:text-gray-300"
+                      activeTab === "diagnostics" ? "bg-white/10 text-white" : "text-gray-500 hover:text-gray-300"
                     }`}
                   >
                     <Terminal className="h-3 w-3" />
@@ -375,7 +375,7 @@ console.log(response);
                   <button
                     onClick={() => setActiveTab("json")}
                     className={`flex cursor-pointer items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-medium transition-colors ${
-                      activeTab === "json" ? "bg-gray-800 text-white" : "text-gray-500 hover:text-gray-300"
+                      activeTab === "json" ? "bg-white/10 text-white" : "text-gray-500 hover:text-gray-300"
                     }`}
                   >
                     JSON Response
@@ -383,7 +383,7 @@ console.log(response);
                   <button
                     onClick={() => setActiveTab("code")}
                     className={`flex cursor-pointer items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-medium transition-colors ${
-                      activeTab === "code" ? "bg-gray-800 text-white" : "text-gray-500 hover:text-gray-300"
+                      activeTab === "code" ? "bg-white/10 text-white" : "text-gray-500 hover:text-gray-300"
                     }`}
                   >
                     <Code className="h-3 w-3" />
@@ -478,19 +478,19 @@ console.log(response);
                     </p>
                     <ul className="grid grid-cols-2 gap-2 pl-1 font-sans">
                       <li className="flex items-center gap-1.5">
-                        <span className="h-1 w-1 rounded-full bg-violet-500" />
+                        <span className="h-1 w-1 rounded-full bg-gray-500" />
                         Email & Phone Numbers
                       </li>
                       <li className="flex items-center gap-1.5">
-                        <span className="h-1 w-1 rounded-full bg-violet-500" />
+                        <span className="h-1 w-1 rounded-full bg-gray-500" />
                         Credit Cards & SSNs
                       </li>
                       <li className="flex items-center gap-1.5">
-                        <span className="h-1 w-1 rounded-full bg-violet-500" />
+                        <span className="h-1 w-1 rounded-full bg-gray-500" />
                         SQL Command Words
                       </li>
                       <li className="flex items-center gap-1.5">
-                        <span className="h-1 w-1 rounded-full bg-violet-500" />
+                        <span className="h-1 w-1 rounded-full bg-gray-500" />
                         Hallucinations / Promising discounts
                       </li>
                     </ul>

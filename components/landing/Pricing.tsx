@@ -73,27 +73,27 @@ const Pricing = () => {
   return (
     <section
       id="pricing"
-      className="relative overflow-hidden border-t border-gray-100 px-6 py-24 dark:border-gray-900"
+      className="relative overflow-hidden border-t border-white/10 bg-black px-6 py-24"
     >
-      <div className="pointer-events-none absolute left-1/2 top-0 h-75 w-175 -translate-x-1/2 rounded-full bg-violet-500/10 blur-[120px]" />
+      <div className="pointer-events-none absolute left-1/2 top-0 h-75 w-175 -translate-x-1/2 rounded-full bg-white/5 blur-[120px]" />
 
       <div className="relative mx-auto max-w-6xl">
         <div className="mb-4 flex justify-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-4 py-2 dark:border-violet-900 dark:bg-violet-950/40">
-            <div className="h-2 w-2 rounded-full bg-violet-500" />
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-violet-600 dark:text-violet-400">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2">
+            <div className="h-2 w-2 rounded-full bg-white" />
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white">
               Pricing
             </span>
           </div>
         </div>
 
-        <h2 className="mb-5 text-center text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl">
+        <h2 className="mb-5 text-center text-4xl font-bold tracking-tight text-white sm:text-5xl">
           Let users try the value first.
           <br />
-          <span className="text-violet-600">Upgrade when risk grows.</span>
+          <span className="text-gray-400">Upgrade when risk grows.</span>
         </h2>
 
-        <p className="mx-auto mb-16 max-w-2xl text-center text-lg leading-relaxed text-gray-500 dark:text-gray-400">
+        <p className="mx-auto mb-16 max-w-2xl text-center text-lg leading-relaxed text-gray-400">
           Start with a free safety scan, see the risky events in your dashboard,
           and only pay when your AI agent needs production-grade controls.
         </p>
@@ -104,8 +104,8 @@ const Pricing = () => {
               key={plan.name}
               className={`group relative overflow-hidden rounded-3xl border p-8 transition-all duration-500 hover:-translate-y-2 ${
                 plan.featured
-                  ? "scale-[1.03] border-violet-500 bg-violet-600 shadow-2xl shadow-violet-500/30"
-                  : "border-gray-200 bg-white/80 backdrop-blur hover:border-violet-300 hover:shadow-2xl hover:shadow-violet-200/20 dark:border-gray-800 dark:bg-gray-900/80 dark:hover:border-violet-800 dark:hover:shadow-violet-950/20"
+                  ? "scale-[1.03] border-white/30 bg-white/10 shadow-2xl shadow-white/30"
+                  : "border-white/10 bg-white/5 backdrop-blur hover:border-white/20 hover:shadow-2xl hover:shadow-white/10"
               }`}
             >
               {plan.featured && (
@@ -121,7 +121,7 @@ const Pricing = () => {
               <div className="relative">
                 <p
                   className={`mb-4 text-sm font-semibold ${
-                    plan.featured ? "text-violet-200" : "text-violet-600"
+                    plan.featured ? "text-gray-200" : "text-gray-400"
                   }`}
                 >
                   {plan.name}
@@ -132,7 +132,7 @@ const Pricing = () => {
                     className={`text-5xl font-bold tracking-tight ${
                       plan.featured
                         ? "text-white"
-                        : "text-gray-900 dark:text-white"
+                        : "text-white"
                     }`}
                   >
                     {plan.price}
@@ -141,7 +141,7 @@ const Pricing = () => {
                   {plan.price !== "Custom" && (
                     <span
                       className={`ml-1 text-sm ${
-                        plan.featured ? "text-violet-200" : "text-gray-400"
+                        plan.featured ? "text-gray-200" : "text-gray-400"
                       }`}
                     >
                       /month
@@ -152,8 +152,8 @@ const Pricing = () => {
                 <p
                   className={`mb-8 text-sm leading-7 ${
                     plan.featured
-                      ? "text-violet-100"
-                      : "text-gray-500 dark:text-gray-400"
+                      ? "text-gray-200"
+                      : "text-gray-400"
                   }`}
                 >
                   {plan.desc}
@@ -161,7 +161,7 @@ const Pricing = () => {
 
                 <div
                   className={`mb-8 h-px w-full ${
-                    plan.featured ? "bg-violet-500" : "bg-gray-200 dark:bg-gray-800"
+                    plan.featured ? "bg-white" : "bg-white/20"
                   }`}
                 />
 
@@ -171,13 +171,13 @@ const Pricing = () => {
                       key={f}
                       className={`flex items-start gap-3 text-sm ${
                         plan.featured
-                          ? "text-violet-100"
-                          : "text-gray-600 dark:text-gray-300"
+                          ? "text-gray-100"
+                          : "text-gray-300"
                       }`}
                     >
                       <CheckCircle2
                         className={`mt-0.5 h-4 w-4 shrink-0 ${
-                          plan.featured ? "text-white" : "text-violet-600"
+                          plan.featured ? "text-white" : "text-gray-400"
                         }`}
                       />
                       {f}
@@ -189,8 +189,8 @@ const Pricing = () => {
                   onClick={(e) => handlePlanClick(plan, e)}
                   className={`flex w-full cursor-pointer items-center justify-center rounded-2xl py-3 text-sm font-semibold transition-all duration-300 ${
                     plan.featured
-                      ? "bg-white text-violet-600 hover:bg-violet-50"
-                      : "border border-gray-200 text-gray-900 hover:border-violet-300 hover:bg-violet-50 dark:border-gray-700 dark:text-white dark:hover:border-violet-700 dark:hover:bg-violet-950/30"
+                      ? "bg-white text-black hover:bg-gray-200"
+                      : "border border-white/20 text-white hover:border-white/30 hover:bg-white/10"
                   }`}
                 >
                   {plan.cta}
@@ -208,20 +208,20 @@ const Pricing = () => {
           onClick={() => setSelectedPlan(null)}
         >
           <div
-            className="relative w-full max-w-md scale-100 overflow-hidden rounded-3xl border border-gray-100 bg-white p-8 shadow-2xl transition-all duration-300 dark:border-gray-800 dark:bg-gray-900 animate-in fade-in-0 zoom-in-95"
+            className="relative w-full max-w-md scale-100 overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl transition-all duration-300 animate-in fade-in-0 zoom-in-95"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close button */}
             <button
               onClick={() => setSelectedPlan(null)}
-              className="absolute right-6 top-6 rounded-full p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-800 dark:hover:text-gray-200 transition-colors"
+              className="absolute right-6 top-6 rounded-full p-1 text-gray-400 hover:bg-white/10 hover:text-white transition-colors"
               aria-label="Close modal"
             >
               <X className="h-5 w-5" />
             </button>
 
             {/* Icon decoration */}
-            <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-100 text-violet-600 dark:bg-violet-950/50 dark:text-violet-400">
+            <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-gray-400">
               {selectedPlan.name === "Free" ? (
                 <Sparkles className="h-6 w-6" />
               ) : selectedPlan.name === "Pro" ? (
@@ -232,7 +232,7 @@ const Pricing = () => {
             </div>
 
             {/* Content */}
-            <h3 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            <h3 className="mb-2 text-2xl font-bold tracking-tight text-white">
               {selectedPlan.name === "Free"
                 ? "Start Protecting for Free"
                 : selectedPlan.name === "Pro"
@@ -240,7 +240,7 @@ const Pricing = () => {
                 : "Enterprise Pilot Access"}
             </h3>
 
-            <div className="mb-8 text-sm leading-relaxed text-gray-500 dark:text-gray-400 space-y-4">
+            <div className="mb-8 text-sm leading-relaxed text-gray-400 space-y-4">
               {selectedPlan.name === "Free" && (
                 <p>
                   AgentShield is currently in <strong>early preview</strong>! Our Free tier is fully functional, letting you test out guardrails, proxy calls, and review intercepted logs. 
@@ -256,10 +256,10 @@ const Pricing = () => {
               {selectedPlan.name === "Enterprise" && (
                 <p>
                   We are setting up pilot programs for custom integrations and compliance controls. 
-                  In the meantime, you can explore the platform immediately with our free preview dashboard or contact us at <a href={`mailto:${siteConfig.contactEmail}`} className="font-semibold text-violet-600 hover:underline dark:text-violet-400">{siteConfig.contactEmail}</a> for custom requirements.
+                  In the meantime, you can explore the platform immediately with our free preview dashboard or contact us at <a href={`mailto:${siteConfig.contactEmail}`} className="font-semibold text-gray-300 hover:underline">{siteConfig.contactEmail}</a> for custom requirements.
                 </p>
               )}
-              <p className="text-xs text-gray-400 dark:text-gray-500 italic">
+              <p className="text-xs text-gray-500 italic">
                 We&apos;d love to hear your feedback on the platform as we prepare for our general release.
               </p>
             </div>
@@ -269,14 +269,14 @@ const Pricing = () => {
               <Link
                 href="/signup"
                 onClick={() => setSelectedPlan(null)}
-                className="flex w-full items-center justify-center gap-2 rounded-2xl bg-violet-600 py-3.5 text-sm font-semibold text-white hover:bg-violet-700 hover:shadow-lg hover:shadow-violet-500/20 active:scale-[0.98] transition-all duration-200"
+className="flex w-full items-center justify-center gap-2 rounded-2xl bg-white py-3.5 text-sm font-semibold text-black hover:bg-gray-200 hover:shadow-lg hover:shadow-white/20 active:scale-[0.98] transition-all duration-200"
               >
                 <span>Get Started with Preview</span>
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <button
                 onClick={() => setSelectedPlan(null)}
-                className="w-full rounded-2xl border border-gray-200 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors"
+                className="w-full rounded-2xl border border-white/10 bg-white/5 py-3 text-sm font-medium text-gray-300 hover:bg-white/10 transition-colors"
               >
                 Maybe Later
               </button>
