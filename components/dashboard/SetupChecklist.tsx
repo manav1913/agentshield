@@ -54,28 +54,28 @@ const SetupChecklist = ({ apiKeyCount, ruleCount, logCount }: Props) => {
   const completed = steps.filter((step) => step.complete).length
 
   return (
-    <section className="overflow-hidden rounded-3xl border border-violet-200 bg-white shadow-sm dark:border-violet-900 dark:bg-slate-950">
+    <section className="overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-sm">
       <div className="grid gap-0 lg:grid-cols-[1fr_420px]">
         <div className="p-6 sm:p-8">
           <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
             <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-3 py-1 text-xs font-semibold text-violet-700 dark:border-violet-900 dark:bg-violet-950 dark:text-violet-300">
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-white">
                 <ClipboardList size={14} />
                 First run setup
               </div>
 
-              <h2 className="mt-4 text-2xl font-bold tracking-tight text-slate-950 dark:text-white">
+              <h2 className="mt-4 text-2xl font-bold tracking-tight text-white">
                 Get to your first protected request
               </h2>
 
-              <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500 dark:text-slate-400">
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-gray-400">
                 New users should see value immediately. Complete these steps to
                 prove AgentShield can authenticate traffic, apply a rule, and
                 produce an audit trail.
               </p>
             </div>
 
-            <div className="w-fit rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200">
+            <div className="w-fit rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-white">
               {completed}/3 complete
             </div>
           </div>
@@ -84,14 +84,14 @@ const SetupChecklist = ({ apiKeyCount, ruleCount, logCount }: Props) => {
             {steps.map(({ Icon, ...step }) => (
               <div
                 key={step.title}
-                className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900 sm:flex-row sm:items-center sm:justify-between"
+                className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 sm:flex-row sm:items-center sm:justify-between"
               >
                 <div className="flex items-start gap-4">
                   <div
                     className={
                       step.complete
-                        ? "flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-300"
-                        : "flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-white text-violet-600 dark:bg-slate-950 dark:text-violet-300"
+                        ? "flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-emerald-950/30 text-emerald-400"
+                        : "flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-white/10 text-gray-400"
                     }
                   >
                     {step.complete ? (
@@ -106,13 +106,13 @@ const SetupChecklist = ({ apiKeyCount, ruleCount, logCount }: Props) => {
                       {step.complete ? (
                         <CheckCircle2 className="h-4 w-4 text-emerald-500" />
                       ) : (
-                        <Circle className="h-4 w-4 text-slate-300" />
+                        <Circle className="h-4 w-4 text-gray-600" />
                       )}
-                      <p className="font-semibold text-slate-950 dark:text-white">
+                      <p className="font-semibold text-white">
                         {step.title}
                       </p>
                     </div>
-                    <p className="mt-1 text-sm leading-6 text-slate-500 dark:text-slate-400">
+                    <p className="mt-1 text-sm leading-6 text-gray-400">
                       {step.desc}
                     </p>
                   </div>
@@ -120,7 +120,7 @@ const SetupChecklist = ({ apiKeyCount, ruleCount, logCount }: Props) => {
 
                 <Link
                   href={step.href}
-                  className="inline-flex h-10 shrink-0 items-center justify-center rounded-xl bg-violet-600 px-4 text-sm font-semibold text-white shadow-lg shadow-violet-500/20 transition hover:bg-violet-700"
+                  className="inline-flex h-10 shrink-0 items-center justify-center rounded-xl bg-white px-4 text-sm font-semibold text-black shadow-lg shadow-white/20 transition hover:bg-gray-200"
                 >
                   {step.cta}
                 </Link>
@@ -129,24 +129,24 @@ const SetupChecklist = ({ apiKeyCount, ruleCount, logCount }: Props) => {
           </div>
         </div>
 
-        <div className="border-t border-violet-100 bg-slate-950 p-6 dark:border-violet-900 lg:border-l lg:border-t-0">
+        <div className="border-t border-white/10 bg-black p-6 lg:border-l lg:border-t-0">
           <div className="flex items-center gap-2 text-sm font-semibold text-white">
-            <FileText size={16} className="text-violet-300" />
+            <FileText size={16} className="text-gray-400" />
             Test request
           </div>
 
-          <p className="mt-2 text-sm leading-6 text-slate-400">
+          <p className="mt-2 text-sm leading-6 text-gray-400">
             Replace `YOUR_API_KEY` with the key you generated, then run this in
             your terminal to create the first log.
           </p>
 
-          <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900 p-4 text-xs leading-6 text-slate-200">
+          <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-white/10 bg-black p-4 text-xs leading-6 text-gray-200">
             <code>{sampleRequest}</code>
           </pre>
 
           <Link
             href="/docs"
-            className="mt-4 inline-flex h-10 items-center justify-center rounded-xl border border-slate-700 px-4 text-sm font-semibold text-slate-100 transition hover:bg-slate-900"
+            className="mt-4 inline-flex h-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 px-4 text-sm font-semibold text-white transition hover:bg-white/10"
           >
             Open quickstart docs
           </Link>
