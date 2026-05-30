@@ -128,33 +128,33 @@ const ApiKeysPage = () => {
     <div className="space-y-8">
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
-          <div className="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-3 py-1 text-xs font-semibold text-violet-700 dark:border-violet-900 dark:bg-violet-950 dark:text-violet-300">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-white">
             <KeyRound size={14} />
             API Keys
           </div>
 
-          <h1 className="mt-4 text-3xl font-bold tracking-tight text-slate-950 dark:text-white">
+          <h1 className="mt-4 text-3xl font-bold tracking-tight text-white">
             Manage integration keys
           </h1>
 
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500 dark:text-slate-400">
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-gray-400">
             Generate keys for SDK clients and AI agents. Revoke keys when an
             integration is rotated, compromised, or no longer active.
           </p>
         </div>
 
-        <span className="w-fit rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-500 shadow-sm dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400">
+        <span className="w-fit rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-gray-300 shadow-sm">
           {keys.length} active key{keys.length === 1 ? "" : "s"}
         </span>
       </div>
 
-      <section className="relative overflow-hidden rounded-3xl border border-violet-100 bg-linear-to-br from-violet-50 to-white p-6 shadow-sm hover:shadow-md transition-all duration-300 dark:border-violet-900/50 dark:from-violet-950/30 dark:to-slate-950">
+      <section className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 shadow-sm hover:shadow-md transition-all duration-300">
         <div className="relative">
           <div className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end">
             <div className="space-y-2">
               <label
                 htmlFor="api-key-name"
-                className="text-sm font-semibold text-slate-800 dark:text-slate-100"
+                className="text-sm font-semibold text-white"
               >
                 New key name
               </label>
@@ -164,14 +164,14 @@ const ApiKeysPage = () => {
                 value={name}
                 onChange={(event) => setName(event.target.value)}
                 placeholder="e.g. Production agent"
-                className="h-12 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-100 dark:border-slate-800 dark:bg-slate-900 dark:text-white dark:focus:border-violet-400 dark:focus:bg-slate-950 dark:focus:ring-violet-950"
+                className="h-12 w-full rounded-2xl border border-white/10 bg-white/5 px-4 text-sm text-white outline-none transition placeholder:text-gray-500 focus:border-white/20 focus:bg-white/10 focus:ring-4 focus:ring-white/10"
               />
             </div>
 
             <Button
               onClick={createKey}
               disabled={loading}
-              className="h-12 cursor-pointer rounded-2xl bg-violet-600 px-5 font-semibold shadow-lg shadow-violet-500/20 hover:bg-violet-700"
+              className="h-12 cursor-pointer rounded-2xl bg-white px-5 font-semibold shadow-lg shadow-white/20 hover:bg-gray-200 text-black"
             >
               <Plus size={16} />
               Generate key
@@ -179,20 +179,20 @@ const ApiKeysPage = () => {
           </div>
 
           {createdKey ? (
-            <div className="mt-6 rounded-2xl border border-violet-200 bg-violet-50/50 p-4 dark:border-violet-900 dark:bg-violet-950/50">
+            <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-4">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="font-semibold text-slate-950 dark:text-white">
+                  <p className="font-semibold text-white">
                     API key generated
                   </p>
-                  <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+                  <p className="mt-1 text-sm text-gray-400">
                     Copy it now. You will not be able to see this key again.
                   </p>
                 </div>
               </div>
 
               <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <code className="min-w-0 flex-1 overflow-x-auto rounded-2xl border border-violet-100 bg-white px-4 py-3 text-xs font-medium text-slate-900 shadow-sm dark:border-violet-900 dark:bg-slate-950 dark:text-slate-100">
+                <code className="min-w-0 flex-1 overflow-x-auto rounded-2xl border border-white/10 bg-black px-4 py-3 text-xs font-medium text-white shadow-sm">
                   {createdKey}
                 </code>
 
@@ -218,20 +218,20 @@ const ApiKeysPage = () => {
           ) : null}
 
           {error ? (
-            <p className="mt-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700 dark:border-red-900 dark:bg-red-950/50 dark:text-red-300">
+            <p className="mt-6 rounded-2xl border border-red-900 bg-red-950/50 px-4 py-3 text-sm font-medium text-red-300">
               {error}
             </p>
           ) : null}
         </div>
       </section>
 
-      <section className="rounded-3xl border border-slate-200/50 bg-linear-to-br from-white to-slate-50/50 shadow-sm dark:border-slate-800 dark:from-slate-950 dark:to-slate-950/50">
-        <div className="flex flex-col justify-between gap-3 border-b border-slate-200/50 p-6 dark:border-slate-800 sm:flex-row sm:items-center">
+      <section className="rounded-3xl border border-white/10 bg-white/5 shadow-sm">
+        <div className="flex flex-col justify-between gap-3 border-b border-white/10 p-6 sm:flex-row sm:items-center">
           <div>
-            <h2 className="text-lg font-semibold text-slate-950 dark:text-white">
+            <h2 className="text-lg font-semibold text-white">
               Your API keys
             </h2>
-            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+            <p className="mt-1 text-sm text-gray-400">
               Active keys that can authenticate AgentShield requests.
             </p>
           </div>
@@ -239,30 +239,30 @@ const ApiKeysPage = () => {
 
         <div className="p-3">
           {loading && keys.length === 0 ? (
-            <div className="rounded-2xl bg-slate-50 px-4 py-10 text-center text-sm text-slate-500 dark:bg-slate-900 dark:text-slate-400">
+            <div className="rounded-2xl bg-white/5 px-4 py-10 text-center text-sm text-gray-400">
               Loading keys...
             </div>
           ) : keys.length === 0 ? (
-            <div className="rounded-2xl bg-slate-50 px-4 py-10 text-center dark:bg-slate-900">
-              <p className="font-medium text-slate-950 dark:text-white">
+            <div className="rounded-2xl bg-white/5 px-4 py-10 text-center">
+              <p className="font-medium text-white">
                 No API keys yet
               </p>
-              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+              <p className="mt-1 text-sm text-gray-400">
                 Generate your first key to connect an agent or SDK client.
               </p>
             </div>
           ) : (
-            <div className="divide-y divide-slate-100/50 overflow-hidden rounded-2xl border border-slate-200/50 dark:divide-slate-800/50 dark:border-slate-800">
+            <div className="divide-y divide-white/10 overflow-hidden rounded-2xl border border-white/10">
               {keys.map((key) => (
                 <div
                   key={key.id}
-                  className="flex flex-col gap-4 bg-white p-4 transition-colors hover:bg-slate-50/50 dark:bg-slate-950 dark:hover:bg-slate-900/30 sm:flex-row sm:items-center sm:justify-between"
+                  className="flex flex-col gap-4 bg-white/5 p-4 transition-colors hover:bg-white/10 sm:flex-row sm:items-center sm:justify-between"
                 >
                   <div className="min-w-0">
-                    <p className="truncate font-semibold text-slate-950 dark:text-white">
+                    <p className="truncate font-semibold text-white">
                       {key.name}
                     </p>
-                    <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                    <p className="mt-1 text-sm text-gray-400">
                       Created {new Date(key.createdAt).toLocaleString()}
                     </p>
                   </div>
@@ -272,7 +272,7 @@ const ApiKeysPage = () => {
                     size="sm"
                     onClick={() => revokeKey(key.id)}
                     disabled={loading}
-                    className="w-full rounded-xl border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700 dark:border-red-900 dark:text-red-300 dark:hover:bg-red-950 sm:w-auto"
+                    className="w-full rounded-xl border-red-900 text-red-300 hover:bg-red-950 sm:w-auto"
                   >
                     <Trash2 size={14} />
                     Revoke

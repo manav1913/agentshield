@@ -56,13 +56,13 @@ export default async function DashboardPage() {
     <div className="space-y-10">
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-violet-600 mb-2">Overview</p>
+          <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Overview</p>
 
-          <h1 className="text-4xl font-bold tracking-tight text-slate-950 dark:text-white">
+          <h1 className="text-4xl font-bold tracking-tight text-white">
             Dashboard
           </h1>
 
-          <p className="mt-2 text-sm text-slate-500 dark:text-slate-400 max-w-2xl">
+          <p className="mt-2 text-sm text-gray-400 max-w-2xl">
             Monitor your AI agent activity, blocked responses, and clean traffic
             in real time.
           </p>
