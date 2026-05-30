@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
     images: [
       {
-        url: "/opengraph-image.png",
+        url: "https://agentshield-one.vercel.app/opengraph-image.png",
         width: 1200,
         height: 630,
         alt: "AgentShield Preview",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     title: "AgentShield - AI Agent Protection with Real-time Guardrails",
     description:
       "Protect your AI agents with real-time guardrails, comprehensive audit logs, and flexible policy enforcement. Keep your AI safe and compliant.",
-    images: ["/opengraph-image.png"],
+    images: ["https://agentshield-one.vercel.app/opengraph-image.png"],
   },
 
   icons: {
