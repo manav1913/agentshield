@@ -46,21 +46,21 @@ const setupSteps = [
     title: "Create an API key",
     body: "API keys identify your workspace when an agent sends traffic to AgentShield. Create one key per environment so you can rotate access cleanly later.",
     href: "/signup",
-    cta: "Sign up to create key",
+    cta: "Create API key",
   },
   {
     Icon: ShieldCheck,
     title: "Add your first guardrail",
     body: "Start with a phrase your agent must never reveal, such as an internal codename, private policy, secret, or unsupported promise.",
     href: "/signup",
-    cta: "Sign up to add rule",
+    cta: "Add rule",
   },
   {
     Icon: Send,
     title: "Send one test request",
     body: "Call the interceptor with the original user input and the model output. AgentShield records whether the event was clean or blocked.",
     href: "/signup",
-    cta: "Sign up to view logs",
+    cta: "View logs",
   },
 ]
 
