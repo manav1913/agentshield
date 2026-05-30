@@ -47,27 +47,27 @@ const Features = () => {
   return (
     <section
       id="features"
-      className="relative overflow-hidden border-t border-gray-100 bg-gray-50 px-6 py-24 dark:border-gray-900 dark:bg-gray-950"
+      className="relative overflow-hidden border-t border-white/10 bg-black px-6 py-24"
     >
-      <div className="pointer-events-none absolute left-1/2 top-0 h-75 w-175 -translate-x-1/2 rounded-full bg-violet-500/10 blur-[120px]" />
+      <div className="pointer-events-none absolute left-1/2 top-0 h-75 w-175 -translate-x-1/2 rounded-full bg-white/5 blur-[120px]" />
 
       <div className="relative mx-auto max-w-6xl">
         <div className="mb-4 flex justify-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-4 py-2 dark:border-violet-900 dark:bg-violet-950/40">
-            <div className="h-2 w-2 rounded-full bg-violet-500" />
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-violet-600 dark:text-violet-400">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2">
+            <div className="h-2 w-2 rounded-full bg-white" />
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white">
               Features
             </span>
           </div>
         </div>
 
-        <h2 className="mb-5 text-center text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl">
+        <h2 className="mb-5 text-center text-4xl font-bold tracking-tight text-white sm:text-5xl">
           Everything users need to
           <br />
-          <span className="text-violet-600">believe your agent is safe.</span>
+          <span className="text-gray-400">believe your agent is safe.</span>
         </h2>
 
-        <p className="mx-auto mb-16 max-w-2xl text-center text-lg leading-relaxed text-gray-500 dark:text-gray-400">
+        <p className="mx-auto mb-16 max-w-2xl text-center text-lg leading-relaxed text-gray-400">
           Built for developers shipping AI products fast without risking
           security, compliance, or user trust.
         </p>
@@ -78,34 +78,34 @@ const Features = () => {
               key={title}
               className={`group relative overflow-hidden rounded-3xl border p-7 backdrop-blur transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${
                 highlight
-                  ? "border-violet-200 bg-linear-to-br from-violet-50 to-white shadow-violet-200/20 hover:border-violet-400 hover:shadow-violet-300/30 dark:border-violet-900 dark:from-violet-950/50 dark:to-gray-900 dark:hover:border-violet-700 dark:hover:shadow-violet-950/30"
-                  : "border-gray-200 bg-white/80 hover:border-violet-300 hover:shadow-violet-200/20 dark:border-gray-800 dark:bg-gray-900/80 dark:hover:border-violet-800 dark:hover:shadow-violet-950/20"
+                  ? "border-white/20 bg-linear-to-br from-white/10 to-transparent shadow-white/20 hover:border-white/30 hover:shadow-white/30"
+                  : "border-white/10 bg-white/5 hover:border-white/20 hover:shadow-white/10"
               }`}
             >
               {highlight && (
-                <div className="absolute top-0 right-0 h-24 w-24 bg-linear-to-br from-violet-500/10 to-transparent opacity-50" />
+                <div className="absolute top-0 right-0 h-24 w-24 bg-linear-to-br from-white/10 to-transparent opacity-50" />
               )}
 
               <div className="relative">
                 <div className={`mb-5 flex h-14 w-14 items-center justify-center rounded-2xl transition-transform duration-300 group-hover:scale-105 ${
                   highlight
-                    ? "bg-violet-600 text-white shadow-lg shadow-violet-500/30"
-                    : "bg-violet-50 text-violet-600 dark:bg-violet-950 dark:text-violet-400"
+                    ? "bg-white text-black shadow-lg shadow-white/30"
+                    : "bg-white/10 text-white"
                 }`}>
                   <Icon className="h-7 w-7" />
                 </div>
 
-                <h3 className="mb-3 text-lg font-semibold text-gray-900 dark:text-white">
+                <h3 className="mb-3 text-lg font-semibold text-white">
                   {title}
                 </h3>
 
-                <p className="text-sm leading-7 text-gray-500 dark:text-gray-400">
+                <p className="text-sm leading-7 text-gray-400">
                   {desc}
                 </p>
 
                 {highlight && (
-                  <div className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-violet-100 px-3 py-1 text-xs font-semibold text-violet-700 dark:bg-violet-900/50 dark:text-violet-300">
-                    <div className="h-1.5 w-1.5 rounded-full bg-violet-500" />
+                  <div className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white">
+                    <div className="h-1.5 w-1.5 rounded-full bg-white" />
                     Popular
                   </div>
                 )}
