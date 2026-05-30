@@ -3,16 +3,16 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
-  title: "AgentShield",
+  title: "AgentShield - AI Agent Protection with Real-time Guardrails",
   description:
-    "AI agent protection with real-time guardrails, logs, and policy enforcement.",
+    "Protect your AI agents with real-time guardrails, comprehensive audit logs, and flexible policy enforcement. Keep your AI safe and compliant.",
 
   metadataBase: new URL("https://agentshield-one.vercel.app"),
 
   openGraph: {
-    title: "AgentShield",
+    title: "AgentShield - AI Agent Protection with Real-time Guardrails",
     description:
-      "AI agent protection with real-time guardrails, logs, and policy enforcement.",
+      "Protect your AI agents with real-time guardrails, comprehensive audit logs, and flexible policy enforcement. Keep your AI safe and compliant.",
     url: "https://agentshield-one.vercel.app",
     siteName: "AgentShield",
     type: "website",
@@ -30,9 +30,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "AgentShield",
+    title: "AgentShield - AI Agent Protection with Real-time Guardrails",
     description:
-      "AI agent protection with real-time guardrails, logs, and policy enforcement.",
+      "Protect your AI agents with real-time guardrails, comprehensive audit logs, and flexible policy enforcement. Keep your AI safe and compliant.",
     images: ["/opengraph-image.png"],
   },
 
