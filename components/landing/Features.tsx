@@ -12,6 +12,7 @@ const features = [
     Icon: ShieldAlert,
     title: "PII detection",
     desc: "Blocks emails, phone numbers, credit cards, and sensitive personal data before they leak.",
+    highlight: true,
   },
   {
     Icon: Eye,
@@ -22,6 +23,7 @@ const features = [
     Icon: Brain,
     title: "Hallucination guard",
     desc: "Flags fabricated claims, fake discounts, and unverified responses before users see them.",
+    highlight: true,
   },
   {
     Icon: UserCheck,
@@ -37,6 +39,7 @@ const features = [
     Icon: PlugZap,
     title: "Works with any LLM",
     desc: "OpenAI, Anthropic, Gemini, Groq, or Ollama. Integrate once without vendor lock-in.",
+    highlight: true,
   },
 ]
 
@@ -70,15 +73,25 @@ const Features = () => {
         </p>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {features.map(({ Icon, title, desc }) => (
+          {features.map(({ Icon, title, desc, highlight }) => (
             <div
               key={title}
-              className="group relative overflow-hidden rounded-3xl border border-gray-200 bg-white/80 p-7 backdrop-blur transition-all duration-500 hover:-translate-y-2 hover:border-violet-300 hover:shadow-2xl hover:shadow-violet-200/20 dark:border-gray-800 dark:bg-gray-900/80 dark:hover:border-violet-800 dark:hover:shadow-violet-950/20"
+              className={`group relative overflow-hidden rounded-3xl border p-7 backdrop-blur transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${
+                highlight
+                  ? "border-violet-200 bg-linear-to-br from-violet-50 to-white shadow-violet-200/20 hover:border-violet-400 hover:shadow-violet-300/30 dark:border-violet-900 dark:from-violet-950/50 dark:to-gray-900 dark:hover:border-violet-700 dark:hover:shadow-violet-950/30"
+                  : "border-gray-200 bg-white/80 hover:border-violet-300 hover:shadow-violet-200/20 dark:border-gray-800 dark:bg-gray-900/80 dark:hover:border-violet-800 dark:hover:shadow-violet-950/20"
+              }`}
             >
-              <div className="absolute inset-0 bg-linear-to-br from-violet-500/0 via-violet-500/0 to-violet-500/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              {highlight && (
+                <div className="absolute top-0 right-0 h-24 w-24 bg-linear-to-br from-violet-500/10 to-transparent opacity-50" />
+              )}
 
               <div className="relative">
-                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-violet-50 text-violet-600 transition-transform duration-300 group-hover:scale-105 dark:bg-violet-950 dark:text-violet-400">
+                <div className={`mb-5 flex h-14 w-14 items-center justify-center rounded-2xl transition-transform duration-300 group-hover:scale-105 ${
+                  highlight
+                    ? "bg-violet-600 text-white shadow-lg shadow-violet-500/30"
+                    : "bg-violet-50 text-violet-600 dark:bg-violet-950 dark:text-violet-400"
+                }`}>
                   <Icon className="h-7 w-7" />
                 </div>
 
@@ -90,7 +103,12 @@ const Features = () => {
                   {desc}
                 </p>
 
-                <div className="mt-6 h-px w-full bg-linear-to-r from-transparent via-violet-300 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 dark:via-violet-800" />
+                {highlight && (
+                  <div className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-violet-100 px-3 py-1 text-xs font-semibold text-violet-700 dark:bg-violet-900/50 dark:text-violet-300">
+                    <div className="h-1.5 w-1.5 rounded-full bg-violet-500" />
+                    Popular
+                  </div>
+                )}
               </div>
             </div>
           ))}

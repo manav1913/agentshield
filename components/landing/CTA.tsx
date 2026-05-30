@@ -5,6 +5,7 @@ const assurances = [
   "No credit card required",
   "Free tier forever",
   "Security logs included",
+  "Cancel anytime",
 ]
 
 const CTASection = () => {
@@ -30,8 +31,7 @@ const CTASection = () => {
             </h2>
 
             <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-gray-500 dark:text-gray-400">
-              Create your account, run your first safety test, and show your team
-              what AgentShield blocks before the next risky response reaches a user.
+              Create your account, run your first safety test, and see AgentShield in action in under 5 minutes.
             </p>
 
             <Link

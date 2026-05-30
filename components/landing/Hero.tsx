@@ -9,9 +9,10 @@ import {
 } from "lucide-react"
 
 const proofPoints = [
-  "No credit card",
-  "Free safety scan",
-  "Dashboard in minutes",
+  "No credit card required",
+  "Free safety scan included",
+  "Dashboard ready in minutes",
+  "Enterprise-grade security",
 ]
 
 const trustMetrics = [

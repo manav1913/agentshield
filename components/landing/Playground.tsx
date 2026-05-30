@@ -121,7 +121,7 @@ const PRESETS = [
     label: "Safe Interaction",
     icon: "✅",
     input: "How do I configure the AgentShield SDK?",
-    output: "You can install it via npm and add it to your middleware function to scan both input and output.",
+    output: "You can install it via npm and add it to your middleware function to scan AI output in real-time.",
   },
 ]
 
@@ -130,8 +130,7 @@ const Playground = () => {
   const [output, setOutput] = useState(PRESETS[0].output)
   const [activePreset, setActivePreset] = useState<number | null>(0)
   const [scanResult, setScanResult] = useState<ScanResult>(() => {
-    const inputScan = scanTextLocal(PRESETS[0].input, 'input')
-    if (inputScan.blocked) return inputScan
+    // Only scan output (matches actual API behavior)
     return scanTextLocal(PRESETS[0].output, 'output')
   })
   const [activeTab, setActiveTab] = useState<"diagnostics" | "json" | "code">("diagnostics")
@@ -139,14 +138,9 @@ const Playground = () => {
   const [isGenerating, setIsGenerating] = useState(false)
 
   useEffect(() => {
-    // Scan input first, if clean then scan output
-    const inputScan = scanTextLocal(input, 'input')
-    if (inputScan.blocked) {
-      setScanResult(inputScan)
-    } else {
-      const outputScan = scanTextLocal(output, 'output')
-      setScanResult(outputScan)
-    }
+    // Only scan output (matches actual API behavior)
+    const outputScan = scanTextLocal(output, 'output')
+    setScanResult(outputScan)
   }, [input, output])
 
   const handlePresetSelect = (index: number) => {
@@ -175,7 +169,7 @@ const Playground = () => {
       return "I'd be happy to help! Please let me know what you need assistance with."
     }
     if (lowerInput.includes('configure') || lowerInput.includes('setup') || lowerInput.includes('install')) {
-      return "You can install the AgentShield SDK via npm and add it to your middleware function to scan both input and output in real-time."
+      return "You can install the AgentShield SDK via npm and add it to your middleware function to scan AI output in real-time."
     }
     
     // Default generic response
@@ -185,15 +179,14 @@ const Playground = () => {
   const handleInputChange = (val: string) => {
     setActivePreset(null)
     setInput(val)
-    
+
     // Clear output when user types new input
     if (activePreset !== null) {
       setOutput('')
     }
-    
-    // Simulate AI response after input is clean
-    const inputScan = scanTextLocal(val, 'input')
-    if (!inputScan.blocked && val.trim()) {
+
+    // Simulate AI response for any input
+    if (val.trim()) {
       setIsGenerating(true)
       // Simulate network delay
       setTimeout(() => {
@@ -326,7 +319,7 @@ console.log(response);
                 />
                 <div className="mt-4 flex items-center justify-between text-xs text-gray-400 border-t border-gray-50 dark:border-gray-800/50 pt-4">
                   <span>{input.length} characters</span>
-                  <span>Input scanned first</span>
+                  <span>User input (not scanned)</span>
                 </div>
               </div>
             </div>
@@ -351,7 +344,7 @@ console.log(response);
                 />
                 <div className="mt-4 flex items-center justify-between text-xs text-gray-400 border-t border-gray-50 dark:border-gray-800/50 pt-4">
                   <span>{output.length} characters</span>
-                  <span>Output scanned if input is clean</span>
+                  <span>AI output (scanned for violations)</span>
                 </div>
               </div>
             </div>
