@@ -23,26 +23,26 @@ const trustMetrics = [
 
 const Hero = () => {
   return (
-    <section className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 overflow-hidden px-6 py-20 lg:grid-cols-2">
-      <div className="pointer-events-none absolute -top-30 left-1/2 h-125 w-125 -translate-x-1/2 rounded-full bg-violet-500/15 blur-[120px]" />
+    <section className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 overflow-hidden px-6 py-20 lg:grid-cols-2 animate-fade-in-up">
+      <div className="pointer-events-none absolute -top-30 left-1/2 h-125 w-125 -translate-x-1/2 rounded-full bg-white/5 blur-[120px]" />
 
       <div className="relative z-10">
-        <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 shadow-sm dark:border-emerald-900 dark:bg-emerald-950/40">
-          <ShieldCheck className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
-          <span className="text-xs font-semibold tracking-wide text-emerald-700 dark:text-emerald-400">
+        <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 shadow-sm animate-fade-in delay-100">
+          <ShieldCheck className="h-4 w-4 text-white" />
+          <span className="text-xs font-semibold tracking-wide text-white">
             Free agent safety test before signup friction
           </span>
         </div>
 
-        <h1 className="mb-6 text-5xl font-bold leading-[1.05] tracking-tight text-gray-900 dark:text-white sm:text-6xl lg:text-7xl">
+        <h1 className="mb-6 text-5xl font-bold leading-[1.05] tracking-tight text-white sm:text-6xl lg:text-7xl animate-fade-in delay-200">
           Prove your AI agent is safe
           <br />
-          <span className="bg-linear-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-white to-gray-400 bg-clip-text text-transparent">
             before users trust it.
           </span>
         </h1>
 
-        <p className="mb-10 max-w-xl text-lg leading-relaxed text-gray-500 dark:text-gray-400 sm:text-xl">
+        <p className="mb-10 max-w-xl text-lg leading-relaxed text-gray-400 sm:text-xl animate-fade-in delay-300">
           AgentShield gives teams a clear safety layer for AI agents: scan prompts,
           block risky replies, and show exactly what happened before customers see
           the output.
@@ -51,25 +51,25 @@ const Hero = () => {
         <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
           <Link
             href="/signup"
-            className="group relative overflow-hidden rounded-2xl bg-violet-600 px-6 py-3 text-sm font-semibold text-white shadow-xl shadow-violet-500/25 transition-all duration-300 hover:bg-violet-700 hover:shadow-violet-500/40 active:scale-95"
+className="group relative overflow-hidden rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-black shadow-xl shadow-white/25 transition-all duration-300 hover:bg-gray-200 hover:shadow-white/40 active:scale-95 animate-fade-in delay-400"
           >
             <span className="relative z-10 flex items-center gap-2">
               Run a free safety test
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </span>
-            <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000 group-hover:translate-x-full" />
+            <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-black/10 to-transparent transition-transform duration-1000 group-hover:translate-x-full" />
           </Link>
 
           <Link
             href="#how-it-works"
-            className="inline-flex items-center gap-2 rounded-2xl border border-gray-200 bg-white px-5 py-3 text-sm font-semibold text-gray-900 transition-colors hover:border-violet-300 dark:border-gray-800 dark:bg-gray-950 dark:text-white dark:hover:border-violet-700"
+className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition-colors hover:border-white/20 hover:bg-white/10 animate-fade-in delay-400"
           >
-            <Eye className="h-4 w-4 text-violet-600" />
+            <Eye className="h-4 w-4 text-gray-400" />
             See how it protects
           </Link>
         </div>
 
-        <div className="mt-6 flex flex-wrap gap-3 text-sm text-gray-500 dark:text-gray-400">
+        <div className="mt-6 flex flex-wrap gap-3 text-sm text-gray-400 animate-fade-in delay-400">
           {proofPoints.map((point) => (
             <span key={point} className="inline-flex items-center gap-2">
               <CheckCircle2 className="h-4 w-4 text-emerald-500" />
@@ -78,16 +78,16 @@ const Hero = () => {
           ))}
         </div>
 
-        <div className="mt-10 grid max-w-xl grid-cols-3 overflow-hidden rounded-2xl border border-gray-200 bg-white/70 shadow-sm dark:border-gray-800 dark:bg-gray-900/60">
+        <div className="mt-10 grid max-w-xl grid-cols-3 overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-sm animate-fade-in delay-400">
           {trustMetrics.map((metric) => (
             <div
               key={metric.label}
-              className="border-r border-gray-200 px-4 py-4 last:border-r-0 dark:border-gray-800"
+              className="border-r border-white/10 px-4 py-4 last:border-r-0"
             >
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">
+              <p className="text-2xl font-bold text-white">
                 {metric.value}
               </p>
-              <p className="mt-1 text-xs font-medium text-gray-500 dark:text-gray-400">
+              <p className="mt-1 text-xs font-medium text-gray-400">
                 {metric.label}
               </p>
             </div>
@@ -95,21 +95,21 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="relative group">
-        <div className="absolute inset-0 scale-90 rounded-full bg-violet-500/20 opacity-50 blur-3xl transition-opacity duration-500 group-hover:opacity-70" />
+      <div className="relative group animate-scale-in delay-200">
+        <div className="absolute inset-0 scale-90 rounded-full bg-white/10 opacity-50 blur-3xl transition-opacity duration-500 group-hover:opacity-70" />
 
-        <div className="relative overflow-hidden rounded-3xl border border-violet-200 shadow-2xl shadow-violet-200/40 transition-transform duration-500 hover:-translate-y-2 dark:border-violet-900 dark:shadow-violet-950/40">
-          <div className="flex items-center gap-2 border-b border-gray-800 bg-gray-900 px-5 py-4">
+        <div className="relative overflow-hidden rounded-3xl border border-white/10 shadow-2xl shadow-white/10 transition-transform duration-500 hover:-translate-y-2">
+          <div className="flex items-center gap-2 border-b border-white/10 bg-black/50 px-5 py-4">
             <div className="h-3 w-3 rounded-full bg-red-500" />
             <div className="h-3 w-3 rounded-full bg-yellow-500" />
             <div className="h-3 w-3 rounded-full bg-green-500" />
-            <span className="ml-auto font-mono text-xs text-gray-500">
+            <span className="ml-auto font-mono text-xs text-gray-400">
               agentshield.ts
             </span>
           </div>
 
-          <div className="bg-gray-950 p-7 font-mono text-sm leading-8">
-            <p className="text-gray-600">{"// wrap your existing LLM call"}</p>
+          <div className="bg-black p-7 font-mono text-sm leading-8">
+            <p className="text-gray-500">{"// wrap your existing LLM call"}</p>
 
             <p>
               <span className="text-indigo-400">import</span>
@@ -126,29 +126,29 @@ const Hero = () => {
               <span className="text-indigo-400">const</span>
               <span className="text-white"> response </span>
               <span className="text-indigo-400">= await</span>
-              <span className="text-violet-400"> shield</span>
+              <span className="text-gray-400"> shield</span>
               <span className="text-white">{"({"}</span>
             </p>
 
             <p className="text-white">
               &nbsp;&nbsp;
-              <span className="text-violet-300">apiKey</span>:{" "}
+              <span className="text-gray-300">apiKey</span>:{" "}
               <span className="text-emerald-400">{"\"as_live_xxxx\""}</span>,
             </p>
 
             <p className="text-white">
               &nbsp;&nbsp;
-              <span className="text-violet-300">input</span>:{" "}
+              <span className="text-gray-300">input</span>:{" "}
               <span className="text-white">userMessage</span>,
             </p>
 
             <p className="text-white">
               &nbsp;&nbsp;
-              <span className="text-violet-300">handler</span>:{" "}
+              <span className="text-gray-300">handler</span>:{" "}
               <span className="text-indigo-400">async</span>
               {" (safe) => "}
-              <span className="text-violet-400">llm</span>.
-              <span className="text-violet-400">chat</span>(safe)
+              <span className="text-gray-400">llm</span>.
+              <span className="text-gray-400">chat</span>(safe)
             </p>
 
             <p className="text-white">{"});"}</p>
@@ -194,7 +194,7 @@ const Hero = () => {
                 </p>
               </div>
               <div className="rounded-2xl border border-gray-800 bg-gray-900/70 p-4">
-                <ShieldCheck className="mb-2 h-4 w-4 text-violet-400" />
+                <ShieldCheck className="mb-2 h-4 w-4 text-gray-400" />
                 <p className="font-semibold text-white">Policy evidence</p>
                 <p className="mt-1 text-gray-500">
                   Every block includes the matched rule.
