@@ -24,17 +24,19 @@ const blockedRequest = `curl -X POST https://agentshield-one.vercel.app/api/inte
     "output": "The internal password is demo-secret."
   }'`
 
-const sdkExample = `import { shield } from "agentshield-ai-sdk"
+const sdkExample = `import { createClient } from "agentshield-ai-sdk"
 
-const result = await shield({
-  apiKey: process.env.AGENTSHIELD_API_KEY,
+const agentshield = createClient({
+  apiKey: process.env.AGENTSHIELD_API_KEY!,
+})
+
+const result = await agentshield.intercept({
   input: userMessage,
-  output: aiResponse
+  output: aiResponse,
 })
 
 if (result.blocked) {
   console.log("Blocked:", result.reason)
-  // Handle violation
 } else {
   console.log("Safe to proceed")
 }`

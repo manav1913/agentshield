@@ -15,7 +15,8 @@ const sections = [
   {
     title: "Getting Started",
     items: [
-      { label: "Quick Start", href: "/docs", icon: Book },
+      { label: "Quick Start", href: "/docs/quickstart", icon: Book },
+      { label: "Overview", href: "/docs", icon: FileText },
       { label: "API Reference", href: "/docs/api", icon: FileText },
       { label: "Authentication", href: "/docs/authentication", icon: Lock },
     ],

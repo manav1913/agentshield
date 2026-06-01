@@ -20,8 +20,8 @@ const successResponse = `{
 const blockedResponse = `{
   "blocked": true,
   "safe": false,
-  "reason": "Keyword match: password",
-  "output": null
+  "reason": "Credential leak detected — password disclosure",
+  "violationType": "credential-leak"
 }`
 
 const errorResponse = `{
@@ -103,8 +103,26 @@ const ApiPage = () => {
           <li><code className="bg-white/10 px-2 py-1 rounded">blocked</code>: Boolean indicating if the response was blocked</li>
           <li><code className="bg-white/10 px-2 py-1 rounded">safe</code>: Boolean indicating if it is safe to proceed</li>
           <li><code className="bg-white/10 px-2 py-1 rounded">reason</code>: String explaining why it was blocked (null if clean)</li>
-          <li><code className="bg-white/10 px-2 py-1 rounded">output</code>: The original AI response (null if blocked)</li>
+          <li><code className="bg-white/10 px-2 py-1 rounded">output</code>: The original AI response (when clean)</li>
+          <li><code className="bg-white/10 px-2 py-1 rounded">violationType</code>: Category such as <code className="bg-white/10 px-1">credential-leak</code>, <code className="bg-white/10 px-1">pii</code>, or <code className="bg-white/10 px-1">keyword</code></li>
         </ul>
+      </section>
+
+      <section className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6">
+        <h3 className="font-semibold text-white">Rate limits</h3>
+        <p className="mt-2 text-sm text-gray-300">
+          Default <strong>120 requests/minute</strong> per API key. Response headers:{" "}
+          <code className="bg-white/10 px-1">X-RateLimit-Limit</code>,{" "}
+          <code className="bg-white/10 px-1">X-RateLimit-Remaining</code>,{" "}
+          <code className="bg-white/10 px-1">X-RateLimit-Reset</code>. HTTP <code className="bg-white/10 px-1">429</code> when exceeded.
+        </p>
+      </section>
+
+      <section className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6">
+        <h3 className="font-semibold text-white">Health</h3>
+        <p className="mt-2 text-sm text-gray-300">
+          <code className="bg-white/10 px-1">GET /api/health</code> — no authentication required.
+        </p>
       </section>
     </div>
   )

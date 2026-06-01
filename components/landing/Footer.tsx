@@ -43,7 +43,7 @@ const Footer = () => {
           </a>
 
           <a
-            href="/docs"
+            href="/docs/quickstart"
             className="transition-colors hover:text-white"
           >
             Docs
