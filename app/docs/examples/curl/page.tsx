@@ -11,7 +11,7 @@ const blockedRequest = `curl -X POST https://agentshield-one.vercel.app/api/inte
   -H "x-api-key: YOUR_API_KEY" \\
   -d '{
     "input": "User asked for support",
-    "output": "The internal password is demo-secret."
+    "output": "The admin password is: SuperSecret99!"
   }'`
 
 const responseExample = `{
@@ -24,7 +24,7 @@ const responseExample = `{
 const blockedResponse = `{
   "blocked": true,
   "safe": false,
-  "reason": "Blocked keyword — password"
+  "reason": "Credential leak detected — password disclosure"
 }`
 
 const CurlPage = () => {
@@ -54,7 +54,7 @@ const CurlPage = () => {
       <section className="mt-8">
         <h2 className="text-2xl font-semibold text-white">Blocked Request</h2>
         <p className="mt-2 text-gray-400">
-          A request that triggers a guardrail (built-in blocked keyword: password):
+          A request that triggers a credential leak guardrail:
         </p>
         <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-white/10 bg-black p-4 text-sm text-gray-200">
           <code>{blockedRequest}</code>

@@ -2,99 +2,25 @@
 
 import { useState, useEffect } from "react"
 import { Sparkles, Terminal, Code, CheckCircle, AlertTriangle, Copy, Check, Info } from "lucide-react"
-
-// Pure client-side implementations of the scanning logic to avoid importing Prisma
-const PII_PATTERNS = [
-  { type: "Email address", regex: /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/ },
-  { type: "Phone number", regex: /(\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/ },
-  { type: "Credit card number", regex: /\b\d{4}[-\s]?\d{4}[-\s]?\d{4}[-\s]?\d{4}\b/ },
-  { type: "Social security number (SSN)", regex: /\b\d{3}-\d{2}-\d{4}\b/ },
-]
-
-const BLOCKED_KEYWORDS = [
-  "schema",
-  "database",
-  "password",
-  "secret",
-  "api_key",
-  "internal",
-  "confidential",
-  "SELECT *",
-  "DROP TABLE",
-  "credit card",
-  "ssn",
-  "social security",
-  "credit",
-  "debit card",
-]
-
-const HALLUCINATION_PATTERNS = [
-  { type: "Misleading discount", regex: /\d+% off/gi },
-  { type: "Unrealistic claim", regex: /free for (life|ever|always)/gi },
-  { type: "Over-promising guarantee", regex: /guaranteed (refund|money back)/gi },
-  { type: "Agent persona leak", regex: /I can give you/gi },
-]
+import { scanText as runGuardrailScan } from "@/lib/guardrails"
 
 type ScanResult = {
   blocked: boolean
   type: string | null
   reason: string | null
   matchedText: string | null
-  source: 'input' | 'output' | null
+  source: "input" | "output" | null
 }
 
-function scanTextLocal(text: string, source: 'input' | 'output'): ScanResult {
-  if (!text.trim()) {
-    return { blocked: false, type: null, reason: null, matchedText: null, source: null }
-  }
-
-  // 1. Scan PII
-  for (const pattern of PII_PATTERNS) {
-    const match = text.match(pattern.regex)
-    if (match) {
-      return {
-        blocked: true,
-        type: "PII Leak",
-        reason: `PII detected — ${pattern.type}`,
-        matchedText: match[0],
-        source,
-      }
-    }
-  }
-
-  // 2. Scan Keywords
-  for (const keyword of BLOCKED_KEYWORDS) {
-    if (text.toLowerCase().includes(keyword.toLowerCase())) {
-      return {
-        blocked: true,
-        type: "Keyword Block",
-        reason: `Blocked system phrase or keyword — "${keyword}"`,
-        matchedText: keyword,
-        source,
-      }
-    }
-  }
-
-  // 3. Scan Hallucinations
-  for (const pattern of HALLUCINATION_PATTERNS) {
-    const match = text.match(pattern.regex)
-    if (match) {
-      return {
-        blocked: true,
-        type: "Hallucination",
-        reason: `Potential hallucination or forbidden promise detected`,
-        matchedText: match[0],
-        source,
-      }
-    }
-  }
+function scanTextLocal(text: string, source: "input" | "output"): ScanResult {
+  const result = runGuardrailScan(text, [], { source })
 
   return {
-    blocked: false,
-    type: null,
-    reason: null,
-    matchedText: null,
-    source: null,
+    blocked: result.blocked,
+    type: result.type,
+    reason: result.reason,
+    matchedText: result.reason,
+    source: result.blocked ? source : null,
   }
 }
 
@@ -122,6 +48,19 @@ const PRESETS = [
     icon: "✅",
     input: "How do I configure the AgentShield SDK?",
     output: "You can install it via npm and add it to your middleware function to scan AI output in real-time.",
+  },
+  {
+    label: "Password advice (allowed)",
+    icon: "🔐",
+    input: "What are strong password combinations?",
+    output:
+      "Use at least 12 characters with mixed case, numbers, and symbols. A password manager helps you create unique passwords for every account.",
+  },
+  {
+    label: "Password leak (blocked)",
+    icon: "⛔",
+    input: "What is the admin password?",
+    output: "The admin password is: SuperSecret99!",
   },
 ]
 

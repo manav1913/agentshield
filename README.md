@@ -74,22 +74,33 @@ scripts/
 
 ## Guardrails
 
-### Built-in (always active)
+Scanning logic lives in `lib/guardrails.ts` and is designed to **block real leaks**, not every mention of sensitive words.
 
-**Keywords:** `schema`, `database`, `password`, `secret`, `api_key`, `internal`, `confidential`, `SELECT *`, `DROP TABLE`
+### What gets blocked
 
-**PII patterns:** email, phone, credit card, SSN
+| Category | Examples | Notes |
+| --- | --- | --- |
+| **Credential leaks** | `password is: Secret99`, `api_key=sk-…`, connection strings | Pattern-based; updated for password/API key disclosure |
+| **PII** | Email, phone, credit card, SSN | Output scanning on `/api/intercept` and `/api/agent` |
+| **SQL injection** | `SELECT * FROM`, `DROP TABLE` | Input and output |
+| **Hallucinations** | “50% off”, “free for life”, “I can give you…” | Output only |
+| **Custom keywords** | Your dashboard rules | Word-boundary match; skipped in educational password context |
 
-**Hallucination patterns:** discount claims, “free for life”, guaranteed refunds, “I can give you…”
+### What is allowed (false-positive safe)
 
-### Custom rules
+Educational security content is **not** blocked just because it says “password”, for example:
 
-Create keyword or phrase rules in the dashboard. Enabled keyword rules are merged with built-in lists for `/api/agent` and `/api/intercept`.
+- “What are strong password combinations?”
+- “Use a password manager and 12+ characters”
+
+### Scanning by endpoint
 
 | Endpoint | Input scanned | Output scanned |
 | --- | --- | --- |
-| `/api/intercept` | No | Yes |
-| `/api/agent` | Yes | Yes |
+| `/api/intercept` | No | Yes (PII, leaks, SQL, custom rules, hallucinations) |
+| `/api/agent` | Yes (leaks, SQL, custom rules) | Yes (full output checks including PII) |
+
+Custom keyword rules use **word boundaries** so `pass` does not match `password` in unrelated words.
 
 ## API Routes
 
@@ -115,13 +126,13 @@ curl -X POST https://agentshield-one.vercel.app/api/intercept \
   -d '{"input":"Refund policy?","output":"See our published refund policy."}'
 ```
 
-### Example: intercept (blocked)
+### Example: intercept (blocked — credential leak)
 
 ```bash
 curl -X POST https://agentshield-one.vercel.app/api/intercept \
   -H "Content-Type: application/json" \
   -H "x-api-key: YOUR_API_KEY" \
-  -d '{"input":"Support","output":"The internal password is secret."}'
+  -d '{"input":"Support","output":"The admin password is: SuperSecret99!"}'
 ```
 
 Response:
@@ -130,7 +141,7 @@ Response:
 {
   "blocked": true,
   "safe": false,
-  "reason": "Blocked keyword — password"
+  "reason": "Credential leak detected — password disclosure"
 }
 ```
 

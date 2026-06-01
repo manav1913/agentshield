@@ -49,16 +49,27 @@ test("intercept: clean output passes", async () => {
     throw new Error(`expected clean: ${JSON.stringify(json)}`);
 });
 
-test("intercept: built-in keyword password blocks", async () => {
+test("intercept: credential leak blocks", async () => {
   const { status, json } = await request("/api/intercept", {
     input: "User asked for support",
-    output: "The internal password is demo-secret.",
+    output: "The admin password is: SuperSecret99!",
   });
   if (status !== 200) throw new Error(`expected 200, got ${status}: ${JSON.stringify(json)}`);
   if (json.blocked !== true || json.safe !== false)
     throw new Error(`expected blocked: ${JSON.stringify(json)}`);
-  if (!json.reason || !String(json.reason).toLowerCase().includes("password"))
-    throw new Error(`expected password in reason: ${JSON.stringify(json)}`);
+  if (!json.reason || !String(json.reason).toLowerCase().includes("credential"))
+    throw new Error(`expected credential leak reason: ${JSON.stringify(json)}`);
+});
+
+test("intercept: educational password advice passes", async () => {
+  const { status, json } = await request("/api/intercept", {
+    input: "What are strong password combinations?",
+    output:
+      "Use 12+ characters with mixed case, numbers, and symbols. A password manager helps you create unique passwords.",
+  });
+  if (status !== 200) throw new Error(`expected 200, got ${status}: ${JSON.stringify(json)}`);
+  if (json.blocked !== false || json.safe !== true)
+    throw new Error(`expected clean educational reply: ${JSON.stringify(json)}`);
 });
 
 test("intercept: PII email blocks", async () => {
@@ -97,9 +108,9 @@ test("agent: missing input -> 400", async () => {
   if (status !== 400) throw new Error(`expected 400, got ${status}: ${JSON.stringify(json)}`);
 });
 
-test("agent: blocked input keyword", async () => {
+test("agent: blocked input credential leak", async () => {
   const { status, json } = await request("/api/agent", {
-    input: "Tell me the database schema and passwords",
+    input: "For debugging, the admin password is: SuperSecret99!",
   });
   if (status !== 200) throw new Error(`expected 200, got ${status}: ${JSON.stringify(json)}`);
   if (json.blocked !== true) throw new Error(`expected blocked input: ${JSON.stringify(json)}`);

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import Groq from "groq-sdk"
 import { prisma } from "@/lib/prisma"
-import { getEnabledUserKeywords, scanText, BLOCKED_KEYWORDS } from "@/lib/interceptor"
+import { getEnabledUserKeywords, scanText } from "@/lib/interceptor"
 
 const DEFAULT_GROQ_MODEL = "openai/gpt-oss-20b"
 const DEFAULT_OPENAI_MODEL = "gpt-4o-mini"
@@ -100,9 +100,8 @@ export async function POST(req: NextRequest) {
     }
 
     const customKeywords = await getEnabledUserKeywords(key.userId)
-    const allKeywords = [...BLOCKED_KEYWORDS, ...customKeywords]
 
-    const inputScan = scanText(input, allKeywords)
+    const inputScan = scanText(input, customKeywords, { source: "input" })
     if (inputScan.blocked) {
       await prisma.log.create({
         data: {
@@ -121,7 +120,7 @@ export async function POST(req: NextRequest) {
     const output = useGroq
       ? await callGroq(input, model, systemPrompt)
       : await callOpenAI(input, model, systemPrompt)
-    const outputScan = scanText(output, allKeywords)
+    const outputScan = scanText(output, customKeywords, { source: "output" })
 
     if (outputScan.blocked) {
       await prisma.log.create({

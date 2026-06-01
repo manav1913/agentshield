@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
-import { scanText, getEnabledUserKeywords, BLOCKED_KEYWORDS } from "@/lib/interceptor"
+import { scanText, getEnabledUserKeywords } from "@/lib/interceptor"
 
 export async function POST(req: NextRequest) {
   // Add CORS headers
@@ -33,10 +33,9 @@ export async function POST(req: NextRequest) {
     }
 
     const customKeywords = await getEnabledUserKeywords(key.userId)
-    const allKeywords = [...BLOCKED_KEYWORDS, ...customKeywords]
 
-    // Only scan output (not input) to avoid false positives
-    const outputScan = scanText(output, allKeywords)
+    // Only scan output (not input) to avoid false positives on user prompts
+    const outputScan = scanText(output, customKeywords, { source: "output" })
     if (outputScan.blocked) {
       await prisma.log.create({
         data: {
