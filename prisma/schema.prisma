@@ -34,10 +34,28 @@ model Rule {
 }
 
 model ApiKey {
+  id                 String   @id @default(cuid())
+  userId             String
+  key                String   @unique
+  name               String
+  rateLimitPerMinute Int      @default(120)
+  createdAt          DateTime @default(now())
+}
+
+model RateLimitCounter {
+  apiKeyId  String
+  minuteKey String
+  count     Int      @default(0)
+
+  @@id([apiKeyId, minuteKey])
+}
+
+model Webhook {
   id        String   @id @default(cuid())
   userId    String
-  key       String   @unique
-  name      String
+  url       String
+  secret    String?
+  enabled   Boolean  @default(true)
   createdAt DateTime @default(now())
 }
 
