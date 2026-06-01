@@ -2,170 +2,218 @@
 
 AgentShield is a Next.js App Router application for protecting AI agents with real-time guardrails, request logging, API key management, and rule-based output filtering.
 
-It gives teams a dashboard for creating integration keys, defining safety rules, reviewing intercepted traffic, and routing AI requests through a protected proxy before responses reach users.
-## Live :https://agentshield-one.vercel.app/
+Teams use the dashboard to create integration keys, define safety rules, review intercepted traffic, and route AI requests through a protected proxy before responses reach users.
+
+**Live:** https://agentshield-one.vercel.app/
+
 ## Features
 
-- Landing page with AgentShield product positioning and pricing sections
-- Clerk-powered authentication with custom login and signup pages
-- Protected dashboard shell with sidebar navigation and topbar
+- Landing page with product positioning, pricing, and an interactive playground
+- Clerk authentication with custom login and signup pages
+- Protected dashboard with sidebar navigation
 - API key creation, one-time key reveal, and revocation
-- Rule management for keyword and phrase blocking
+- Keyword and phrase guardrail rules (per user)
 - Request logs for clean and blocked agent activity
-- Protected AI proxy endpoint with Groq support and OpenAI fallback
-- Interceptor endpoint for validating external agent input/output pairs
+- Protected AI proxy (`/api/agent`) with Groq and OpenAI fallback
+- Interceptor API (`/api/intercept`) for validating external agent input/output pairs
+- Built-in PII, keyword, and hallucination detection
 - Light and dark theme support
-- Prisma models for logs, rules, API keys, and future human review workflows
 
 ## Tech Stack
 
-- Next.js 16 App Router
-- React 19
-- TypeScript
-- Tailwind CSS
-- Clerk authentication
-- Prisma 7
-- PostgreSQL / Supabase
-- Groq SDK
-- OpenAI API fallback
-- Vercel deployment
+| Layer | Technology |
+| --- | --- |
+| Framework | Next.js 15.1 (App Router) |
+| UI | React 19, Tailwind CSS 4 |
+| Language | TypeScript 5 |
+| Auth | Clerk |
+| Database | PostgreSQL (Supabase) via Prisma 7 |
+| AI | Groq SDK (primary), OpenAI API (fallback) |
+| Hosting | Vercel |
 
 ## Project Structure
 
 ```txt
 app/
-+-- (dashboard)/
-|   +-- layout.tsx
-|   +-- dashboard/page.tsx
-|   +-- rules/page.tsx
-|   +-- logs/page.tsx
-|   +-- api-keys/page.tsx
-+-- api/
-|   +-- agent/route.ts
-|   +-- api-keys/route.ts
-|   +-- intercept/route.ts
-|   +-- logs/route.ts
-|   +-- rules/route.ts
-+-- login/[[...rest]]/page.tsx
-+-- signup/[[...rest]]/page.tsx
-+-- layout.tsx
-+-- page.tsx
-
-components/
-+-- dashboard/
-+-- landing/
-+-- ui/
+├── (dashboard)/          # Authenticated dashboard routes
+│   ├── dashboard/
+│   ├── rules/
+│   ├── logs/
+│   └── api-keys/
+├── api/                  # Public integration APIs (API key auth)
+│   ├── agent/
+│   ├── intercept/
+│   ├── logs/
+│   ├── rules/
+│   └── api-keys/
+├── docs/                 # API documentation
+├── login/
+└── signup/
 
 lib/
-+-- interceptor.ts
-+-- prisma.ts
-+-- theme.ts
-+-- utils.ts
+├── interceptor.ts        # Scanning logic (PII, keywords, hallucinations)
+└── prisma.ts
 
 prisma/
-+-- schema.prisma
+└── schema.prisma
+
+scripts/
+├── smoke-test.mjs        # Production smoke tests
+└── add-smoke-rule.mjs    # Dev helper to seed a test keyword rule
 ```
 
 ## Core Flow
 
-1. A user signs up or signs in with Clerk.
-2. The user creates an API key from the dashboard.
-3. The user adds guardrail rules, such as blocked keywords or phrases.
-4. An AI agent sends traffic through AgentShield using the API key.
-5. AgentShield scans input and output for policy violations.
+1. User signs up or signs in with Clerk.
+2. User creates an API key from the dashboard.
+3. User adds guardrail rules (keywords/phrases) or relies on built-in defaults.
+4. An agent sends traffic through AgentShield with the `x-api-key` header.
+5. AgentShield scans input and/or output for policy violations.
 6. Clean and blocked events are stored as logs.
-7. The dashboard shows request volume, blocked events, clean rate, and recent activity.
+7. The dashboard shows volume, blocked events, clean rate, and recent activity.
+
+## Guardrails
+
+### Built-in (always active)
+
+**Keywords:** `schema`, `database`, `password`, `secret`, `api_key`, `internal`, `confidential`, `SELECT *`, `DROP TABLE`
+
+**PII patterns:** email, phone, credit card, SSN
+
+**Hallucination patterns:** discount claims, “free for life”, guaranteed refunds, “I can give you…”
+
+### Custom rules
+
+Create keyword or phrase rules in the dashboard. Enabled keyword rules are merged with built-in lists for `/api/agent` and `/api/intercept`.
+
+| Endpoint | Input scanned | Output scanned |
+| --- | --- | --- |
+| `/api/intercept` | No | Yes |
+| `/api/agent` | Yes | Yes |
 
 ## API Routes
 
-| Route | Method | Purpose |
-| --- | --- | --- |
-| `/api/api-keys` | `GET` | List the signed-in user's API keys |
-| `/api/api-keys` | `POST` | Generate a new API key |
-| `/api/api-keys` | `DELETE` | Revoke an API key |
-| `/api/rules` | `GET` | List guardrail rules |
-| `/api/rules` | `POST` | Create a new rule |
-| `/api/rules` | `PATCH` | Toggle or update a rule |
-| `/api/rules` | `DELETE` | Delete a rule |
-| `/api/logs` | `GET` | Fetch filtered request logs |
-| `/api/intercept` | `POST` | Validate an existing input/output pair |
-| `/api/agent` | `POST` | Run a protected AI request through AgentShield |
+| Route | Method | Auth | Purpose |
+| --- | --- | --- | --- |
+| `/api/api-keys` | `GET` | Clerk session | List API keys |
+| `/api/api-keys` | `POST` | Clerk session | Create API key |
+| `/api/api-keys` | `DELETE` | Clerk session | Revoke API key |
+| `/api/rules` | `GET` | Clerk session | List rules |
+| `/api/rules` | `POST` | Clerk session | Create rule |
+| `/api/rules` | `PATCH` | Clerk session | Update rule |
+| `/api/rules` | `DELETE` | Clerk session | Delete rule |
+| `/api/logs` | `GET` | Clerk session | Fetch logs |
+| `/api/intercept` | `POST` | `x-api-key` | Validate input/output pair |
+| `/api/agent` | `POST` | `x-api-key` | Protected AI completion |
+
+### Example: intercept (clean)
+
+```bash
+curl -X POST https://agentshield-one.vercel.app/api/intercept \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: YOUR_API_KEY" \
+  -d '{"input":"Refund policy?","output":"See our published refund policy."}'
+```
+
+### Example: intercept (blocked)
+
+```bash
+curl -X POST https://agentshield-one.vercel.app/api/intercept \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: YOUR_API_KEY" \
+  -d '{"input":"Support","output":"The internal password is secret."}'
+```
+
+Response:
+
+```json
+{
+  "blocked": true,
+  "safe": false,
+  "reason": "Blocked keyword — password"
+}
+```
 
 ## Environment Variables
 
-Create a `.env` file for local development:
+Copy `.env.example` to `.env` for local development:
 
-```env
-DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/postgres?sslmode=require"
-
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="pk_test_..."
-CLERK_SECRET_KEY="sk_test_..."
-NEXT_PUBLIC_CLERK_SIGN_IN_URL="/login"
-NEXT_PUBLIC_CLERK_SIGN_UP_URL="/signup"
-NEXT_PUBLIC_CLERK_SIGN_IN_FORCE_REDIRECT_URL="/dashboard"
-NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL="/dashboard"
-NEXT_PUBLIC_CLERK_AFTER_SIGN_OUT_URL="/"
-
-GROQ_API_KEY="gsk_..."
-OPENAI_API_KEY="sk-..."
+```bash
+cp .env.example .env
 ```
 
-For Vercel with Supabase, prefer the Supabase transaction pooler connection string:
+Required:
+
+- `DATABASE_URL`
+- `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
+- `CLERK_SECRET_KEY`
+- Clerk redirect URLs (see `.env.example`)
+
+For `/api/agent` (at least one):
+
+- `GROQ_API_KEY` (recommended)
+- `OPENAI_API_KEY` (fallback if Groq is not set)
+
+For Vercel + Supabase, use the transaction pooler:
 
 ```env
 DATABASE_URL="postgresql://postgres.PROJECT_ID:PASSWORD@POOLER_HOST:6543/postgres?sslmode=require&uselibpqcompat=true"
 ```
 
-`OPENAI_API_KEY` is optional if `GROQ_API_KEY` is configured. The `/api/agent` route uses Groq when available and falls back to OpenAI otherwise.
-
 ## Local Development
-
-Install dependencies:
 
 ```bash
 npm install
-```
-
-Generate Prisma Client:
-
-```bash
 npx prisma generate
-```
-
-Sync the schema to your database when needed:
-
-```bash
-npx prisma db push
-```
-
-Start the dev server:
-
-```bash
+npx prisma db push   # first time or after schema changes
 npm run dev
 ```
 
-Open:
-
-```txt
-http://localhost:3000
-```
+Open http://localhost:3000
 
 ## Scripts
 
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start development server |
+| `npm run build` | Generate Prisma client and production build |
+| `npm run start` | Start production server |
+| `npm run lint` | Run ESLint (must pass before deploy) |
+| `npm run smoke` | Run API smoke tests against production |
+
+### Smoke tests
+
 ```bash
-npm run dev
-npm run build
-npm run start
-npm run lint
+# PowerShell
+$env:AGENTSHIELD_API_KEY="your-api-key"
+npm run smoke
+
+# Optional: test a different host
+$env:AGENTSHIELD_BASE="http://localhost:3000"
+npm run smoke
 ```
 
-The build script runs `prisma generate` before `next build` so Prisma Client is available in deployment environments.
+Smoke tests verify API key auth, clean/blocked intercept flows, PII and hallucination blocking, custom keyword rules (if configured), and the agent proxy.
 
-## Deployment
+## Deployment (Vercel)
 
-The app is designed for Vercel deployment.
+### Pre-deploy checklist
 
-Before deploying, configure these environment variables in Vercel:
+1. Set all environment variables in the Vercel project (see `.env.example`).
+2. Run `npx prisma db push` against the production database (or apply migrations).
+3. Use Clerk **live** keys (`pk_live_...`, `sk_live_...`) in production.
+4. Configure `GROQ_API_KEY` and/or `OPENAI_API_KEY`.
+5. Locally verify:
+   ```bash
+   npm run lint
+   npm run build
+   ```
+6. After deploy, run smoke tests with a production API key:
+   ```bash
+   npm run smoke
+   ```
+
+### Vercel environment variables
 
 - `DATABASE_URL`
 - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
@@ -176,47 +224,34 @@ Before deploying, configure these environment variables in Vercel:
 - `NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL`
 - `NEXT_PUBLIC_CLERK_AFTER_SIGN_OUT_URL`
 - `GROQ_API_KEY`
-- `OPENAI_API_KEY` if using OpenAI fallback
+- `OPENAI_API_KEY` (optional if Groq is configured)
 
-For production Clerk deployments, use live Clerk keys (`pk_live_...` and `sk_live_...`) instead of development keys.
+The `build` script runs `prisma generate` before `next build` so Prisma Client is available on Vercel.
 
 ## Database Models
 
-The Prisma schema currently includes:
-
-- `Log` - stores clean and blocked request activity
-- `Rule` - stores enabled/disabled guardrail rules
-- `ApiKey` - stores user-owned integration keys
-- `HumanQueue` - reserved for future human review workflows
-
-## Current Status
-
-Implemented:
-
-- Landing page
-- Authentication pages
-- Dashboard layout
-- API key management
-- Rule management
-- Log viewing and filtering
-- Guardrail scanning
-- AI proxy and intercept APIs
-- Vercel-compatible Prisma generation
-
-In progress:
-
-- Subscription and billing flow
-- Human review queue UI and API
-- Deeper analytics for logs and violations
-- Production hardening for RLS policies and monitoring
+| Model | Purpose |
+| --- | --- |
+| `Log` | Clean and blocked request activity |
+| `Rule` | User guardrail rules (keyword/phrase) |
+| `ApiKey` | Integration keys per user |
+| `HumanQueue` | Reserved for future human review workflows |
 
 ## Security Notes
 
-- API keys should be treated as secrets and shown only once after creation.
-- Supabase Row Level Security should be enabled before broad production use.
-- Production deployments should use Clerk live keys.
-- Rotate database credentials if they are ever exposed in chat, screenshots, logs, or commits.
+- Treat API keys as secrets; they are shown only once after creation.
+- Rotate keys immediately if exposed in chat, logs, or commits.
+- Enable Supabase Row Level Security for defense in depth.
+- Use Clerk live keys in production.
+- Never commit `.env` or real credentials.
+
+## Roadmap
+
+- Subscription and billing
+- Human review queue UI and API
+- Deeper analytics and alerting
+- Optional Supabase RLS policies documented per table
 
 ## License
 
-This project is currently private and does not define an open-source license.
+Private project — no open-source license defined.
