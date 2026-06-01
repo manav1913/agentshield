@@ -1,6 +1,6 @@
 ﻿"use client"
 
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import {
   Activity,
   Clock,
@@ -44,19 +44,16 @@ const LogsPage = () => {
   const [search, setSearch] = useState("")
   const [expandedLog, setExpandedLog] = useState<string | null>(null)
 
-  const buildUrl = () => {
+  const fetchLogs = useCallback(async () => {
     const params = new URLSearchParams()
     if (filter) params.set("status", filter)
     if (search.trim()) params.set("search", search.trim())
-    return `/api/logs?${params.toString()}`
-  }
 
-  const fetchLogs = async () => {
     setLoading(true)
     setError(null)
 
     try {
-      const res = await fetch(buildUrl())
+      const res = await fetch(`/api/logs?${params.toString()}`)
       if (!res.ok) {
         throw new Error("Unable to load logs")
       }
@@ -69,10 +66,12 @@ const LogsPage = () => {
     } finally {
       setLoading(false)
     }
-  }
+  }, [filter, search])
 
   useEffect(() => {
-    fetchLogs()
+    void fetchLogs()
+    // Initial load only; filter/search updates use Apply.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const applyFilters = () => {

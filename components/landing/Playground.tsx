@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Shield, Sparkles, Terminal, Code, CheckCircle, AlertTriangle, Copy, Check, Info } from "lucide-react"
+import { Sparkles, Terminal, Code, CheckCircle, AlertTriangle, Copy, Check, Info } from "lucide-react"
 
 // Pure client-side implementations of the scanning logic to avoid importing Prisma
 const PII_PATTERNS = [

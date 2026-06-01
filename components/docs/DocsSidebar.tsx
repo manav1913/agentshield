@@ -7,10 +7,8 @@ import {
   Braces,
   Code2,
   FileText,
-  Layers,
   Lock,
   Server,
-  Settings,
 } from "lucide-react"
 
 const sections = [

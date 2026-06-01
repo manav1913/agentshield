@@ -140,7 +140,7 @@ const GoPage = () => {
       <section className="mt-8">
         <h2 className="text-2xl font-semibold text-white">Basic Usage</h2>
         <p className="mt-2 text-gray-400">
-          Use Go's <code className="bg-white/10 px-2 py-1 rounded">net/http</code> package to call the API:
+          Use the Go <code className="bg-white/10 px-2 py-1 rounded">net/http</code> package to call the API:
         </p>
         <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-white/10 bg-black p-4 text-sm text-gray-200">
           <code>{goExample}</code>
@@ -150,7 +150,7 @@ const GoPage = () => {
       <section className="mt-8">
         <h2 className="text-2xl font-semibold text-white">HTTP Server Integration</h2>
         <p className="mt-2 text-gray-400">
-          Integrate with Go's net/http for automatic scanning:
+          Integrate with the Go net/http package for automatic scanning:
         </p>
         <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-white/10 bg-black p-4 text-sm text-gray-200">
           <code>{goHTTP}</code>

@@ -24,8 +24,7 @@ const responseExample = `{
 const blockedResponse = `{
   "blocked": true,
   "safe": false,
-  "reason": "Keyword match: password",
-  "output": null
+  "reason": "Blocked keyword — password"
 }`
 
 const CurlPage = () => {
@@ -55,7 +54,7 @@ const CurlPage = () => {
       <section className="mt-8">
         <h2 className="text-2xl font-semibold text-white">Blocked Request</h2>
         <p className="mt-2 text-gray-400">
-          A request that triggers a guardrail (requires a rule with "password" keyword):
+          A request that triggers a guardrail (built-in blocked keyword: password):
         </p>
         <pre className="custom-scrollbar mt-4 overflow-x-auto rounded-2xl border border-white/10 bg-black p-4 text-sm text-gray-200">
           <code>{blockedRequest}</code>

@@ -101,7 +101,7 @@ const ApiPage = () => {
         <h3 className="font-semibold text-white">Response Fields</h3>
         <ul className="mt-2 space-y-2 text-sm text-gray-300">
           <li><code className="bg-white/10 px-2 py-1 rounded">blocked</code>: Boolean indicating if the response was blocked</li>
-          <li><code className="bg-white/10 px-2 py-1 rounded">safe</code>: Boolean indicating if it's safe to proceed</li>
+          <li><code className="bg-white/10 px-2 py-1 rounded">safe</code>: Boolean indicating if it is safe to proceed</li>
           <li><code className="bg-white/10 px-2 py-1 rounded">reason</code>: String explaining why it was blocked (null if clean)</li>
           <li><code className="bg-white/10 px-2 py-1 rounded">output</code>: The original AI response (null if blocked)</li>
         </ul>
