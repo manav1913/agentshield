@@ -1,7 +1,14 @@
-import { NextRequest, NextResponse } from "next/server"
+import { after } from "next/server"
+import { NextRequest } from "next/server"
 import Groq from "groq-sdk"
 import { prisma } from "@/lib/prisma"
 import { getEnabledUserKeywords, scanText } from "@/lib/interceptor"
+import {
+  authenticatePublicApiKey,
+  publicApiJson,
+  publicApiOptions,
+} from "@/lib/public-api"
+import { dispatchBlockWebhooks } from "@/lib/webhooks"
 
 const DEFAULT_GROQ_MODEL = "openai/gpt-oss-20b"
 const DEFAULT_OPENAI_MODEL = "gpt-4o-mini"
@@ -71,87 +78,140 @@ async function callOpenAI(input: string, model: string, systemPrompt: string) {
   return output
 }
 
+async function recordBlock(
+  userId: string,
+  input: string,
+  output: string,
+  scan: { type: string | null; reason: string | null }
+) {
+  return prisma.log.create({
+    data: {
+      userId,
+      input,
+      output,
+      status: "blocked",
+      violationType: scan.type,
+      ruleTriggered: scan.reason,
+    },
+  })
+}
+
+export function OPTIONS() {
+  return publicApiOptions()
+}
+
 export async function POST(req: NextRequest) {
   try {
-    const apiKey = req.headers.get("x-api-key")
-    if (!apiKey) {
-      return NextResponse.json({ error: "Missing API key" }, { status: 401 })
-    }
+    const auth = await authenticatePublicApiKey(req)
+    if (!auth.ok) return auth.response
 
-    const key = await prisma.apiKey.findUnique({ where: { key: apiKey } })
-    if (!key) {
-      return NextResponse.json({ error: "Invalid API key" }, { status: 401 })
-    }
-
+    const { apiKey, rateHeaders } = auth
     const body = await req.json()
     const input = typeof body.input === "string" ? body.input.trim() : ""
     const useGroq = Boolean(process.env.GROQ_API_KEY)
-    const model = typeof body.model === "string" && body.model.trim() !== ""
-      ? body.model.trim()
-      : useGroq
-      ? DEFAULT_GROQ_MODEL
-      : DEFAULT_OPENAI_MODEL
-    const systemPrompt = typeof body.systemPrompt === "string" && body.systemPrompt.trim() !== ""
-      ? body.systemPrompt.trim()
-      : "You are a helpful assistant."
+    const model =
+      typeof body.model === "string" && body.model.trim() !== ""
+        ? body.model.trim()
+        : useGroq
+          ? DEFAULT_GROQ_MODEL
+          : DEFAULT_OPENAI_MODEL
+    const systemPrompt =
+      typeof body.systemPrompt === "string" && body.systemPrompt.trim() !== ""
+        ? body.systemPrompt.trim()
+        : "You are a helpful assistant."
 
     if (!input) {
-      return NextResponse.json({ error: "Missing input" }, { status: 400 })
+      return publicApiJson({ error: "Missing input" }, 400, rateHeaders)
     }
 
-    const customKeywords = await getEnabledUserKeywords(key.userId)
+    const customKeywords = await getEnabledUserKeywords(apiKey.userId)
 
     const inputScan = scanText(input, customKeywords, { source: "input" })
     if (inputScan.blocked) {
-      await prisma.log.create({
-        data: {
-          userId: key.userId,
-          input,
-          output: "",
-          status: "blocked",
-          violationType: inputScan.type,
-          ruleTriggered: inputScan.reason,
-        },
-      })
+      const log = await recordBlock(apiKey.userId, input, "", inputScan)
 
-      return NextResponse.json({ blocked: true, safe: false, reason: inputScan.reason })
+      after(() =>
+        dispatchBlockWebhooks(apiKey.userId, {
+          event: "guardrail.blocked",
+          timestamp: new Date().toISOString(),
+          data: {
+            endpoint: "agent",
+            input,
+            output: "",
+            reason: inputScan.reason,
+            violationType: inputScan.type,
+            logId: log.id,
+          },
+        })
+      )
+
+      return publicApiJson(
+        {
+          blocked: true,
+          safe: false,
+          reason: inputScan.reason,
+          violationType: inputScan.type,
+        },
+        200,
+        rateHeaders
+      )
     }
 
     const output = useGroq
       ? await callGroq(input, model, systemPrompt)
       : await callOpenAI(input, model, systemPrompt)
+
     const outputScan = scanText(output, customKeywords, { source: "output" })
 
     if (outputScan.blocked) {
-      await prisma.log.create({
-        data: {
-          userId: key.userId,
-          input,
-          output,
-          status: "blocked",
-          violationType: outputScan.type,
-          ruleTriggered: outputScan.reason,
-        },
-      })
+      const log = await recordBlock(apiKey.userId, input, output, outputScan)
 
-      return NextResponse.json({ blocked: true, safe: false, reason: outputScan.reason })
+      after(() =>
+        dispatchBlockWebhooks(apiKey.userId, {
+          event: "guardrail.blocked",
+          timestamp: new Date().toISOString(),
+          data: {
+            endpoint: "agent",
+            input,
+            output,
+            reason: outputScan.reason,
+            violationType: outputScan.type,
+            logId: log.id,
+          },
+        })
+      )
+
+      return publicApiJson(
+        {
+          blocked: true,
+          safe: false,
+          reason: outputScan.reason,
+          violationType: outputScan.type,
+        },
+        200,
+        rateHeaders
+      )
     }
 
     await prisma.log.create({
       data: {
-        userId: key.userId,
+        userId: apiKey.userId,
         input,
         output,
         status: "clean",
       },
     })
 
-    return NextResponse.json({ blocked: false, safe: true, output })
+    return publicApiJson(
+      { blocked: false, safe: true, output },
+      200,
+      rateHeaders
+    )
   } catch (error) {
     console.error("Agent proxy error:", error)
-    return NextResponse.json(
+    return publicApiJson(
       { error: error instanceof Error ? error.message : "Internal server error" },
-      { status: 500 }
+      500
     )
   }
 }
