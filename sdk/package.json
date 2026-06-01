@@ -1,6 +1,6 @@
 {
   "name": "agentshield-ai-sdk",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "AgentShield SDK for AI agent safety and guardrails",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

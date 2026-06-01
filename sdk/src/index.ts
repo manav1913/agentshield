@@ -1,85 +1,163 @@
-export interface ShieldOptions {
+const DEFAULT_BASE_URL = "https://agentshield-one.vercel.app"
+
+export type AgentShieldClientOptions = {
   apiKey: string
-  apiUrl?: string
+  baseUrl?: string
+}
+
+export type InterceptOptions = {
   input: string
   output: string
 }
 
-export interface ShieldResult {
+export type AgentOptions = {
+  input: string
+  model?: string
+  systemPrompt?: string
+}
+
+export type ShieldResult = {
   blocked: boolean
   safe: boolean
-  reason?: string
-  violationType?: string
+  reason?: string | null
+  violationType?: string | null
   output?: string
 }
 
-interface ApiResponse {
-  blocked?: boolean
-  safe?: boolean
-  reason?: string
-  violationType?: string
+export type AgentResult = ShieldResult & {
   output?: string
+}
+
+type ApiErrorBody = {
   error?: string
+  limit?: number
+  resetAt?: string
 }
 
 export class AgentShieldError extends Error {
-  constructor(message: string, public code?: string) {
+  constructor(
+    message: string,
+    public code?: string,
+    public status?: number
+  ) {
     super(message)
-    this.name = 'AgentShieldError'
+    this.name = "AgentShieldError"
   }
 }
 
-/**
- * Scan input and output through AgentShield
- * @param options - Shield options including API key, input, and output
- * @returns Scan result with blocked status and reason
- */
-export async function shield(options: ShieldOptions): Promise<ShieldResult> {
-  const { apiKey, apiUrl = 'https://agentshield-one.vercel.app/api/intercept', input, output } = options
+export class AgentShieldClient {
+  private apiKey: string
+  private baseUrl: string
 
-  if (!apiKey) {
-    throw new AgentShieldError('API key is required', 'MISSING_API_KEY')
+  constructor(options: AgentShieldClientOptions) {
+    if (!options.apiKey?.trim()) {
+      throw new AgentShieldError("API key is required", "MISSING_API_KEY")
+    }
+    this.apiKey = options.apiKey.trim()
+    this.baseUrl = (options.baseUrl ?? DEFAULT_BASE_URL).replace(/\/$/, "")
   }
 
-  if (!input || !output) {
-    throw new AgentShieldError('Input and output are required', 'MISSING_DATA')
-  }
-
-  try {
-    const response = await fetch(apiUrl, {
-      method: 'POST',
+  private async request<T>(path: string, body: unknown): Promise<T> {
+    const response = await fetch(`${this.baseUrl}${path}`, {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': apiKey,
+        "Content-Type": "application/json",
+        "x-api-key": this.apiKey,
       },
-      body: JSON.stringify({ input, output }),
+      body: JSON.stringify(body),
     })
 
-    if (!response.ok) {
-      if (response.status === 401) {
-        throw new AgentShieldError('Invalid API key', 'INVALID_API_KEY')
-      }
-      if (response.status === 400) {
-        throw new AgentShieldError('Invalid request data', 'INVALID_REQUEST')
-      }
-      throw new AgentShieldError(`API error: ${response.status} ${response.statusText}`, 'API_ERROR')
+    const result = (await response.json().catch(() => ({}))) as T & ApiErrorBody
+
+    if (response.status === 401) {
+      throw new AgentShieldError("Invalid API key", "INVALID_API_KEY", 401)
     }
 
-    const result = await response.json() as ApiResponse
+    if (response.status === 429) {
+      throw new AgentShieldError(
+        result.error ?? "Rate limit exceeded",
+        "RATE_LIMIT",
+        429
+      )
+    }
+
+    if (!response.ok) {
+      throw new AgentShieldError(
+        result.error ?? `API error: ${response.status}`,
+        "API_ERROR",
+        response.status
+      )
+    }
+
+    return result
+  }
+
+  /** Scan an existing user input + model output pair (recommended integration). */
+  async intercept(options: InterceptOptions): Promise<ShieldResult> {
+    if (!options.input?.trim() || !options.output?.trim()) {
+      throw new AgentShieldError("Input and output are required", "MISSING_DATA")
+    }
+
+    const result = await this.request<ShieldResult>("/api/intercept", {
+      input: options.input,
+      output: options.output,
+    })
 
     return {
-      blocked: result.blocked || false,
+      blocked: Boolean(result.blocked),
       safe: result.safe !== false,
       reason: result.reason,
       violationType: result.violationType,
-      output: result.output || output,
+      output: result.output ?? options.output,
     }
-  } catch (error) {
-    if (error instanceof AgentShieldError) {
-      throw error
-    }
-    throw new AgentShieldError(`Network error: ${error instanceof Error ? error.message : 'Unknown'}`, 'NETWORK_ERROR')
   }
+
+  /** Run a guarded completion through the AgentShield proxy (requires server LLM keys). */
+  async agent(options: AgentOptions): Promise<AgentResult> {
+    if (!options.input?.trim()) {
+      throw new AgentShieldError("Input is required", "MISSING_DATA")
+    }
+
+    const result = await this.request<AgentResult>("/api/agent", {
+      input: options.input,
+      model: options.model,
+      systemPrompt: options.systemPrompt,
+    })
+
+    return {
+      blocked: Boolean(result.blocked),
+      safe: result.safe !== false,
+      reason: result.reason,
+      violationType: result.violationType,
+      output: result.output,
+    }
+  }
+
+  /** Health check — no API key required when using default public base URL. */
+  async health(): Promise<{ status: string }> {
+    const response = await fetch(`${this.baseUrl}/api/health`)
+    if (!response.ok) {
+      throw new AgentShieldError("Health check failed", "HEALTH_ERROR", response.status)
+    }
+    const data = (await response.json()) as { status: string }
+    return data
+  }
+}
+
+export function createClient(options: AgentShieldClientOptions): AgentShieldClient {
+  return new AgentShieldClient(options)
+}
+
+/** @deprecated Use `createClient().intercept()` instead */
+export type ShieldOptions = InterceptOptions & { apiKey: string; apiUrl?: string }
+
+/** @deprecated Use `createClient().intercept()` instead */
+export async function shield(options: ShieldOptions): Promise<ShieldResult> {
+  const client = createClient({
+    apiKey: options.apiKey,
+    baseUrl: options.apiUrl?.replace(/\/api\/intercept$/, ""),
+  })
+  return client.intercept({ input: options.input, output: options.output })
 }
 
 export default shield
