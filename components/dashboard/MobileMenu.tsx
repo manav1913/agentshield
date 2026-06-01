@@ -10,6 +10,7 @@ import {
   LayoutDashboard,
   LogOut,
   SlidersHorizontal,
+  Webhook,
 } from "lucide-react"
 
 const navItems = [
@@ -17,6 +18,7 @@ const navItems = [
   { label: "Rules", href: "/rules", icon: SlidersHorizontal },
   { label: "Logs", href: "/logs", icon: FileText },
   { label: "API Keys", href: "/api-keys", icon: KeyRound },
+  { label: "Webhooks", href: "/webhooks", icon: Webhook },
 ]
 
 interface MobileMenuProps {

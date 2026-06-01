@@ -16,7 +16,11 @@ Teams use the dashboard to create integration keys, define safety rules, review 
 - Request logs for clean and blocked agent activity
 - Protected AI proxy (`/api/agent`) with Groq and OpenAI fallback
 - Interceptor API (`/api/intercept`) for validating external agent input/output pairs
-- Built-in PII, keyword, and hallucination detection
+- Context-aware guardrails (credential leaks, PII, SQL, hallucinations)
+- Per-API-key rate limiting (120 req/min default) with standard headers
+- Signed webhooks on `guardrail.blocked` events
+- Official JS/TS SDK (`agentshield-ai-sdk`) with `createClient().intercept()`
+- Developer quickstart at `/docs/quickstart` and `GET /api/health`
 - Light and dark theme support
 
 ## Tech Stack
@@ -39,20 +43,27 @@ app/
 │   ├── dashboard/
 │   ├── rules/
 │   ├── logs/
-│   └── api-keys/
+│   ├── api-keys/
+│   └── webhooks/
 ├── api/                  # Public integration APIs (API key auth)
 │   ├── agent/
 │   ├── intercept/
+│   ├── health/
 │   ├── logs/
 │   ├── rules/
+│   ├── webhooks/
 │   └── api-keys/
 ├── docs/                 # API documentation
 ├── login/
 └── signup/
 
 lib/
-├── interceptor.ts        # Scanning logic (PII, keywords, hallucinations)
+├── guardrails.ts         # Scanning logic
+├── public-api.ts         # API key auth + CORS + rate limit helpers
+├── webhooks.ts           # HMAC-signed webhook delivery
 └── prisma.ts
+
+sdk/                      # Published npm package (agentshield-ai-sdk)
 
 prisma/
 └── schema.prisma
@@ -114,8 +125,10 @@ Custom keyword rules use **word boundaries** so `pass` does not match `password`
 | `/api/rules` | `PATCH` | Clerk session | Update rule |
 | `/api/rules` | `DELETE` | Clerk session | Delete rule |
 | `/api/logs` | `GET` | Clerk session | Fetch logs |
-| `/api/intercept` | `POST` | `x-api-key` | Validate input/output pair |
+| `/api/intercept` | `POST` | `x-api-key` | Validate input/output pair (recommended) |
 | `/api/agent` | `POST` | `x-api-key` | Protected AI completion |
+| `/api/health` | `GET` | None | Service health check |
+| `/api/webhooks` | `*` | Clerk session | Manage block webhooks |
 
 ### Example: intercept (clean)
 
@@ -171,12 +184,21 @@ For Vercel + Supabase, use the transaction pooler:
 DATABASE_URL="postgresql://postgres.PROJECT_ID:PASSWORD@POOLER_HOST:6543/postgres?sslmode=require&uselibpqcompat=true"
 ```
 
+## Developer integration (5 minutes)
+
+1. Create an API key in the dashboard.
+2. Call `POST /api/intercept` with `{ input, output }` after your LLM responds.
+3. If `blocked` is true, do not show the reply to the user.
+4. Optional: `npm install agentshield-ai-sdk` and use `createClient().intercept()`.
+
+Full guide: `/docs/quickstart` (or https://agentshield-one.vercel.app/docs/quickstart)
+
 ## Local Development
 
 ```bash
 npm install
 npx prisma generate
-npx prisma db push   # first time or after schema changes
+npx prisma db push   # required after pulling schema changes (webhooks, rate limits)
 npm run dev
 ```
 

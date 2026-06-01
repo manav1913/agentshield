@@ -130,6 +130,13 @@ test("agent: clean simple question (LLM)", async () => {
   return { outputLength: json.output.length };
 });
 
+test("health endpoint", async () => {
+  const res = await fetch(`${BASE}/api/health`);
+  if (!res.ok) throw new Error(`health ${res.status}`);
+  const json = await res.json();
+  if (json.status !== "ok") throw new Error(`unexpected health: ${JSON.stringify(json)}`);
+});
+
 test("landing page loads", async () => {
   const res = await fetch(BASE);
   if (!res.ok) throw new Error(`landing ${res.status}`);

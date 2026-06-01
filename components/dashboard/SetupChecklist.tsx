@@ -145,7 +145,7 @@ const SetupChecklist = ({ apiKeyCount, ruleCount, logCount }: Props) => {
           </pre>
 
           <Link
-            href="/docs"
+            href="/docs/quickstart"
             className="mt-4 inline-flex h-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 px-4 text-sm font-semibold text-white transition hover:bg-white/10"
           >
             Open quickstart docs

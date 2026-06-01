@@ -9,6 +9,7 @@ import {
   LayoutDashboard,
   LogOut,
   SlidersHorizontal,
+  Webhook,
 } from "lucide-react"
 
 const navItems = [
@@ -16,6 +17,7 @@ const navItems = [
   { label: "Rules", href: "/rules", icon: SlidersHorizontal },
   { label: "Logs", href: "/logs", icon: FileText },
   { label: "API Keys", href: "/api-keys", icon: KeyRound },
+  { label: "Webhooks", href: "/webhooks", icon: Webhook },
 ]
 
 const Sidebar = () => {
@@ -57,7 +59,7 @@ const Sidebar = () => {
 
       <div className="border-t border-white/10 p-4 space-y-1">
         <Link
-          href="/docs"
+          href="/docs/quickstart"
           className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-400 hover:bg-white/5 hover:text-white transition-colors"
         >
           <FileText size={18} />
